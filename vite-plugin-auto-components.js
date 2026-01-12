@@ -6,7 +6,7 @@ import { readFileSync, existsSync } from 'fs'
  * based on custom element tags found in HTML files.
  */
 export function autoComponentsPlugin(options = {}) {
-  const prefix = options.tagPrefix || 'hodu-'
+  const prefix = options.tagPrefix !== undefined ? options.tagPrefix : 'hodu-'
   const componentDir = options.componentDir || 'src/component'
   const debug = options.debug || false
 
@@ -102,7 +102,12 @@ export function autoComponentsPlugin(options = {}) {
  * @returns {string[]} Array of unique tag names
  */
 function parseHoduComponents(html, prefix = 'hodu-') {
-  const regex = new RegExp(`<(${prefix}[\\w-]+)[^>]*>`, 'g')
+  // If prefix is empty, match all custom elements (must contain hyphen)
+  // If prefix exists, match tags starting with that prefix
+  const regex = prefix
+    ? new RegExp(`<(${prefix}[\\w-]+)[^>]*>`, 'g')
+    : new RegExp(`<([a-z][\\w]*-[\\w-]+)[^>]*>`, 'g')
+
   const tags = new Set()
   let match
 
@@ -125,12 +130,16 @@ function parseHoduComponents(html, prefix = 'hodu-') {
  * @returns {boolean} True if valid
  */
 function validateTagName(tagName, prefix) {
-  const pattern = new RegExp(`^${prefix}[a-z][a-z0-9]*(-[a-z0-9]+)*$`)
+  // If prefix is empty, validate as standard custom element (must contain hyphen)
+  // If prefix exists, validate with that prefix
+  const pattern = prefix
+    ? new RegExp(`^${prefix}[a-z][a-z0-9]*(-[a-z0-9]+)*$`)
+    : new RegExp(`^[a-z][a-z0-9]*(-[a-z0-9]+)+$`)
 
   if (!pattern.test(tagName)) {
     console.warn(
       `[auto-components] Invalid tag name: <${tagName}>. ` +
-        `Tag names must follow pattern: ${prefix}{name} (lowercase, hyphens only)`
+        `Tag names must follow pattern: ${prefix ? prefix + '{name}' : '{folder-file}'} (lowercase, hyphens only)`
     )
     return false
   }
@@ -145,19 +154,38 @@ function validateTagName(tagName, prefix) {
  * @returns {object} Object with kebab, pascal, and path properties
  */
 function tagNameToPath(tagName, prefix) {
-  // Remove prefix: hodu-footer → footer
+  // Remove prefix: hodu-footer → footer or imput-button → imput-button
   const kebab = tagName.replace(new RegExp(`^${prefix}`), '')
 
-  // Convert to PascalCase: footer → Footer, product-card → ProductCard
-  const pascal = kebab
-    .split('-')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join('')
+  // Split by dash: imput-button → ['imput', 'button']
+  const parts = kebab.split('-')
+
+  if (parts.length < 2) {
+    // Error: tag must be folder-file format
+    const expectedFormat = prefix ? '<prefix-folder-file>' : '<folder-file>'
+    console.error(`[auto-components] Invalid tag format: <${tagName}>. Must be ${expectedFormat}`)
+    return {
+      folder: null,
+      file: null,
+      paths: []
+    }
+  }
+
+  // Multiple parts: <imput-button> → imput/button.js
+  const folder = parts[0]
+  const fileBase = parts.slice(1).join('-')  // button or input-field
+  const filePascal = parts.slice(1)
+    .map(p => p.charAt(0).toUpperCase() + p.slice(1))
+    .join('')  // Button or InputField
 
   return {
-    kebab, // 'footer'
-    pascal, // 'Footer'
-    path: `@component/${kebab}/${pascal}.js`,
+    folder,
+    file: fileBase,
+    paths: [
+      `@component/${folder}/${fileBase}.js`,      // imput/button.js
+      `@component/${folder}/${filePascal}.js`,    // imput/Button.js (fallback)
+      `@component/${folder}/index.js`             // imput/index.js (fallback)
+    ]
   }
 }
 
@@ -186,22 +214,37 @@ function generateImports(htmlPath, projectRoot, componentDir, prefix, debug) {
 
   const imports = tags
     .map((tag) => {
-      const { path, kebab, pascal } = tagNameToPath(tag, prefix)
+      const { paths } = tagNameToPath(tag, prefix)
 
-      // Verify component file exists
-      const componentPath = resolve(projectRoot, componentDir, kebab, `${pascal}.js`)
+      if (!paths || paths.length === 0) {
+        return `// ERROR: Invalid tag format <${tag}>`
+      }
 
-      if (!existsSync(componentPath)) {
-        const warning = `Component file not found: ${componentPath} for <${tag}>`
+      // Try each path until we find one that exists
+      let foundPath = null
+
+      for (const path of paths) {
+        // Convert @component alias to actual path
+        const relativePath = path.replace('@component/', '')
+        const componentPath = resolve(projectRoot, componentDir, relativePath)
+
+        if (existsSync(componentPath)) {
+          foundPath = path
+          break
+        }
+      }
+
+      if (!foundPath) {
+        const warning = `Component file not found for <${tag}>. Tried: ${paths.join(', ')}`
         console.warn(`[auto-components] WARNING: ${warning}`)
         return `// WARNING: ${warning}`
       }
 
       if (debug) {
-        console.log(`[auto-components] Importing <${tag}> from ${path}`)
+        console.log(`[auto-components] Importing <${tag}> from ${foundPath}`)
       }
 
-      return `import '${path}'`
+      return `import '${foundPath}'`
     })
     .join('\n')
 

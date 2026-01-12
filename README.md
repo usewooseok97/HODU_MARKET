@@ -106,7 +106,44 @@ export default defineConfig({
 
 이 프로젝트는 Web Components를 사용하여 재사용 가능한 UI 요소를 만듭니다.
 
-### 기본 구조
+### 자동 컴포넌트 등록 시스템
+
+`vite-plugin-auto-components.js` 플러그인이 HTML 파일에서 커스텀 태그를 자동으로 감지하고 해당 컴포넌트를 임포트합니다.
+
+#### 태그 형식 규칙
+
+- **형식**: `<folder-file>` (kebab-case)
+- **예시**:
+  - `<hodu-footer>` → `src/component/hodu/footer.js`
+  - `<imput-button>` → `src/component/imput/button.js`
+  - `<user-profile-card>` → `src/component/user/profile-card.js`
+
+#### 폴더/파일 이름 규칙
+
+**폴더명**: 소문자, 하이픈 없이 작성 (예: `hodu`, `imput`, `user`)
+**파일명**: 소문자, 하이픈 사용 가능 (예: `footer.js`, `button.js`, `profile-card.js`)
+
+```
+src/component/
+├── hodu/              ✅ 올바른 폴더명
+│   ├── footer.js      → <hodu-footer>
+│   └── header.js      → <hodu-header>
+├── imput/             ✅ 올바른 폴더명
+│   └── button.js      → <imput-button>
+└── user-profile/      ❌ 잘못된 폴더명 (하이픈 사용 불가)
+```
+
+#### 설정 (`vite.config.js`)
+
+```javascript
+autoComponentsPlugin({
+  tagPrefix: '', // 빈 문자열: prefix 없이 <folder-file> 형식
+  componentDir: 'src/component',
+  debug: true,
+})
+```
+
+### 컴포넌트 작성 방법
 
 ```javascript
 class MyComponent extends HTMLElement {
@@ -126,10 +163,14 @@ class MyComponent extends HTMLElement {
 customElements.define('my-component', MyComponent)
 ```
 
-### 사용 예시
+### HTML에서 사용하기
 
 ```html
-<my-component text="클릭하세요"></my-component>
+<!-- 자동으로 src/component/hodu/footer.js를 임포트 -->
+<hodu-footer></hodu-footer>
+
+<!-- 자동으로 src/component/imput/button.js를 임포트 -->
+<imput-button text="클릭하세요"></imput-button>
 ```
 
 ## 기술 스택

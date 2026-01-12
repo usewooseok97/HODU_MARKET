@@ -52,7 +52,7 @@ class Footer extends HTMLElement {
     if (!document.querySelector('link[href*="footer.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
-      link.href = '/src/component/footer/footer.css'
+      link.href = '/src/component/bottom/footer.css'
       document.head.appendChild(link)
     }
   }
@@ -82,4 +82,4 @@ class Footer extends HTMLElement {
   }
 }
 
-customElements.define('hodu-footer', Footer)
+customElements.define('bottom-footer', Footer)
