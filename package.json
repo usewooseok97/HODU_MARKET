@@ -6,9 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write \"**/*.{js,jsx,html,css,json}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,html,css,json}\"",
+    "lint": "eslint \"**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"**/*.{js,jsx}\" --fix"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.7.4",
     "vite": "^7.2.4"
   }
 }

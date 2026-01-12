@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+build
+.output
+
+# Cache
+.cache
+.vite
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea
+.vscode/*.log
+
+# Package manager
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
