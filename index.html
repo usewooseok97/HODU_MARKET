@@ -1,13 +1,255 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="src/style.css" />
-    <title>hodu-market</title>
+    <title>HODU MARKET - 버튼 컴포넌트</title>
+    <style>
+      body {
+        font-family: 'Spoqa Han Sans Neo', sans-serif;
+        padding: 40px 20px;
+        background: #f5f5f5;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .button-group {
+        background: white;
+        padding: 30px;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .button-group h3 {
+        margin: 0 0 20px 0;
+        color: #333;
+        border-bottom: 2px solid #21bf48;
+        padding-bottom: 10px;
+      }
+      .button-list {
+        display: grid;
+        gap: 15px;
+      }
+      .button-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .button-row > span {
+        min-width: 150px;
+        color: #666;
+        font-size: 12px;
+      }
+    </style>
   </head>
   <body>
+    <div class="container">
+      <h1>🎨 HODU MARKET 버튼 컴포넌트</h1>
+
+      <!-- 1) L-button 시리즈 -->
+      <div class="button-group">
+        <h3>1️⃣ L-button, L-Disabled-button</h3>
+        <div class="button-list">
+          <div class="button-row">
+            <span>L-button</span>
+            <imput-button size="L" color="green" text="버튼"></imput-button>
+          </div>
+          <div class="button-row">
+            <span>L-Disabled-button</span>
+            <imput-button
+              size="L"
+              color="green"
+              text="버튼"
+              disabled
+            ></imput-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2) M-button 시리즈 -->
+      <div class="button-group">
+        <h3>2️⃣ M-button, M-Disabled-button</h3>
+        <div class="button-list">
+          <div class="button-row">
+            <span>M-button</span>
+            <imput-button size="M" color="green" text="버튼"></imput-button>
+          </div>
+          <div class="button-row">
+            <span>M-Disabled-button</span>
+            <imput-button
+              size="M"
+              color="green"
+              text="버튼"
+              disabled
+            ></imput-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3) M-dark, M-white 버튼 -->
+      <div class="button-group">
+        <h3>3️⃣ M-dark-button, M-white-button</h3>
+        <div class="button-list">
+          <div class="button-row">
+            <span>M-dark-button</span>
+            <imput-button size="M" color="dark" text="버튼"></imput-button>
+          </div>
+          <div class="button-row">
+            <span>M-white-button</span>
+            <imput-button size="M" color="white" text="버튼"></imput-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4) MS 버튼 시리즈 -->
+      <div class="button-group">
+        <h3>4️⃣ MS-icon-button, MS-16p-button</h3>
+        <div class="button-list">
+          <div class="button-row">
+            <span>MS-icon-button</span>
+            <imput-button
+              size="MS"
+              color="green"
+              icon
+              text="상품 입고도"
+            ></imput-button>
+          </div>
+          <div class="button-row">
+            <span>MS-16p-button</span>
+            <imput-button size="MS" color="green" text="버튼"></imput-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5) MS 화이트 버튼 -->
+      <div class="button-group">
+        <h3>5️⃣ MS-16p-whitebutton, MS-16p-whitebutton-hover</h3>
+        <div class="button-list">
+          <div class="button-row">
+            <span>MS-16p-whitebutton</span>
+            <imput-button size="MS" color="white" text="버튼"></imput-button>
+          </div>
+          <div class="button-row">
+            <span>MS-16p-whitebutton-hover</span>
+            <imput-button
+              size="MS"
+              color="white"
+              text="버튼"
+              state="hover"
+            ></imput-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6) S 버튼 시리즈 -->
+      <div class="button-group">
+        <h3>6️⃣ S-button, S-white-button, S-white-button-hover</h3>
+        <div class="button-list">
+          <div class="button-row">
+            <span>S-button</span>
+            <imput-button size="S" color="green" text="버튼"></imput-button>
+          </div>
+          <div class="button-row">
+            <span>S-white-button</span>
+            <imput-button size="S" color="white" text="버튼"></imput-button>
+          </div>
+          <div class="button-row">
+            <span>S-white-button-hover</span>
+            <imput-button
+              size="S"
+              color="white"
+              text="버튼"
+              state="hover"
+            ></imput-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7) Tab 버튼 시리즈 -->
+      <div class="button-group">
+        <h3>7️⃣ tab-Active-button, tab-Disabled-button</h3>
+        <div class="button-list">
+          <div class="button-row">
+            <span style="width: 100%">tab-Active-button</span>
+            <div style="width: 100%; display: flex; gap: 10px">
+              <imput-button
+                type="tab"
+                color="green"
+                text="버튼"
+                style="flex: 1"
+              ></imput-button>
+              <imput-button
+                type="tab"
+                color="white"
+                text="버튼"
+                style="flex: 1"
+              ></imput-button>
+            </div>
+          </div>
+          <div class="button-row">
+            <span style="width: 100%">tab-Disabled-button</span>
+            <div style="width: 100%; display: flex; gap: 10px">
+              <imput-button
+                type="tab"
+                color="white"
+                text="버튼"
+                disabled
+                style="flex: 1"
+              ></imput-button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8) Menu 버튼 시리즈 -->
+      <div class="button-group">
+        <h3>8️⃣ tab-menu-off, tab-menu-hover, tab-menu-on</h3>
+        <div class="button-list">
+          <div class="button-row">
+            <span style="width: 100%">tab-menu-off (기본)</span>
+            <div style="width: 100%">
+              <imput-button
+                type="menu"
+                color="white"
+                text="판매중인 상품(3)"
+                badge="1"
+              ></imput-button>
+            </div>
+          </div>
+          <div class="button-row">
+            <span style="width: 100%">tab-menu-hover</span>
+            <div style="width: 100%">
+              <imput-button
+                type="menu"
+                color="white"
+                text="판매중인 상품(3)"
+                badge="1"
+                state="hover"
+              ></imput-button>
+            </div>
+          </div>
+          <div class="button-row">
+            <span style="width: 100%">tab-menu-on (활성)</span>
+            <div style="width: 100%">
+              <imput-button
+                type="menu"
+                color="green"
+                text="판매중인 상품(3)"
+                badge="1"
+              ></imput-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <bottom-footer></bottom-footer>
     <script type="module" src="/src/main.js"></script>
   </body>
