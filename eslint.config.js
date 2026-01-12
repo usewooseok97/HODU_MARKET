@@ -25,6 +25,8 @@ export default [
         clearTimeout: 'readonly',
         clearInterval: 'readonly',
         Promise: 'readonly',
+        customElements: 'readonly',
+        HTMLElement: 'readonly',
         __dirname: 'readonly',
         __filename: 'readonly',
         process: 'readonly',

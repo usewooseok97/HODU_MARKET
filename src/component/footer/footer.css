@@ -1,0 +1,172 @@
+.hodu-footer {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff;
+  border-top: 1px solid #c4c4c4;
+}
+
+.footer-container {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 60px 0 63px;
+}
+
+/* Top Section - Navigation + Social */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 80px 30px;
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.footer-nav {
+  flex: 1;
+}
+
+.footer-nav ul {
+  display: flex;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-nav li {
+  position: relative;
+  padding: 0 14px;
+}
+
+.footer-nav li:first-child {
+  padding-left: 0;
+}
+
+.footer-nav li:not(:last-child)::after {
+  content: '|';
+  position: absolute;
+  right: 0;
+  color: #c4c4c4;
+}
+
+.footer-nav a {
+  color: #333333;
+  text-decoration: none;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+  color: #000000;
+}
+
+.footer-nav a.bold {
+  font-weight: 700;
+}
+
+/* Social Icons */
+.footer-social {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #767676;
+  color: #ffffff;
+  transition: background-color 0.2s;
+}
+
+.footer-social a:hover {
+  background-color: #555555;
+}
+
+.footer-social svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Bottom Section - Company Info */
+.footer-bottom {
+  padding: 30px 80px 0;
+}
+
+.company-info {
+  font-size: 1.4rem;
+  color: #767676;
+  line-height: 1.7;
+}
+
+.company-name {
+  font-weight: 700;
+  margin: 0 0 11px 0;
+}
+
+.company-details {
+  margin: 0;
+  display: block;
+}
+
+.company-details span {
+  display: inline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 40px 0;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 20px 20px;
+    align-items: flex-start;
+  }
+
+  .footer-nav ul {
+    flex-wrap: wrap;
+    gap: 10px 0;
+  }
+
+  .footer-nav li {
+    padding: 0 10px;
+  }
+
+  .footer-nav a {
+    font-size: 1.2rem;
+  }
+
+  .footer-bottom {
+    padding: 20px 20px 0;
+  }
+
+  .company-info {
+    font-size: 1.2rem;
+  }
+
+  .footer-social {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-nav li {
+    padding: 0 8px;
+  }
+
+  .footer-nav a {
+    font-size: 1.1rem;
+  }
+
+  .company-info {
+    font-size: 1.1rem;
+  }
+}
