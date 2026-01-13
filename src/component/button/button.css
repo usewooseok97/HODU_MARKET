@@ -1,14 +1,15 @@
 /* L-button (Large button) 스타일 */
 .l-button {
-  width: 220px;
-  height: 68px;
+  width: 100%;  /* 부모 컨테이너 크기에 맞춤 */
+  height: 68px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
   cursor: pointer;
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 2.4rem;
+  font-size: 24px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-weight: 700;
   text-align: center;
 
@@ -16,6 +17,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* 패딩 추가 (내용에 따라 늘어남) */
+  padding: 0 30px;
 
   /* 트랜지션 효과 */
   transition: all 0.2s ease;
@@ -48,7 +52,7 @@
 @media (max-width: 768px) {
   .l-button {
     width: 100%;
-    max-width: 220px;
+    max-width: none;
   }
 }
 
@@ -56,15 +60,16 @@
    M-button (Medium button) 스타일
    ======================================== */
 .m-button {
-  width: 480px;
-  height: 60px;
+  width: 100%;  /* 부모 컨테이너 크기에 맞춤 */
+  height: 60px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
   cursor: pointer;
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 1.8rem;
+  font-size: 18px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-weight: 700;
   line-height: 22px;
   text-align: center;
@@ -73,6 +78,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* 패딩 추가 */
+  padding: 0 30px;
 
   /* 트랜지션 효과 */
   transition: all 0.2s ease;
@@ -153,7 +161,7 @@
 @media (max-width: 768px) {
   .m-button {
     width: 100%;
-    max-width: 480px;
+    min-width: auto;
   }
 }
 
@@ -161,8 +169,8 @@
    MS-icon-button (아이콘 버튼) 스타일
    ======================================== */
 .ms-icon-button {
-  width: 168px;
-  height: 54px;
+  width: 100%;  /* 가변 너비, 최소값 168px */
+  height: 54px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -174,7 +182,7 @@
   /* 플렉스 레이아웃 */
   display: flex;
   align-items: center;
-  padding: 0;
+  padding: 0 20px 0 60px;  /* 아이콘 공간 + 오른쪽 패딩 */
 
   /* 트랜지션 효과 */
   transition: all 0.2s ease;
@@ -190,17 +198,15 @@
 }
 
 .ms-icon-button__text {
-  width: 88px;
-  position: absolute;
-  left: 60px;
-  top: 16px;
   color: #ffffff;
-  font-size: 1.8rem;
+  font-size: 18px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-weight: 500;
   display: flex;
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+  flex: 1;
 }
 
 .ms-icon-button:not(:disabled):hover {
@@ -228,15 +234,16 @@
    MS-16p-button 스타일
    ======================================== */
 .ms-16p-button {
-  width: 166px;
-  height: 54px;
+  width: 100%;  /* 가변 너비, 최소값 166px */
+  height: 54px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
   cursor: pointer;
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 1.6rem;
+  font-size: 16px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-weight: 500;
   text-align: center;
 
@@ -244,6 +251,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* 패딩 추가 */
+  padding: 0 20px;
 
   /* 기본 배경 - 초록색 */
   background: #21bf48;
@@ -301,7 +311,7 @@
   .ms-icon-button,
   .ms-16p-button {
     width: 100%;
-    max-width: 168px;
+    min-width: auto;
   }
 }
 
@@ -309,8 +319,8 @@
    S-button (Small button) 스타일
    ======================================== */
 .s-button {
-  width: 80px;
-  height: 40px;
+  width: 100%;  /* 가변 너비, 최소값 80px */
+  height: 40px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -318,7 +328,8 @@
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 1.6rem;
+  font-size: 16px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-weight: 500;
   text-align: center;
 
@@ -327,8 +338,11 @@
   justify-content: center;
   align-items: center;
 
+  /* 패딩 추가 */
+  padding: 0 15px;
+
   /* 기본 배경 - 초록색 */
-  background: var(--button-color);
+  background: #21bf48;
 
   /* 트랜지션 효과 */
   transition: all 0.2s ease;
@@ -382,12 +396,12 @@
    Tab-button 스타일
    ======================================== */
 .tab-button {
-  width: 320px;
-  height: 60px;
+  min-width: 320px;  /* 가변 너비, 최소값 320px */
+  height: 60px;  /* 세로 고정 */
   border: none;
   cursor: pointer;
   position: relative;
-  padding: 0;
+  padding: 0 20px;
 
   /* 배경 */
   background: #ffffff;
@@ -404,7 +418,7 @@
   
   /* 기본 텍스트 스타일 (비활성화) */
   color: #767676;
-  font-size :1.6rem;
+  font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
   white-space: nowrap;
@@ -448,17 +462,18 @@
 @media (max-width: 768px) {
   .tab-button {
     width: 100%;
-    max-width: 320px;
+    min-width: auto;
   }
 }
+
 /* ============================
    Teb-menu 버튼
    상태: off(기본), hover, on(active)
    ============================ */
 
 .teb-menu {
-  width: 250px;
-  height: 50px;
+  min-width: 250px;  /* 가변 너비, 최소값 250px */
+  height: 50px;  /* 세로 고정 */
 
   border: none;
   border-radius: 5px;
@@ -475,6 +490,8 @@
 
   font-size: 1.6rem;
   font-weight: 500;
+  
+  transition: all 0.2s ease;
 }
 
 /* 텍스트 */
@@ -511,4 +528,12 @@
 
 .teb-menu--active .teb-menu__text {
   color: #ffffff;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .teb-menu {
+    width: 100%;
+    min-width: auto;
+  }
 }

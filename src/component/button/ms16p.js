@@ -1,23 +1,30 @@
 class MS16pButton extends HTMLElement {
+  constructor() {
+    super()
+  }
+
   connectedCallback() {
+    // `inline-block` 보장 (width 적용 가능하도록)
+    if (!this.style.display) {
+      this.style.display = 'inline-block'
+    }
+
     this.render()
+    this.applyWidth()
     this.attachEventListeners()
   }
 
   render() {
-    // 속성 가져오기
     const text = this.getAttribute('text') || '버튼'
     const disabled = this.hasAttribute('disabled')
-    const variant = this.getAttribute('variant') || 'default' // default, white
+    const variant = this.getAttribute('variant') || 'default'
     const type = this.getAttribute('type') || 'button'
 
-    // variant에 따른 클래스 결정
     let buttonClass = 'ms-16p-button'
     if (variant === 'white') {
       buttonClass += ' ms-16p-button--white'
     }
 
-    // 버튼 생성
     this.innerHTML = `
       <button 
         class="${buttonClass}" 
@@ -28,14 +35,13 @@ class MS16pButton extends HTMLElement {
       </button>
     `
 
-    // 스타일 로드
     this.loadStyles()
   }
 
   attachEventListeners() {
     const button = this.querySelector('button')
+    if (!button) return
 
-    // 클릭 이벤트 전파
     button.addEventListener('click', (e) => {
       this.dispatchEvent(
         new CustomEvent('button-click', {
@@ -47,7 +53,6 @@ class MS16pButton extends HTMLElement {
   }
 
   loadStyles() {
-    // button.css가 이미 로드되어 있는지 확인
     if (!document.querySelector('link[href*="button.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
@@ -56,52 +61,62 @@ class MS16pButton extends HTMLElement {
     }
   }
 
-  // 동적으로 속성 변경 가능
+  // ⭐ width 속성 추가
   static get observedAttributes() {
-    return ['disabled', 'text', 'variant']
+    return ['disabled', 'text', 'variant', 'width']
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (!this.querySelector('button')) return
-
     const button = this.querySelector('button')
+    if (!button) return
 
     if (name === 'disabled') {
-      if (newValue !== null) {
-        button.disabled = true
-      } else {
-        button.disabled = false
-      }
-    } else if (name === 'text') {
+      button.disabled = newValue !== null
+    }
+
+    if (name === 'text') {
       button.textContent = newValue || '버튼'
-    } else if (name === 'variant') {
-      // variant 변경 시 클래스 업데이트
+    }
+
+    if (name === 'variant') {
       button.className = 'ms-16p-button'
       if (newValue === 'white') {
         button.classList.add('ms-16p-button--white')
       }
     }
+
+    if (name === 'width') {
+      this.applyWidth()
+    }
   }
 
-  // 프로그래밍 방식으로 제어
+  // ⭐ width 적용
+  applyWidth() {
+    const widthAttr = this.getAttribute('width')
+
+    // inline-block 보장
+    if (!this.style.display) {
+      this.style.display = 'inline-block'
+    }
+
+    if (widthAttr) {
+      this.style.width = widthAttr // px, %, rem 등 다 허용
+    } else {
+      this.style.width = '100%' // 기본값
+    }
+  }
+
   setDisabled(disabled) {
     const button = this.querySelector('button')
     if (button) {
       button.disabled = disabled
-      if (disabled) {
-        this.setAttribute('disabled', '')
-      } else {
-        this.removeAttribute('disabled')
-      }
+      if (disabled) this.setAttribute('disabled', '')
+      else this.removeAttribute('disabled')
     }
   }
 
   setText(text) {
-    const button = this.querySelector('button')
-    if (button) {
-      button.textContent = text
-      this.setAttribute('text', text)
-    }
+    this.setAttribute('text', text)
   }
 
   setVariant(variant) {
