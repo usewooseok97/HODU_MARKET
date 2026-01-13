@@ -70,9 +70,8 @@ export const validateRegistrationNumber = async (registrationNumber) => {
 /**
  * 회원가입 폼 submit 핸들러
  * @param {HTMLFormElement} formElement - form 엘리먼트
- * @param {string} userType - 'buyer' 또는 'seller'
  */
-export const handleSignupSubmit = (formElement, userType) => {
+export const handleSignupSubmit = (formElement) => {
   if (!formElement) {
     console.error('Form element not found')
     return
@@ -83,8 +82,12 @@ export const handleSignupSubmit = (formElement, userType) => {
 
     try {
       // FormData 수집
+      // eslint-disable-next-line no-undef
       const formData = new FormData(formElement)
       const userData = Object.fromEntries(formData)
+
+      // userType 추출
+      const userType = userData.userType
 
       let result
       if (userType === 'buyer') {
