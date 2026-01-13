@@ -4,9 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/style.css" />
     <title>hodu-market</title>
   </head>
   <body>
+    <form action="submit" method="post">
+      <input type="text" value="" id="textinput" />
+      <input type="password" value="weniv1234" />
+      <button type="submit">클릭</button>
+    </form>
     <script type="module" src="/src/main.js"></script>
+    <script type="module">
+      import { handleFormSubmit } from './src/js/form.js'
+
+      const form = document.querySelector('form')
+      const textinput = form.querySelector('#textinput')
+      handleFormSubmit(form, textinput)
+    </script>
   </body>
 </html>
