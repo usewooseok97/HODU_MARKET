@@ -44,7 +44,7 @@
 .ps-input {
   width: 100%;
   height: 54px;
-  padding: 0 15px;
+  padding: 0 16px;
   font-size: 1.6rem;
   border: 1px solid var(--disabled-color);
   border-radius: 4px;
@@ -70,7 +70,7 @@
 }
 
 .item-text {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: var(--button-darkcolor);
   font-weight: 500;
 }
@@ -90,10 +90,6 @@
   transition: border-color 0.3s;
 }
 
-.item-input:focus {
-  border: 2px solid var(--input-success-color);
-}
-
 .item-input::placeholder {
   color: var(--text-color);
   font-size: 1.6rem;
@@ -101,7 +97,7 @@
 
 .char-count {
   position: absolute;
-  right: 15px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 1.6rem;
@@ -131,7 +127,7 @@
   flex: 1;
   height: 54px;
   width: 54px;
-  padding: 0 15px;
+  padding: 0 16px;
   font-size: 1.6rem;
   border: 1px solid var(--disabled-color);
   border-right: none;
@@ -171,7 +167,7 @@
 .check-input {
   width: 100%;
   height: 54px;
-  padding: 0 15px;
+  padding: 0 16px;
   font-size: 1.6rem;
   border: 1px solid var(--disabled-color);
   border-radius: 4px;
