@@ -7,7 +7,73 @@
     <link rel="stylesheet" href="./src/style.css" />
     <title>hodu-market</title>
   </head>
+  <style>
+    .id-box {
+      width: 480px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 20px; /* label과 input 사이 간격 */
+    }
+
+    .id-box label {
+      font-size: 1.6rem;
+      color: var(--button-darkcolor);
+      white-space: nowrap; /* 줄바꿈 방지 */
+      transition: all 0.3s;
+    }
+
+    .id-input {
+      flex: 1; /* 남은 공간 채우기 */
+      height: 100%;
+      border: none;
+      border-bottom: 1px solid #ddd;
+      font-size: 1.6rem;
+      outline: none;
+      background: transparent;
+    }
+
+    .id-input:focus {
+      border-bottom: 2px solid var(--input-success-color);
+    }
+
+    .id-input:focus ~ label {
+      color: var(--label-active-color);
+    }
+    .ps-box {
+      width: 350px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ps-text {
+      font-size: 1.4rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .ps-input {
+      width: 100%;
+      height: 50px;
+      padding: 0 15px;
+      font-size: 1.4rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .ps-input:focus {
+      border: 2px solid #00c853;
+    }
+
+    .ps-input::placeholder {
+      color: #000;
+    }
+  </style>
   <body>
+<<<<<<< HEAD
     <form action="submit" method="post">
       <input type="text" value="" id="textinput" />
       <input type="password" value="weniv1234" />
@@ -21,5 +87,28 @@
       const textinput = form.querySelector('#textinput')
       handleFormSubmit(form, textinput)
     </script>
+=======
+    <div class="id-box">
+      <label for="id">아이디</label>
+      <input type="text" id="id" class="id-input" />
+    </div>
+    <div class="ps-box">
+      <label for="password" class="ps-text">비밀번호</label>
+      <input
+        type="password"
+        id="password"
+        class="ps-input"
+        placeholder="text"
+      />
+    </div>
+    <label for="">비밀번호</label>
+    <input type="text" />
+    <label for="">상품명</label>
+    <input type="text" />
+    <label for="">판매가</label>
+    <input type="text" />
+    <script type="module" src="/src/main.js"></script>
+    <script></script>
+>>>>>>> 0be03c7036ecff7ebbfdb613aed10d4d8434860d
   </body>
 </html>
