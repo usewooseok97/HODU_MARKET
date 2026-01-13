@@ -121,6 +121,21 @@
     }
   </style>
   <body>
+<<<<<<< HEAD
+    <form action="submit" method="post">
+      <input type="text" value="" id="textinput" />
+      <input type="password" value="weniv1234" />
+      <button type="submit">클릭</button>
+    </form>
+    <script type="module" src="/src/main.js"></script>
+    <script type="module">
+      import { handleFormSubmit } from './src/js/form.js'
+
+      const form = document.querySelector('form')
+      const textinput = form.querySelector('#textinput')
+      handleFormSubmit(form, textinput)
+    </script>
+=======
     <div class="id-box">
       <label for="id">아이디</label>
       <input type="text" id="id" class="id-input" />
@@ -150,6 +165,7 @@
     <label for="">판매가</label>
     <input type="text" />
     <script type="module" src="/src/main.js"></script>
+<<<<<<< HEAD
     <script>
       const input = document.getElementById('itemName')
       const countSpan = document.getElementById('currentCount')
@@ -158,5 +174,9 @@
         countSpan.textContent = this.value.length
       })
     </script>
+=======
+    <script></script>
+>>>>>>> 0be03c7036ecff7ebbfdb613aed10d4d8434860d
+>>>>>>> 230d8656b12f5edbb79adfd7876909c9bbaa94b3
   </body>
 </html>

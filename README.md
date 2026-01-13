@@ -173,6 +173,14 @@ customElements.define('my-component', MyComponent)
 <imput-button text="클릭하세요"></imput-button>
 ```
 
+### git commit 규칙
+
+기능추가 -> feat : 기능추가내용
+스타일변경 -> style : 기능추가내용
+이슈(문제)발생 -> issue : 기능추가내용
+문제수정 및 기능 삭제 및 최적화 -> fixed : 기능추가내용
+기타 -> etc : 기타 내용
+
 ## 기술 스택
 
 - **Vite** - 빌드 도구
