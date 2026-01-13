@@ -1,0 +1,160 @@
+/* L-button (Large button) 스타일 */
+.l-button {
+  width: 220px;
+  height: 68px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+
+  /* 텍스트 스타일 */
+  color: #ffffff;
+  font-size: 24px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 700;
+  text-align: center;
+
+  /* 플렉스 중앙 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 트랜지션 효과 */
+  transition: all 0.2s ease;
+}
+
+/* 활성화 상태 */
+.l-button:not(:disabled) {
+  background: #21bf48;
+}
+
+.l-button:not(:disabled):hover {
+  background: #1da03e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(33, 191, 72, 0.3);
+}
+
+.l-button:not(:disabled):active {
+  background: #198c35;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* 비활성화 상태 */
+.l-button:disabled {
+  background: #c4c4c4;
+  cursor: not-allowed;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .l-button {
+    width: 100%;
+    max-width: 220px;
+  }
+}
+
+/* ========================================
+   M-button (Medium button) 스타일
+   ======================================== */
+.m-button {
+  width: 480px;
+  height: 60px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+
+  /* 텍스트 스타일 */
+  color: #ffffff;
+  font-size: 18px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+
+  /* 플렉스 중앙 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 트랜지션 효과 */
+  transition: all 0.2s ease;
+}
+
+/* M-button 기본 상태 (초록색) */
+.m-button:not(:disabled) {
+  background: #21bf48;
+}
+
+.m-button:not(:disabled):hover {
+  background: #1da03e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(33, 191, 72, 0.3);
+}
+
+.m-button:not(:disabled):active {
+  background: #198c35;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* M-button 비활성화 상태 */
+.m-button:disabled {
+  background: #c4c4c4;
+  cursor: not-allowed;
+}
+
+/* M-button Dark variant - 기본부터 다크 그레이 */
+.m-button.m-button--dark:not(:disabled) {
+  background: #767676;
+  color: #ffffff;
+}
+
+.m-button.m-button--dark:not(:disabled):hover {
+  background: #5a5a5a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(118, 118, 118, 0.3);
+}
+
+.m-button.m-button--dark:not(:disabled):active {
+  background: #4a4a4a;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.m-button.m-button--dark:disabled {
+  background: #c4c4c4;
+}
+
+/* M-button White variant - 기본부터 흰색 */
+.m-button.m-button--white:not(:disabled) {
+  background: #ffffff;
+  color: #767676;
+  border: 1px solid #c4c4c4;
+}
+
+.m-button.m-button--white:not(:disabled):hover {
+  background: #f8f8f8;
+  border-color: #767676;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.m-button.m-button--white:not(:disabled):active {
+  background: #f0f0f0;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.m-button.m-button--white:disabled {
+  background: #ffffff;
+  color: #c4c4c4;
+  border-color: #c4c4c4;
+}
+
+/* M-button 반응형 디자인 */
+@media (max-width: 768px) {
+  .m-button {
+    width: 100%;
+    max-width: 480px;
+  }
+}
