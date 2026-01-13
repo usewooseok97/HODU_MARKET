@@ -8,63 +8,7 @@
     <title>hodu-market</title>
   </head>
   <body>
-    <div class="id-box">
-      <label for="id">아이디</label>
-      <input type="text" id="id" class="id-input" />
-    </div>
-
-    <div class="ps-box">
-      <label for="password" class="ps-text">비밀번호</label>
-      <input
-        type="password"
-        id="password"
-        class="ps-input"
-        placeholder="text"
-      />
-    </div>
-
-    <div class="item-box">
-      <label for="itemName" class="item-text">상품명</label>
-      <div class="input-wrapper">
-        <input
-          type="text"
-          id="itemName"
-          class="item-input"
-          placeholder="상품명을 입력해주세요."
-          maxlength="50"
-        />
-        <span class="char-count"> <span id="currentCount">0</span>/50 </span>
-      </div>
-    </div>
-    <div class="price-box">
-      <label for="price" class="price-text">판매가</label>
-      <div class="input-group">
-        <input type="text" id="price" class="price-input" value="0" />
-        <button class="unit-button" type="submit">원</button>
-      </div>
-    </div>
-    <div class="check-box">
-      <label for="id-check" class="check-label">아이디</label>
-      <input type="text" id="id-check" class="check-input" placeholder="text" />
-      <p class="message"></p>
-    </div>
+    <input-input></input-input>
     <script type="module" src="/src/main.js"></script>
-    <script>
-      const input = document.getElementById('itemName')
-      const countSpan = document.getElementById('currentCount')
-
-      input.addEventListener('input', function () {
-        countSpan.textContent = this.value.length
-      })
-
-      const priceInput = document.getElementById('price')
-      priceInput.addEventListener('input', function (e) {
-        let value = this.value.replace(/[^\d]/g, '')
-        if (value) {
-          value = Number(value).toLocaleString()
-        }
-        this.value = value
-      })
-    </script>
   </body>
 </html>

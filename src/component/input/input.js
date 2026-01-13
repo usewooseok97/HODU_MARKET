@@ -6,7 +6,6 @@ class InputComponents extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <div class="input-components-container">
         <!-- 아이디 입력 -->
         <div class="id-box">
           <label for="id">아이디</label>
@@ -67,7 +66,7 @@ class InputComponents extends HTMLElement {
     if (!document.querySelector('link[href*="styles.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
-      link.href = '/src/component/styles.css'
+      link.href = '/src/component/input/styles.css'
       document.head.appendChild(link)
     }
   }
