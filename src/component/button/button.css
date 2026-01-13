@@ -1,6 +1,6 @@
 /* L-button (Large button) 스타일 */
 .l-button {
-  min-width: 220px;  /* 가변 너비, 최소값 220px */
+  width: 100%;  /* 부모 컨테이너 크기에 맞춤 */
   height: 68px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
@@ -8,7 +8,8 @@
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 2.4rem;
+  font-size: 24px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-weight: 700;
   text-align: center;
 
@@ -59,7 +60,7 @@
    M-button (Medium button) 스타일
    ======================================== */
 .m-button {
-  min-width: 200px;  /* 가변 너비, 최소값 200px */
+  width: 100%;  /* 부모 컨테이너 크기에 맞춤 */
   height: 60px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
@@ -67,7 +68,8 @@
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 1.8rem;
+  font-size: 18px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-weight: 700;
   line-height: 22px;
   text-align: center;
@@ -167,7 +169,7 @@
    MS-icon-button (아이콘 버튼) 스타일
    ======================================== */
 .ms-icon-button {
-  min-width: 168px;  /* 가변 너비, 최소값 168px */
+  width: 100%;  /* 가변 너비, 최소값 168px */
   height: 54px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
@@ -197,7 +199,8 @@
 
 .ms-icon-button__text {
   color: #ffffff;
-  font-size: 1.8rem;
+  font-size: 18px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-weight: 500;
   display: flex;
   justify-content: center;
@@ -231,7 +234,7 @@
    MS-16p-button 스타일
    ======================================== */
 .ms-16p-button {
-  min-width: 166px;  /* 가변 너비, 최소값 166px */
+  width: 100%;  /* 가변 너비, 최소값 166px */
   height: 54px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
@@ -239,7 +242,8 @@
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 1.6rem;
+  font-size: 16px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-weight: 500;
   text-align: center;
 
@@ -315,7 +319,7 @@
    S-button (Small button) 스타일
    ======================================== */
 .s-button {
-  min-width: 80px;  /* 가변 너비, 최소값 80px */
+  width: 100%;  /* 가변 너비, 최소값 80px */
   height: 40px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
@@ -324,7 +328,8 @@
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 1.6rem;
+  font-size: 16px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-weight: 500;
   text-align: center;
 

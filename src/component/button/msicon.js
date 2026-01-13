@@ -1,17 +1,25 @@
 class MSIconButton extends HTMLElement {
+  constructor() {
+    super()
+  }
+
   connectedCallback() {
+    // width 제어 가능하도록 block/inline-block 지정
+    if (!this.style.display) {
+      this.style.display = 'inline-block'
+    }
+
     this.render()
+    this.applyWidth()
     this.attachEventListeners()
   }
 
   render() {
-    // 속성 가져오기
     const text = this.getAttribute('text') || '상품 업로드'
     const disabled = this.hasAttribute('disabled')
     const type = this.getAttribute('type') || 'button'
-    const icon = this.getAttribute('icon') || 'icon-plus.png' // 아이콘 이미지 파일명
+    const icon = this.getAttribute('icon') || 'icon-plus.png'
 
-    // 버튼 생성
     this.innerHTML = `
       <button 
         class="ms-icon-button" 
@@ -23,14 +31,13 @@ class MSIconButton extends HTMLElement {
       </button>
     `
 
-    // 스타일 로드
     this.loadStyles()
   }
 
   attachEventListeners() {
     const button = this.querySelector('button')
+    if (!button) return
 
-    // 클릭 이벤트 전파
     button.addEventListener('click', (e) => {
       this.dispatchEvent(
         new CustomEvent('button-click', {
@@ -42,7 +49,6 @@ class MSIconButton extends HTMLElement {
   }
 
   loadStyles() {
-    // button.css가 이미 로드되어 있는지 확인
     if (!document.querySelector('link[href*="button.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
@@ -51,9 +57,9 @@ class MSIconButton extends HTMLElement {
     }
   }
 
-  // 동적으로 속성 변경 가능
+  // ⭐ width까지 observe
   static get observedAttributes() {
-    return ['disabled', 'text', 'icon']
+    return ['disabled', 'text', 'icon', 'width']
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -61,39 +67,52 @@ class MSIconButton extends HTMLElement {
 
     if (name === 'disabled') {
       const button = this.querySelector('button')
-      if (newValue !== null) {
-        button.disabled = true
-      } else {
-        button.disabled = false
-      }
-    } else if (name === 'text') {
+      button.disabled = newValue !== null
+    }
+
+    if (name === 'text') {
       const textEl = this.querySelector('.ms-icon-button__text')
       if (textEl) textEl.textContent = newValue || '상품 업로드'
-    } else if (name === 'icon') {
+    }
+
+    if (name === 'icon') {
       const iconEl = this.querySelector('.ms-icon-button__icon')
       if (iconEl) iconEl.src = `/src/assets/images/${newValue}`
     }
+
+    if (name === 'width') {
+      this.applyWidth()
+    }
   }
 
-  // 프로그래밍 방식으로 제어
+  // ⭐ width 적용 로직
+  applyWidth() {
+    const widthAttr = this.getAttribute('width')
+
+    // inline-block 보장
+    if (!this.style.display) {
+      this.style.display = 'inline-block'
+    }
+
+    if (widthAttr) {
+      this.style.width = widthAttr // px, %, rem 등 허용
+    } else {
+      this.style.width = '100%' // 기본값
+    }
+  }
+
+  // 프로그램 제어 API 유지
   setDisabled(disabled) {
     const button = this.querySelector('button')
     if (button) {
       button.disabled = disabled
-      if (disabled) {
-        this.setAttribute('disabled', '')
-      } else {
-        this.removeAttribute('disabled')
-      }
+      if (disabled) this.setAttribute('disabled', '')
+      else this.removeAttribute('disabled')
     }
   }
 
   setText(text) {
-    const textEl = this.querySelector('.ms-icon-button__text')
-    if (textEl) {
-      textEl.textContent = text
-      this.setAttribute('text', text)
-    }
+    this.setAttribute('text', text)
   }
 
   setIcon(icon) {

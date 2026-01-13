@@ -1,17 +1,25 @@
 class MButton extends HTMLElement {
+  constructor() {
+    super()
+  }
+
   connectedCallback() {
+    // 기본 display 설정
+    if (!this.style.display) {
+      this.style.display = 'inline-block'
+    }
+
     this.render()
+    this.applyWidth()
     this.attachEventListeners()
   }
 
   render() {
-    // 속성 가져오기
     const text = this.getAttribute('text') || '버튼'
     const disabled = this.hasAttribute('disabled')
-    const variant = this.getAttribute('variant') || 'default' // default, dark, white
+    const variant = this.getAttribute('variant') || 'default'
     const type = this.getAttribute('type') || 'button'
 
-    // variant에 따른 클래스 결정
     let buttonClass = 'm-button'
     if (variant === 'dark') {
       buttonClass += ' m-button--dark'
@@ -19,7 +27,6 @@ class MButton extends HTMLElement {
       buttonClass += ' m-button--white'
     }
 
-    // 버튼 생성
     this.innerHTML = `
       <button 
         class="${buttonClass}" 
@@ -30,14 +37,13 @@ class MButton extends HTMLElement {
       </button>
     `
 
-    // 스타일 로드
     this.loadStyles()
   }
 
   attachEventListeners() {
     const button = this.querySelector('button')
+    if (!button) return
 
-    // 클릭 이벤트 전파
     button.addEventListener('click', (e) => {
       this.dispatchEvent(
         new CustomEvent('button-click', {
@@ -49,7 +55,6 @@ class MButton extends HTMLElement {
   }
 
   loadStyles() {
-    // button.css가 이미 로드되어 있는지 확인
     if (!document.querySelector('link[href*="button.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
@@ -58,26 +63,24 @@ class MButton extends HTMLElement {
     }
   }
 
-  // 동적으로 속성 변경 가능
+  // ⭐ width 속성 추가
   static get observedAttributes() {
-    return ['disabled', 'text', 'variant']
+    return ['disabled', 'text', 'variant', 'width']
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (!this.querySelector('button')) return
-
     const button = this.querySelector('button')
+    if (!button) return
 
     if (name === 'disabled') {
-      if (newValue !== null) {
-        button.disabled = true
-      } else {
-        button.disabled = false
-      }
-    } else if (name === 'text') {
+      button.disabled = newValue !== null
+    }
+
+    if (name === 'text') {
       button.textContent = newValue || '버튼'
-    } else if (name === 'variant') {
-      // variant 변경 시 클래스 업데이트
+    }
+
+    if (name === 'variant') {
       button.className = 'm-button'
       if (newValue === 'dark') {
         button.classList.add('m-button--dark')
@@ -85,27 +88,35 @@ class MButton extends HTMLElement {
         button.classList.add('m-button--white')
       }
     }
+
+    if (name === 'width') {
+      this.applyWidth()
+    }
   }
 
-  // 프로그래밍 방식으로 제어
+  // ⭐ width 적용 로직
+  applyWidth() {
+    const widthAttr = this.getAttribute('width')
+
+    if (widthAttr) {
+      this.style.width = widthAttr
+    } else {
+      this.style.width = '100%' // 기본값
+    }
+  }
+
+  // 개발자 컨트롤 API 유지
   setDisabled(disabled) {
     const button = this.querySelector('button')
     if (button) {
       button.disabled = disabled
-      if (disabled) {
-        this.setAttribute('disabled', '')
-      } else {
-        this.removeAttribute('disabled')
-      }
+      if (disabled) this.setAttribute('disabled', '')
+      else this.removeAttribute('disabled')
     }
   }
 
   setText(text) {
-    const button = this.querySelector('button')
-    if (button) {
-      button.textContent = text
-      this.setAttribute('text', text)
-    }
+    this.setAttribute('text', text)
   }
 
   setVariant(variant) {

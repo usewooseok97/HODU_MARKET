@@ -1,6 +1,16 @@
 class LButton extends HTMLElement {
+  constructor() {
+    super()
+  }
+
   connectedCallback() {
+    // 기본 display 설정(한 줄 요소로 쓰기 좋게)
+    if (!this.style.display) {
+      this.style.display = 'inline-block'
+    }
+
     this.render()
+    this.applyWidth()
     this.attachEventListeners()
   }
 
@@ -27,6 +37,7 @@ class LButton extends HTMLElement {
 
   attachEventListeners() {
     const button = this.querySelector('button')
+    if (!button) return
 
     // 클릭 이벤트 전파
     button.addEventListener('click', (e) => {
@@ -49,12 +60,14 @@ class LButton extends HTMLElement {
     }
   }
 
-  // 동적으로 disabled 속성 변경 가능하도록
+  // ✅ width 속성까지 감지하도록 확장
   static get observedAttributes() {
-    return ['disabled', 'text']
+    return ['disabled', 'text', 'width']
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return
+
     if (name === 'disabled') {
       const button = this.querySelector('button')
       if (button) {
@@ -69,6 +82,27 @@ class LButton extends HTMLElement {
       if (button) {
         button.textContent = newValue || '버튼'
       }
+    } else if (name === 'width') {
+      // ✅ width 속성 변경 시 반영
+      this.applyWidth()
+    }
+  }
+
+  // ✅ width 적용 로직
+  applyWidth() {
+    const widthAttr = this.getAttribute('width')
+
+    // 기본 display 보장
+    if (!this.style.display) {
+      this.style.display = 'inline-block'
+    }
+
+    if (widthAttr) {
+      // px, %, rem 등 아무거나 받게 그대로 적용
+      this.style.width = widthAttr
+    } else {
+      // 기본값: 부모를 꽉 채우고 싶으면 100%, 아니면 auto로 바꿔도 됨
+      this.style.width = '100%'
     }
   }
 
