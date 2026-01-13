@@ -3,10 +3,10 @@ import { readFileSync, existsSync } from 'fs'
 
 /**
  * Vite plugin for automatically importing and registering web components
- * based on custom element tags found in HTML files.
+ * based on custom element tags (folder-file format) found in HTML files.
  */
 export function autoComponentsPlugin(options = {}) {
-  const prefix = options.tagPrefix !== undefined ? options.tagPrefix : 'hodu-'
+  const prefix = options.tagPrefix !== undefined ? options.tagPrefix : ''
   const componentDir = options.componentDir || 'src/component'
   const debug = options.debug || false
 
@@ -21,7 +21,7 @@ export function autoComponentsPlugin(options = {}) {
       order: 'pre',
       handler(html, ctx) {
         const htmlPath = ctx.filename
-        const tags = parseHoduComponents(html, prefix)
+        const tags = parseCustomComponents(html, prefix)
 
         if (tags.length === 0) {
           if (debug) {
@@ -31,11 +31,14 @@ export function autoComponentsPlugin(options = {}) {
         }
 
         if (debug) {
-          console.log(`[auto-components] Found components in ${htmlPath}:`, tags)
+          console.log(
+            `[auto-components] Found components in ${htmlPath}:`,
+            tags
+          )
         }
 
         // Create virtual module ID
-        const virtualId = `virtual:hodu-components-${htmlPath}`
+        const virtualId = `virtual:auto-components-${htmlPath}`
 
         // Inject virtual module import before <script type="module">
         const injectedHtml = html.replace(
@@ -49,7 +52,7 @@ export function autoComponentsPlugin(options = {}) {
 
     // 2. Resolve virtual module IDs
     resolveId(id) {
-      if (id.startsWith('virtual:hodu-components-')) {
+      if (id.startsWith('virtual:auto-components-')) {
         // \0 prefix signals to Vite that this is a virtual module
         return '\0' + id
       }
@@ -57,13 +60,19 @@ export function autoComponentsPlugin(options = {}) {
 
     // 3. Load virtual module content
     load(id) {
-      if (id.startsWith('\0virtual:hodu-components-')) {
+      if (id.startsWith('\0virtual:auto-components-')) {
         // Extract HTML path from virtual module ID
-        const htmlPath = id.replace('\0virtual:hodu-components-', '')
+        const htmlPath = id.replace('\0virtual:auto-components-', '')
         const projectRoot = process.cwd()
 
         // Generate import statements
-        const importCode = generateImports(htmlPath, projectRoot, componentDir, prefix, debug)
+        const importCode = generateImports(
+          htmlPath,
+          projectRoot,
+          componentDir,
+          prefix,
+          debug
+        )
 
         // Cache for HMR
         virtualModuleCache.set(id, importCode)
@@ -80,13 +89,15 @@ export function autoComponentsPlugin(options = {}) {
         }
 
         // Find and invalidate the corresponding virtual module
-        const virtualId = '\0virtual:hodu-components-' + file
+        const virtualId = '\0virtual:auto-components-' + file
         const module = server.moduleGraph.getModuleById(virtualId)
 
         if (module) {
           server.moduleGraph.invalidateModule(module)
           if (debug) {
-            console.log(`[auto-components] Invalidated virtual module for ${file}`)
+            console.log(
+              `[auto-components] Invalidated virtual module for ${file}`
+            )
           }
           return [module]
         }
@@ -96,12 +107,12 @@ export function autoComponentsPlugin(options = {}) {
 }
 
 /**
- * Parse HTML and extract hodu-* custom element tags
+ * Parse HTML and extract custom element tags (folder-file format)
  * @param {string} html - HTML content
- * @param {string} prefix - Tag prefix to search for (default: 'hodu-')
+ * @param {string} prefix - Tag prefix to search for (default: '' - no prefix)
  * @returns {string[]} Array of unique tag names
  */
-function parseHoduComponents(html, prefix = 'hodu-') {
+function parseCustomComponents(html, prefix = '') {
   // If prefix is empty, match all custom elements (must contain hyphen)
   // If prefix exists, match tags starting with that prefix
   const regex = prefix
@@ -149,12 +160,12 @@ function validateTagName(tagName, prefix) {
 
 /**
  * Convert tag name to component file path
- * @param {string} tagName - Tag name (e.g., 'hodu-footer')
+ * @param {string} tagName - Tag name (e.g., 'imput-button')
  * @param {string} prefix - Tag prefix
  * @returns {object} Object with kebab, pascal, and path properties
  */
 function tagNameToPath(tagName, prefix) {
-  // Remove prefix: hodu-footer → footer or imput-button → imput-button
+  // Remove prefix if exists: imput-button → imput-button (no prefix by default)
   const kebab = tagName.replace(new RegExp(`^${prefix}`), '')
 
   // Split by dash: imput-button → ['imput', 'button']
@@ -163,29 +174,32 @@ function tagNameToPath(tagName, prefix) {
   if (parts.length < 2) {
     // Error: tag must be folder-file format
     const expectedFormat = prefix ? '<prefix-folder-file>' : '<folder-file>'
-    console.error(`[auto-components] Invalid tag format: <${tagName}>. Must be ${expectedFormat}`)
+    console.error(
+      `[auto-components] Invalid tag format: <${tagName}>. Must be ${expectedFormat}`
+    )
     return {
       folder: null,
       file: null,
-      paths: []
+      paths: [],
     }
   }
 
   // Multiple parts: <imput-button> → imput/button.js
   const folder = parts[0]
-  const fileBase = parts.slice(1).join('-')  // button or input-field
-  const filePascal = parts.slice(1)
-    .map(p => p.charAt(0).toUpperCase() + p.slice(1))
-    .join('')  // Button or InputField
+  const fileBase = parts.slice(1).join('-') // button or input-field
+  const filePascal = parts
+    .slice(1)
+    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+    .join('') // Button or InputField
 
   return {
     folder,
     file: fileBase,
     paths: [
-      `@component/${folder}/${fileBase}.js`,      // imput/button.js
-      `@component/${folder}/${filePascal}.js`,    // imput/Button.js (fallback)
-      `@component/${folder}/index.js`             // imput/index.js (fallback)
-    ]
+      `@component/${folder}/${fileBase}.js`, // imput/button.js
+      `@component/${folder}/${filePascal}.js`, // imput/Button.js (fallback)
+      `@component/${folder}/index.js`, // imput/index.js (fallback)
+    ],
   }
 }
 
@@ -206,10 +220,10 @@ function generateImports(htmlPath, projectRoot, componentDir, prefix, debug) {
   }
 
   const html = readFileSync(htmlPath, 'utf-8')
-  const tags = parseHoduComponents(html, prefix)
+  const tags = parseCustomComponents(html, prefix)
 
   if (tags.length === 0) {
-    return `// No ${prefix}* components found in ${htmlPath}\n`
+    return `// No custom components found in ${htmlPath}\n`
   }
 
   const imports = tags
