@@ -1,14 +1,18 @@
-// src/component/etc/checkbox.js
+/ src/component/etc/checkbox.js
 
 class EtcCheckbox extends HTMLElement {
+  constructor() {
+    super()
+    this.loadStyle()
+  }
+
   connectedCallback() {
-    const text = this.getAttribute('text') || '동의합니다'
+    const text = this.getAttribute('text') || '주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.'
     const checked = this.hasAttribute('checked')
     const name = this.getAttribute('name') || ''
     const value = this.getAttribute('value') || 'on'
 
     this.innerHTML = `
-      
       <div class="check-text">
         <div class="check-box">
           <input 
@@ -25,8 +29,19 @@ class EtcCheckbox extends HTMLElement {
         </label>
       </div>
     `
-
     this._setupEventListeners()
+  }
+
+  loadStyle() {
+    // 이미 로드되었는지 확인
+    if (document.querySelector('link[href*="checkbox.css"]')) {
+      return
+    }
+
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.href = '/src/component/etc/checkbox.css' // 프로젝트 경로에 맞게 수정
+    document.head.appendChild(link)
   }
 
   _generateId() {
