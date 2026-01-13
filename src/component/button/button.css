@@ -158,3 +158,153 @@
     max-width: 480px;
   }
 }
+
+/* ========================================
+   MS-icon-button (아이콘 버튼) 스타일
+   ======================================== */
+.ms-icon-button {
+  width: 168px;
+  height: 54px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+
+  /* 배경 */
+  background: #21bf48;
+
+  /* 플렉스 레이아웃 */
+  display: flex;
+  align-items: center;
+  padding: 0;
+
+  /* 트랜지션 효과 */
+  transition: all 0.2s ease;
+}
+
+.ms-icon-button__icon {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: 20px;
+  top: 11px;
+  display: block;
+}
+
+.ms-icon-button__text {
+  width: 88px;
+  position: absolute;
+  left: 60px;
+  top: 16px;
+  color: #ffffff;
+  font-size: 18px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.ms-icon-button:not(:disabled):hover {
+  background: #1da03e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(33, 191, 72, 0.3);
+}
+
+.ms-icon-button:not(:disabled):active {
+  background: #198c35;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ms-icon-button:disabled {
+  background: #c4c4c4;
+  cursor: not-allowed;
+}
+
+.ms-icon-button:disabled .ms-icon-button__icon {
+  opacity: 0.5;
+}
+
+/* ========================================
+   MS-16p-button 스타일
+   ======================================== */
+.ms-16p-button {
+  width: 166px;
+  height: 54px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+
+  /* 텍스트 스타일 */
+  color: #ffffff;
+  font-size: 16px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 500;
+  text-align: center;
+
+  /* 플렉스 중앙 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 기본 배경 - 초록색 */
+  background: #21bf48;
+
+  /* 트랜지션 효과 */
+  transition: all 0.2s ease;
+}
+
+.ms-16p-button:not(:disabled):hover {
+  background: #1da03e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(33, 191, 72, 0.3);
+}
+
+.ms-16p-button:not(:disabled):active {
+  background: #198c35;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ms-16p-button:disabled {
+  background: #c4c4c4;
+  cursor: not-allowed;
+}
+
+/* MS-16p-button White variant */
+.ms-16p-button.ms-16p-button--white:not(:disabled) {
+  background: #ffffff;
+  color: #767676;
+  border: 1px solid #c4c4c4;
+}
+
+.ms-16p-button.ms-16p-button--white:not(:disabled):hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #767676;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ms-16p-button.ms-16p-button--white:not(:disabled):active {
+  background: #f8f8f8;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.ms-16p-button.ms-16p-button--white:disabled {
+  background: #ffffff;
+  color: #c4c4c4;
+  border-color: #c4c4c4;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .ms-icon-button,
+  .ms-16p-button {
+    width: 100%;
+    max-width: 168px;
+  }
+}
