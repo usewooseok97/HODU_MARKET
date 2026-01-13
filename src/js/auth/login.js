@@ -69,10 +69,11 @@ export const handleLoginSubmit = (formElement, loginType = 'BUYER') => {
     try {
       await login(username, password, loginType)
       showValidation('로그인 성공!', false)
+      console.log('로그인 성공')
       // 메인 페이지로 이동
-      setTimeout(() => {
-        window.location.href = '/'
-      }, 500)
+      // setTimeout(() => {
+      //   window.location.href = '/'
+      // }, 500)
     } catch (error) {
       const errorMessage =
         error.message || '로그인에 실패했습니다. 다시 시도해주세요.'
