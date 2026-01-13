@@ -59,7 +59,7 @@
    M-button (Medium button) 스타일
    ======================================== */
 .m-button {
-  min-width: 480px;  /* 가변 너비, 최소값 480px */
+  min-width: 200px;  /* 가변 너비, 최소값 200px */
   height: 60px;  /* 세로 고정 */
   border-radius: 5px;
   border: none;
