@@ -102,4 +102,4 @@ class TebMenuButton extends HTMLElement {
   }
 }
 
-customElements.define('teb-menu', TebMenuButton)
+customElements.define('button-tebmenu', TebMenuButton)

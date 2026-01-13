@@ -95,4 +95,4 @@ class LButton extends HTMLElement {
   }
 }
 
-customElements.define('button-l', LButton)
+customElements.define('button-large', LButton)

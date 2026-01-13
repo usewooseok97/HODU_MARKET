@@ -113,4 +113,4 @@ class MButton extends HTMLElement {
   }
 }
 
-customElements.define('button-m', MButton)
+customElements.define('button-medium', MButton)

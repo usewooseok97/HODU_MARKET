@@ -109,4 +109,4 @@ class MS16pButton extends HTMLElement {
   }
 }
 
-customElements.define('button-ms-16p', MS16pButton)
+customElements.define('button-ms16p', MS16pButton)

@@ -101,4 +101,4 @@ class MSIconButton extends HTMLElement {
   }
 }
 
-customElements.define('button-ms-icon', MSIconButton)
+customElements.define('button-msicon', MSIconButton)

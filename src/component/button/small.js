@@ -109,4 +109,4 @@ class SButton extends HTMLElement {
   }
 }
 
-customElements.define('button-s', SButton)
+customElements.define('button-small', SButton)
