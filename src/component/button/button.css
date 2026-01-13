@@ -308,3 +308,214 @@
     max-width: 168px;
   }
 }
+
+/* ========================================
+   S-button (Small button) 스타일
+   ======================================== */
+.s-button {
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+
+  /* 텍스트 스타일 */
+  color: #ffffff;
+  font-size: 16px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 500;
+  text-align: center;
+
+  /* 플렉스 중앙 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 기본 배경 - 초록색 */
+  background: #21bf48;
+
+  /* 트랜지션 효과 */
+  transition: all 0.2s ease;
+}
+
+.s-button:not(:disabled):hover {
+  background: #1da03e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(33, 191, 72, 0.3);
+}
+
+.s-button:not(:disabled):active {
+  background: #198c35;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.s-button:disabled {
+  background: #c4c4c4;
+  cursor: not-allowed;
+}
+
+/* S-button White variant */
+.s-button.s-button--white:not(:disabled) {
+  background: #ffffff;
+  color: #767676;
+  border: 1px solid #c4c4c4;
+}
+
+.s-button.s-button--white:not(:disabled):hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #767676;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.s-button.s-button--white:not(:disabled):active {
+  background: #f8f8f8;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.s-button.s-button--white:disabled {
+  background: #ffffff;
+  color: #c4c4c4;
+  border-color: #c4c4c4;
+}
+
+/* ========================================
+   Tab-button 스타일
+   ======================================== */
+.tab-button {
+  width: 320px;
+  height: 60px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+
+  /* 배경 */
+  background: #ffffff;
+
+  /* 트랜지션 효과 */
+  transition: all 0.2s ease;
+}
+
+.tab-button__text {
+  position: absolute;
+  left: 50%;
+  top: 19px;
+  transform: translateX(-50%);
+  
+  /* 기본 텍스트 스타일 (비활성화) */
+  color: #767676;
+  font-size: 18px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  
+  transition: all 0.2s ease;
+}
+
+.tab-button__indicator {
+  width: 100%;
+  height: 6px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  
+  /* 기본 인디케이터 (비활성화) */
+  background: #e0e0e0;
+  
+  transition: all 0.2s ease;
+}
+
+/* Tab-button Active 상태 */
+.tab-button.tab-button--active .tab-button__text {
+  color: #21bf48;
+  font-weight: 700;
+}
+
+.tab-button.tab-button--active .tab-button__indicator {
+  background: #21bf48;
+}
+
+/* Tab-button Hover (비활성화 상태에서만) */
+.tab-button:not(.tab-button--active):hover .tab-button__text {
+  color: #21bf48;
+}
+
+.tab-button:not(.tab-button--active):hover .tab-button__indicator {
+  background: #c4c4c4;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .tab-button {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+/* ============================
+   Teb-menu 버튼
+   상태: off(기본), hover, on(active)
+   ============================ */
+
+.teb-menu {
+  width: 250px;
+  height: 50px;
+
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 20px;
+
+  background: #ffffff;          /* off */
+  color: #000000;
+
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* 텍스트 */
+.teb-menu__text {
+  white-space: nowrap;
+}
+
+/* 빨간 뱃지 */
+.teb-menu__badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: #eb5757;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* hover (off 상태에서만) */
+.teb-menu:not(.teb-menu--active):hover {
+  background: #effff3;  /* hover */
+}
+
+/* active 상태 */
+.teb-menu--active {
+  background: #21bf48; /* on */
+  color: #ffffff;
+}
+
+.teb-menu--active .teb-menu__text {
+  color: #ffffff;
+}
