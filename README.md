@@ -102,7 +102,7 @@ export default defineConfig({
 })
 ```
 
-## 웹 컴포넌트 가이드
+## 웹 컴포넌트 가이드!
 
 이 프로젝트는 Web Components를 사용하여 재사용 가능한 UI 요소를 만듭니다.
 
