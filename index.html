@@ -13,19 +13,19 @@
       height: 60px;
       display: flex;
       align-items: center;
-      gap: 20px; /* label과 input 사이 간격 */
+      gap: 20px;
     }
 
     .id-box label {
       font-size: 1.6rem;
       color: var(--button-darkcolor);
-      white-space: nowrap; /* 줄바꿈 방지 */
+      white-space: nowrap;
       transition: all 0.3s;
       font-weight: 500;
     }
 
     .id-input {
-      flex: 1; /* 남은 공간 채우기 */
+      flex: 1;
       height: 100%;
       border: none;
       border-bottom: 1px solid #ddd;
@@ -38,11 +38,8 @@
       border-bottom: 2px solid var(--input-success-color);
     }
 
-    .id-input:focus ~ label {
-      color: var(--label-active-color);
-    }
     .ps-box {
-      width: 350px;
+      width: 480px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -56,7 +53,7 @@
 
     .ps-input {
       width: 100%;
-      height: 50px;
+      height: 54px;
       padding: 0 15px;
       font-size: 1.6rem;
       border: 1px solid #ddd;
@@ -66,15 +63,17 @@
     }
 
     .ps-input:focus {
-      border: 2px solid #00c853;
+      border: 2px solid var(--input-success-color);
     }
 
     .ps-input::placeholder {
       color: #000;
       font-size: 1.6rem;
     }
+
     .item-box {
-      width: 620px;
+      width: 826px;
+      height: 54px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -92,8 +91,8 @@
 
     .item-input {
       width: 100%;
-      height: 50px;
-      padding: 0 80px 0 15px; /* 오른쪽 여백 확보 */
+      height: 54px;
+      padding: 0 80px 0 15px;
       font-size: 1.6rem;
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -102,7 +101,7 @@
     }
 
     .item-input:focus {
-      border: 2px solid #00c853;
+      border: 2px solid var(--input-success-color);
     }
 
     .item-input::placeholder {
@@ -117,29 +116,117 @@
       transform: translateY(-50%);
       font-size: 1.6rem;
       color: var(--disabled-color);
-      pointer-events: none; /* 클릭 방지 */
+      pointer-events: none;
+    }
+
+    .price-box {
+      margin-top: 50px;
+      width: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .price-text {
+      font-size: 1.6rem;
+      color: var(--button-darkcolor);
+      font-weight: 500;
+    }
+
+    .input-group {
+      display: flex;
+    }
+
+    .price-input {
+      flex: 1;
+      height: 54px;
+      width: 54px;
+      padding: 0 15px;
+      font-size: 1.6rem;
+      border: 1px solid #ddd;
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+
+    .unit-button {
+      width: 54px;
+      height: 54px;
+      background-color: #ccc;
+      border: 1px solid #ddd;
+      border-radius: 0 4px 4px 0;
+      font-size: 1.4rem;
+      color: var(--background-color);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .check-box {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .check-label {
+      font-size: 1.6rem;
+      color: var(--button-darkcolor);
+      font-weight: 500;
+    }
+
+    .check-input {
+      width: 100%;
+      height: 54px;
+      padding: 0 15px;
+      font-size: 1.6rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .check-input.error {
+      border: 1px solid var(--input-error-color);
+    }
+
+    .check-input.error:focus {
+      border: 2px solid var(--input-error-color);
+    }
+
+    .check-input.success {
+      border: 1px solid var(--input-success-color);
+    }
+
+    .check-input.success:focus {
+      border: 2px solid var(--input-success-color);
+    }
+
+    .message {
+      font-size: 1.6rem;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .message.error {
+      color: var(--input-error-color);
+      display: block;
+    }
+
+    .message.success {
+      color: var(--input-success-color);
+      display: block;
     }
   </style>
   <body>
-<<<<<<< HEAD
-    <form action="submit" method="post">
-      <input type="text" value="" id="textinput" />
-      <input type="password" value="weniv1234" />
-      <button type="submit">클릭</button>
-    </form>
-    <script type="module" src="/src/main.js"></script>
-    <script type="module">
-      import { handleFormSubmit } from './src/js/form.js'
-
-      const form = document.querySelector('form')
-      const textinput = form.querySelector('#textinput')
-      handleFormSubmit(form, textinput)
-    </script>
-=======
     <div class="id-box">
       <label for="id">아이디</label>
       <input type="text" id="id" class="id-input" />
     </div>
+
     <div class="ps-box">
       <label for="password" class="ps-text">비밀번호</label>
       <input
@@ -149,6 +236,7 @@
         placeholder="text"
       />
     </div>
+
     <div class="item-box">
       <label for="itemName" class="item-text">상품명</label>
       <div class="input-wrapper">
@@ -162,10 +250,19 @@
         <span class="char-count"> <span id="currentCount">0</span>/50 </span>
       </div>
     </div>
-    <label for="">판매가</label>
-    <input type="text" />
+    <div class="price-box">
+      <label for="price" class="price-text">판매가</label>
+      <div class="input-group">
+        <input type="text" id="price" class="price-input" value="0" />
+        <button class="unit-button" type="submit">원</button>
+      </div>
+    </div>
+    <div class="check-box">
+      <label for="id-check" class="check-label">아이디</label>
+      <input type="text" id="id-check" class="check-input" placeholder="text" />
+      <p class="message"></p>
+    </div>
     <script type="module" src="/src/main.js"></script>
-<<<<<<< HEAD
     <script>
       const input = document.getElementById('itemName')
       const countSpan = document.getElementById('currentCount')
@@ -173,10 +270,15 @@
       input.addEventListener('input', function () {
         countSpan.textContent = this.value.length
       })
+
+      const priceInput = document.getElementById('price')
+      priceInput.addEventListener('input', function (e) {
+        let value = this.value.replace(/[^\d]/g, '')
+        if (value) {
+          value = Number(value).toLocaleString()
+        }
+        this.value = value
+      })
     </script>
-=======
-    <script></script>
->>>>>>> 0be03c7036ecff7ebbfdb613aed10d4d8434860d
->>>>>>> 230d8656b12f5edbb79adfd7876909c9bbaa94b3
   </body>
 </html>
