@@ -34,13 +34,13 @@ class EtcCheckbox extends HTMLElement {
 
   loadStyle() {
     // 이미 로드되었는지 확인
-    if (document.querySelector('link[href*="checkbox.css"]')) {
+    if (document.querySelector('link[href*="etc.css"]')) {
       return
     }
 
     const link = document.createElement('link')
     link.rel = 'stylesheet'
-    link.href = '/src/component/etc/checkbox.css' // 프로젝트 경로에 맞게 수정
+    link.href = '/src/component/etc/etc.css'
     document.head.appendChild(link)
   }
 
