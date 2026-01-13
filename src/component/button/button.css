@@ -8,8 +8,7 @@
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 24px;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 2.4rem;
   font-weight: 700;
   text-align: center;
 
@@ -65,8 +64,7 @@
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 18px;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 1.8rem;
   font-weight: 700;
   line-height: 22px;
   text-align: center;
@@ -197,8 +195,7 @@
   left: 60px;
   top: 16px;
   color: #ffffff;
-  font-size: 18px;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 1.8rem;
   font-weight: 500;
   display: flex;
   justify-content: center;
@@ -239,8 +236,7 @@
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 16px;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
 
@@ -322,8 +318,7 @@
 
   /* 텍스트 스타일 */
   color: #ffffff;
-  font-size: 16px;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
 
@@ -333,7 +328,7 @@
   align-items: center;
 
   /* 기본 배경 - 초록색 */
-  background: #21bf48;
+  background: var(--button-color);
 
   /* 트랜지션 효과 */
   transition: all 0.2s ease;
@@ -409,8 +404,7 @@
   
   /* 기본 텍스트 스타일 (비활성화) */
   color: #767676;
-  font-size: 18px;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size :1.6rem;
   font-weight: 500;
   text-align: center;
   white-space: nowrap;
@@ -479,8 +473,7 @@
   background: #ffffff;          /* off */
   color: #000000;
 
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 500;
 }
 
@@ -500,7 +493,7 @@
   align-items: center;
   justify-content: center;
 
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 500;
   color: #ffffff;
 }
