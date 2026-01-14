@@ -1,0 +1,203 @@
+/* ===== base ===== */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: "Spoqa Han Sans Neo", system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
+  background: #000;
+  color: #000;
+}
+
+/* ===== 1920 기준 page layout ===== */
+.page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 100px;
+  padding-bottom: 60px;
+  gap: 40px;
+}
+
+/* ===== brand ===== */
+.brand {
+  margin: 0;
+  width: 100%;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand img,
+.brand svg {
+  display: block;
+  width: 420px;
+  height: auto;
+}
+
+/* ===== card ===== */
+.card {
+  width: 550px;
+  border: 1px solid #C4C4C4;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ===== tabs ===== */
+.tabs {
+  display: flex;
+  width: 100%;
+  height: 80px;
+  background: #F2F2F2;
+}
+
+.tab {
+  flex: 1;
+  height: 80px;
+  border: 1px solid #C4C4C4;
+  background: #F2F2F2;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab:first-child { border-right: 0; }
+
+.tab.is-active {
+  background: #fff;
+  border-bottom: 0;
+}
+
+/* ===== panel ===== */
+.panel {
+  padding: 34px 35px 36px;
+  background: #fff;
+}
+
+/* ===== form ===== */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.field-input {
+  width: 480px;
+  max-width: 100%;
+  height: 60px;
+  border: 0;
+  border-bottom: 1px solid #C4C4C4;
+  padding: 0;
+  font-size: 16px;
+  line-height: 20px;
+  outline: none;
+  background: transparent;
+}
+
+.field-input::placeholder {
+  color: #767676;
+  font-weight: 400;
+}
+
+.field + .field { margin-top: 18px; }
+
+/* =========================================================
+   버튼: "컴포넌트 슬롯" 방식
+   - .btn = 버튼 컴포넌트를 담는 컨테이너(레이아웃 전용)
+   - 내부에 어떤 태그가 오든 100%로 채우게 만듦
+   ========================================================= */
+.btn {
+  /* 위치/크기만 책임지는 컨테이너 */
+  margin-top: 36px;
+  width: 480px;
+  max-width: 100%;
+  height: 60px;
+
+  /* 버튼 컴포넌트를 깔끔히 가운데/전체로 배치 */
+  display: flex;
+}
+
+/* 버튼 컴포넌트가 무엇이든(버튼/링크/커스텀 컴포넌트 wrapper) 꽉 차게 */
+.btn > * {
+  width: 100%;
+  height: 100%;
+}
+
+/* 가장 흔한 케이스: 내부가 button 또는 a 인 경우 기본 스타일 제공 */
+.btn > button,
+.btn > a {
+  border: 0;
+  border-radius: 5px;
+  background: #21BF48;
+  color: #fff;
+
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-decoration: none;
+}
+
+/* 클릭 눌림 피드백 */
+.btn > button:active,
+.btn > a:active {
+  transform: translateY(1px);
+}
+
+/* ===== bottom links ===== */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333333;
+}
+
+.links a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.links a:hover { text-decoration: underline; }
+
+.divider { opacity: 0.9; }
+
+/* ===== a11y ===== */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== 최소 반응형 ===== */
+@media (max-width: 640px) {
+  .card { width: min(550px, 92vw); }
+  .field-input, .btn { width: 100%; }
+  .panel { padding: 28px 20px 30px; }
+}
