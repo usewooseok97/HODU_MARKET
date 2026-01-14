@@ -5,8 +5,7 @@ class EtcCheckbox extends HTMLElement {
 
   constructor() {
     super()
-    this._id =
-      `etc-checkbox-${crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`
+    this._id = `etc-checkbox-${crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`
     this._labelId = `${this._id}-label`
 
     this._onChange = this._onChange.bind(this)
