@@ -7,7 +7,7 @@ class LogoComponent extends HTMLElement {
   render() {
     // 속성값 가져오기 (기본값 설정)
     const href = this.getAttribute('href') || '/'
-    const src = this.getAttribute('src') || './src/assets/images/Logo-hodu.png'
+    const src = this.getAttribute('src') || '/src/assets/images/Logo-hodu.png'
     const alt = this.getAttribute('alt') || 'hodu'
     const width = this.getAttribute('width') || ''
     const height = this.getAttribute('height') || ''
