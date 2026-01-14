@@ -204,6 +204,70 @@ function tagNameToPath(tagName, prefix) {
 }
 
 /**
+ * Recursively scan .js files to find nested component usage
+ * @param {string} componentPath - Path to component .js file
+ * @param {string} projectRoot - Project root directory
+ * @param {string} componentDir - Component directory
+ * @param {string} prefix - Tag prefix
+ * @param {Set} visited - Set of already visited files to prevent circular dependencies
+ * @returns {Set<string>} Set of tag names found
+ */
+function scanComponentFile(componentPath, projectRoot, componentDir, prefix, visited = new Set()) {
+  const tags = new Set()
+
+  // Prevent circular dependencies
+  if (visited.has(componentPath)) {
+    return tags
+  }
+  visited.add(componentPath)
+
+  if (!existsSync(componentPath)) {
+    return tags
+  }
+
+  try {
+    const jsContent = readFileSync(componentPath, 'utf-8')
+
+    // Find innerHTML assignments and template literals
+    const innerHTMLMatches = jsContent.match(/innerHTML\s*=\s*`([^`]*)`/gs)
+
+    if (innerHTMLMatches) {
+      for (const match of innerHTMLMatches) {
+        const htmlContent = match.replace(/innerHTML\s*=\s*`|`/g, '')
+        const foundTags = parseCustomComponents(htmlContent, prefix)
+
+        foundTags.forEach(tag => {
+          tags.add(tag)
+
+          // Recursively scan nested components
+          const { paths } = tagNameToPath(tag, prefix)
+          for (const path of paths) {
+            const relativePath = path.replace('@component/', '')
+            const nestedComponentPath = resolve(projectRoot, componentDir, relativePath)
+
+            if (existsSync(nestedComponentPath)) {
+              const nestedTags = scanComponentFile(
+                nestedComponentPath,
+                projectRoot,
+                componentDir,
+                prefix,
+                visited
+              )
+              nestedTags.forEach(t => tags.add(t))
+              break
+            }
+          }
+        })
+      }
+    }
+  } catch (error) {
+    console.warn(`[auto-components] Error scanning ${componentPath}:`, error.message)
+  }
+
+  return tags
+}
+
+/**
  * Generate import statements for components found in HTML
  * @param {string} htmlPath - Path to HTML file
  * @param {string} projectRoot - Project root directory
@@ -220,13 +284,42 @@ function generateImports(htmlPath, projectRoot, componentDir, prefix, debug) {
   }
 
   const html = readFileSync(htmlPath, 'utf-8')
-  const tags = parseCustomComponents(html, prefix)
+  const allTags = new Set(parseCustomComponents(html, prefix))
 
-  if (tags.length === 0) {
+  if (allTags.size === 0) {
     return `// No custom components found in ${htmlPath}\n`
   }
 
-  const imports = tags
+  // Scan each component file for nested components
+  const visited = new Set()
+  const tagsToScan = Array.from(allTags)
+
+  for (const tag of tagsToScan) {
+    const { paths } = tagNameToPath(tag, prefix)
+
+    for (const path of paths) {
+      const relativePath = path.replace('@component/', '')
+      const componentPath = resolve(projectRoot, componentDir, relativePath)
+
+      if (existsSync(componentPath)) {
+        const nestedTags = scanComponentFile(
+          componentPath,
+          projectRoot,
+          componentDir,
+          prefix,
+          visited
+        )
+        nestedTags.forEach(t => allTags.add(t))
+        break
+      }
+    }
+  }
+
+  if (debug) {
+    console.log(`[auto-components] All components (including nested):`, Array.from(allTags))
+  }
+
+  const imports = Array.from(allTags)
     .map((tag) => {
       const { paths } = tagNameToPath(tag, prefix)
 
