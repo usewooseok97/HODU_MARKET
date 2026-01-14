@@ -1,0 +1,101 @@
+/* ===== Payment Grid Layout ===== */
+.payment-grid {
+  display: grid;
+  grid-template-columns: 1fr 200px 200px 200px;
+  align-items: center;
+}
+
+/* ===== Header ===== */
+.payment-header {
+  background: var(--tab-title-color);
+  border-radius: 10px;
+  padding: 18px 30px;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.payment-col-info,
+.payment-col-discount,
+.payment-col-shipping,
+.payment-col-total {
+  text-align: center;
+}
+
+.payment-col-info {
+  text-align: center;
+}
+
+/* ===== Item ===== */
+.payment-item {
+  background: var(--background-color);
+  border-bottom: 1px solid var(--disabled-color);
+  padding: 20px 30px;
+}
+
+/* Product Info */
+.payment-product {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.payment-product-image {
+  width: 104px;
+  height: 104px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.payment-product-details {
+  text-align: start;
+  gap: 6px;
+}
+
+.payment-seller {
+  font-size: 1.4rem;
+  color: var(--whitebutton-text-color);
+}
+
+.payment-product-name {
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.payment-quantity {
+  font-size: 1.4rem;
+  color: var(--whitebutton-text-color);
+}
+
+/* Discount */
+.payment-col-discount {
+  display: flex;
+  justify-content: center;
+}
+
+.payment-discount-value {
+  font-size: 1.8rem;
+  color: var(--whitebutton-text-color);
+}
+
+/* Shipping */
+.payment-col-shipping {
+  display: flex;
+  justify-content: center;
+}
+
+.payment-shipping-value {
+  font-size: 1.8rem;
+  color: var(--whitebutton-text-color);
+}
+
+/* Total Price */
+.payment-col-total {
+  display: flex;
+  justify-content: center;
+}
+
+.payment-total-price {
+  font-size: 1.8rem;
+  font-weight: 700;
+}

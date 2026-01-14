@@ -14,11 +14,11 @@
 
 /* ===== Header ===== */
 .cart-list-header {
-  background: #f2f2f2;
+  background: var(--tab-title-color);
   border-radius: 10px;
   padding: 18px 30px;
   text-align: center;
-  font-size: 18px;
+  font-size: 1.8rem;
 }
 
 .cart-col-check {
@@ -29,14 +29,14 @@
 .cart-checkbox {
   width: 20px;
   height: 20px;
-  accent-color: #21BF48;
+  accent-color: var(--button-color);
 }
 
 /* ===== Item ===== */
 .cart-list-item {
   position: relative;
-  background: #fff;
-  border: 2px solid #e0e0e0;
+  background: var(--background-color);
+  border: 2px solid var(--disabled-color);
   border-radius: 10px;
   padding: 20px 30px;
   margin-top: 10px;
@@ -45,7 +45,7 @@
 .cart-radio {
   width: 20px;
   height: 20px;
-  accent-color: #21BF48;
+  accent-color: var(--button-color);
 }
 
 /* Product Info */
@@ -69,24 +69,24 @@
 }
 
 .cart-seller {
-  font-size: 14px;
-  color: #767676;
+  font-size: 1.4rem;
+  color: var(--whitebutton-text-color);
 }
 
 .cart-product-name {
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 400;
   margin: 0;
 }
 
 .cart-product-price {
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 700;
 }
 
 .cart-shipping {
-  font-size: 14px;
-  color: #767676;
+  font-size: 1.4rem;
+  color: var(--whitebutton-text-color);
 }
 
 /* Quantity Control */
@@ -98,7 +98,7 @@
 .quantity-control {
   display: flex;
   align-items: center;
-  border: 1px solid #c4c4c4;
+  border: 1px solid var(--disabled-color);
   border-radius: 5px;
 }
 
@@ -107,22 +107,22 @@
   height: 50px;
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 2rem;
   cursor: pointer;
 }
 
 .quantity-btn.minus {
-  border-right: 1px solid #c4c4c4;
+  border-right: 1px solid var(--disabled-color);
 }
 
 .quantity-btn.plus {
-  border-left: 1px solid #c4c4c4;
+  border-left: 1px solid var(--disabled-color);
 }
 
 .quantity-value {
   width: 50px;
   text-align: center;
-  font-size: 18px;
+  font-size: 1.8rem;
 }
 
 /* Price & Order */
@@ -134,18 +134,18 @@
 }
 
 .cart-total-price {
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: #EB5757;
+  color: var(--input-error-color);
 }
 
 .order-btn {
-  background: #21BF48;
-  color: #fff;
+  background: var(--button-color);
+  color: var(--button-text-color);
   border: none;
   border-radius: 5px;
   padding: 10px 35px;
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 500;
   cursor: pointer;
 }
@@ -161,11 +161,11 @@
   right: 18px;
   background: none;
   border: none;
-  font-size: 24px;
-  color: #767676;
+  font-size: 2.4rem;
+  color: var(--whitebutton-text-color);
   cursor: pointer;
 }
 
 .cart-delete-btn:hover {
-  color: #000;
+  color: var(--text-color);
 }
