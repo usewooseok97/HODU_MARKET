@@ -6,9 +6,7 @@ class YoutubeComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <a href="" class="youtube">
-        <img src="./src/assets/images/icon-yt.png" alt="Youtube" />
-      </a>
+      <img src="./src/assets/images/icon-yt.png" alt="Youtube" class="youtube" />
     `
   }
 
