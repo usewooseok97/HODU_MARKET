@@ -27,6 +27,7 @@ export default [
         Promise: 'readonly',
         customElements: 'readonly',
         HTMLElement: 'readonly',
+        CustomEvent: 'readonly',
         alert: 'readonly',
         __dirname: 'readonly',
         __filename: 'readonly',
