@@ -13,7 +13,7 @@
 
 /* Product Card */
 .product-card {
-  background: white;
+  background: var(--background-color);
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -27,7 +27,7 @@
   width: 100%;
   height: 280px;
   object-fit: cover;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--disabled-color);
 }
 
 /* Product Info */
@@ -36,16 +36,16 @@
 }
 
 .seller-name {
-  font-size: 14px;
-  color: #767676;
+  font-size: 1.4rem;
+  color: var(--whitebutton-text-color);
   margin-bottom: 6px;
   line-height: 1.4;
 }
 
 .product-name {
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 400;
-  color: #000;
+  color: var(--text-color);
   margin-bottom: 8px;
   line-height: 1.4;
   overflow: hidden;
@@ -58,22 +58,22 @@
 
 /* Price */
 .price {
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: 700;
-  color: #000;
+  color: var(--text-color);
 }
 
 .price::after {
   content: '원';
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 400;
   margin-left: 2px;
 }
 
 /* Shipping Info */
 .shipping-info {
-  font-size: 14px;
-  color: #767676;
+  font-size: 1.4rem;
+  color: var(--whitebutton-text-color);
   margin-top: 8px;
 }
 
@@ -82,8 +82,8 @@
   display: inline-block;
   padding: 6px 12px;
   background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  font-size: 14px;
+  color: var(--button-text-color);
+  font-size: 1.4rem;
   font-weight: 500;
   margin-top: 8px;
 }
@@ -114,14 +114,14 @@
   }
 
   .product-name {
-    font-size: 14px;
+    font-size: 1.4rem;
   }
 
   .price {
-    font-size: 18px;
+    font-size: 1.8rem;
   }
 
   .price::after {
-    font-size: 14px;
+    font-size: 1.4rem;
   }
 }

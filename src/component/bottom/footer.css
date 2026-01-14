@@ -1,8 +1,8 @@
 .hodu-footer {
   position: relative;
   width: 100%;
-  background-color: #ffffff;
-  border-top: 1px solid #c4c4c4;
+  background-color: var(--background-color);
+  border-top: 1px solid var(--disabled-color);
 }
 
 .footer-container {
@@ -17,7 +17,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 80px 30px;
-  border-bottom: 1px solid #c4c4c4;
+  border-bottom: 1px solid var(--disabled-color);
 }
 
 .footer-nav {
@@ -45,11 +45,12 @@
   content: '|';
   position: absolute;
   right: 0;
-  color: #c4c4c4;
+  bottom: 0;
+  color: var(--disabled-color);
 }
 
 .footer-nav a {
-  color: #333333;
+  color: var(--text-color);
   text-decoration: none;
   font-size: 1.4rem;
   line-height: 1.5;
@@ -57,7 +58,7 @@
 }
 
 .footer-nav a:hover {
-  color: #000000;
+  color: var(--text-color);
 }
 
 .footer-nav a.bold {
@@ -78,8 +79,8 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: #767676;
-  color: #ffffff;
+  background-color: var(--whitebutton-text-color);
+  color: var(--button-text-color);
   transition: background-color 0.2s;
 }
 
@@ -99,7 +100,7 @@
 
 .company-info {
   font-size: 1.4rem;
-  color: #767676;
+  color: var(--whitebutton-text-color);
   line-height: 1.7;
 }
 
