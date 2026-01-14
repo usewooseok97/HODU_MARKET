@@ -173,13 +173,73 @@ customElements.define('my-component', MyComponent)
 <imput-button text="클릭하세요"></imput-button>
 ```
 
-### git commit 규칙
+## Git 사용 가이드
 
-기능추가 -> feat : 기능추가내용
-스타일변경 -> style : 기능추가내용
-이슈(문제)발생 -> issue : 기능추가내용
-문제수정 및 기능 삭제 및 최적화 -> fixed : 기능추가내용
-기타 -> etc : 기타 내용
+### Commit 메시지 규칙
+
+| 타입    | 설명                           | 예시                      |
+| ------- | ------------------------------ | ------------------------- |
+| `feat`  | 새로운 기능 추가               | `feat: 로그인 기능 구현`  |
+| `style` | 스타일 변경 (UI/CSS)           | `style: 버튼 색상 변경`   |
+| `issue` | 문제 발생 보고                 | `issue: 로그인 오류 발생` |
+| `fixed` | 버그 수정, 기능 삭제 및 최적화 | `fixed: 로그인 오류 수정` |
+| `etc`   | 기타 변경사항                  | `etc: README 업데이트`    |
+
+### Issue 기반 작업 플로우
+
+> 페이지 배치 작업부터 이 플로우를 사용합니다.
+
+#### 1. GitHub에서 Issue 생성
+
+- **제목**: 해야 할 작업 작성 (기능 1~2개 정도 크기)
+- **Description**: 제목으로 충분하므로 생략 가능
+
+옆 창에 있음
+
+- **Assignees**: 본인 등록
+- **Labels**: 선택 사항 (필요시 추가)
+- **Create** 버튼 클릭
+
+#### 2. 브랜치 생성 및 체크아웃
+
+옆 창에 있음
+
+1. Issue 페이지에서 **Projects** → **No status**를 **In Progress**로 변경
+2. **Development** 섹션의 **Create a branch** 클릭
+3. 브랜치 이름 입력 (본인 이름이나 이니셜 사용)
+4. 생성된 명령어를 로컬에서 실행:
+
+```bash
+git fetch origin
+git checkout <브랜치명>
+```
+
+#### 3. 작업 및 커밋
+
+Issue에 등록한 기능을 구현한 후:
+
+```bash
+git add .
+git commit -m "feat: 구현한 기능 설명"
+git push origin <브랜치명>
+```
+
+#### 4. Pull Request 생성 및 병합
+
+1. GitHub에서 **Create pull request** 클릭
+2. **Merge pull request** 클릭
+3. **Confirm merge** 클릭
+4. **Delete branch** 클릭 (원격 브랜치 삭제)
+
+#### 5. 로컬 정리
+
+```bash
+git checkout main
+git pull
+git branch -d <브랜치명>
+```
+
+작업 완료!
 
 ## 기술 스택
 
