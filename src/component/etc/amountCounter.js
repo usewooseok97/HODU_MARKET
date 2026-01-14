@@ -1,188 +1,240 @@
-class AmountCounter extends HTMLElement {
+class EtcAmountCounter extends HTMLElement {
   constructor() {
     super()
-    this.stylesLoaded = false
+    this.attachShadow({ mode: 'open' })
   }
 
-  // CSS 파일 로드 함수
-  loadStyles() {
-    if (this.stylesLoaded) return Promise.resolve()
+  connectedCallback() {
+    this.min = parseInt(this.getAttribute('min') || '1')
+    this.max = parseInt(this.getAttribute('max') || '99')
+    this.value = parseInt(this.getAttribute('value') || '1')
 
-    return new Promise((resolve, reject) => {
-      // 이미 로드된 스타일시트가 있는지 확인
-      const existingLink = document.querySelector('link[href*="etc.css"]')
-      if (existingLink) {
-        this.stylesLoaded = true
-        resolve()
-        return
-      }
-
-      // 새 link 요소 생성
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/etc/etc.css'
-
-      link.onload = () => {
-        this.stylesLoaded = true
-        resolve()
-      }
-
-      link.onerror = () => {
-        // 실제 사용하는 CSS 파일명 기준으로 에러 메시지 정리
-        reject(new Error('Failed to load etc.css'))
-      }
-
-      document.head.appendChild(link)
-    })
+    this.render()
+    this.attachEventListeners()
   }
 
-  async connectedCallback() {
-    // CSS 로드 대기
-    try {
-      await this.loadStyles()
-    } catch (error) {
-      console.error('AmountCounter CSS loading error:', error)
-    }
+  render() {
+    this.shadowRoot.innerHTML = `
+      <style>
+        /* 전체 컨테이너: 150px x 50px */
+        .amount-counter {
+          position: relative;
+          width: 150px;
+          height: 50px;
+          background: #FFFFFF;
+          border: 1px solid #C4C4C4;
+          border-radius: 5px;
+          overflow: hidden;
+          display: flex;
+          align-items: stretch;
+          box-sizing: border-box;
+        }
 
-    // 속성 가져오기
-    const min = parseInt(this.getAttribute('min')) || 1
-    const max = parseInt(this.getAttribute('max')) || 99
-    const value = parseInt(this.getAttribute('value')) || min
-    const disabled = this.hasAttribute('disabled')
+        /* 버튼 공통 스타일 */
+        .amount-btn {
+          position: relative;
+          width: 48px;
+          height: 100%;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          margin: 0;
+          flex-shrink: 0;
+          transition: background-color 0.15s ease;
+        }
 
-    this.min = min
-    this.max = max
-    this.value = value
+        /* 버튼 hover 효과 */
+        .amount-btn:hover:not(:disabled) {
+          background: #E0E0E0;
+        }
 
-    // HTML 렌더링
-    this.innerHTML = `
-      <div class="amountCounter">
-        <button class="amount-btn minus" aria-label="감소">
-          <span class="icon-minus-line">
-            <span class="vector-1"></span>
+        .amount-btn:hover:not(:disabled) .minus-line,
+        .amount-btn:hover:not(:disabled) .plus-horizontal,
+        .amount-btn:hover:not(:disabled) .plus-vertical {
+          background: #FFFFFF;
+        }
+
+        /* 버튼 active 효과 */
+        .amount-btn:active:not(:disabled) {
+          background: #D0D0D0;
+        }
+
+        .amount-btn:active:not(:disabled) .minus-line,
+        .amount-btn:active:not(:disabled) .plus-horizontal,
+        .amount-btn:active:not(:disabled) .plus-vertical {
+          background: #FFFFFF;
+        }
+
+        /* 버튼 비활성화 */
+        .amount-btn:disabled {
+          cursor: not-allowed;
+          opacity: 0.4;
+        }
+
+        /* 가운데 숫자 영역: 52px */
+        .amount-display {
+          position: relative;
+          width: 52px;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          border-left: 1px solid #C4C4C4;
+          border-right: 1px solid #C4C4C4;
+          background: #FFFFFF;
+        }
+
+        /* 숫자 텍스트 */
+        .amount-value {
+          font-family: 'Spoqa Han Sans Neo', sans-serif;
+          font-weight: 400;
+          font-size: 1.8rem;
+          line-height: 1;
+          color: #000000;
+          user-select: none;
+        }
+
+        /* 아이콘 컨테이너 */
+        .icon-minus,
+        .icon-plus {
+          position: relative;
+          width: 20px;
+          height: 20px;
+          display: block;
+        }
+
+        /* 마이너스 아이콘: 가로선 */
+        .minus-line {
+          position: absolute;
+          width: 20px;
+          height: 2px;
+          left: 0;
+          top: 9px;
+          background: #C4C4C4;
+          display: block;
+        }
+
+        .amount-btn:disabled .minus-line {
+          background: #F2F2F2;
+        }
+
+        /* 플러스 아이콘: 가로선 */
+        .plus-horizontal {
+          position: absolute;
+          width: 20px;
+          height: 2px;
+          left: 0;
+          top: 9px;
+          background: #C4C4C4;
+          display: block;
+        }
+
+        /* 플러스 아이콘: 세로선 */
+        .plus-vertical {
+          position: absolute;
+          width: 2px;
+          height: 20px;
+          left: 9px;
+          top: 0;
+          background: #C4C4C4;
+          display: block;
+        }
+
+        .amount-btn:disabled .plus-horizontal,
+        .amount-btn:disabled .plus-vertical {
+          background: #F2F2F2;
+        }
+      </style>
+      <div class="amount-counter">
+        <button class="amount-btn btn-minus" aria-label="수량 감소" ${this.value <= this.min ? 'disabled' : ''}>
+          <span class="icon-minus">
+            <span class="minus-line"></span>
           </span>
         </button>
-
         <div class="amount-display">
           <span class="amount-value">${this.value}</span>
         </div>
-        
-        <button class="amount-btn plus" aria-label="증가">
-          <span class="icon-plus-line">
-            <span class="vector-2"></span>
-            <span class="vector-3"></span>
+        <button class="amount-btn btn-plus" aria-label="수량 증가" ${this.value >= this.max ? 'disabled' : ''}>
+          <span class="icon-plus">
+            <span class="plus-horizontal"></span>
+            <span class="plus-vertical"></span>
           </span>
         </button>
       </div>
     `
-
-    // 이벤트 리스너 등록
-    this.minusBtn = this.querySelector('.minus')
-    this.plusBtn = this.querySelector('.plus')
-    this.valueDisplay = this.querySelector('.amount-value')
-
-    this.minusBtn.addEventListener('click', () => this.decrease())
-    this.plusBtn.addEventListener('click', () => this.increase())
-
-    // 초기 상태 업데이트
-    this.updateButtonStates()
-
-    if (disabled) {
-      this.setDisabled(true)
-    }
   }
 
-  decrease() {
-    if (this.value > this.min) {
-      this.value--
-      this.updateDisplay()
-      this.triggerChange()
-    }
-  }
+  attachEventListeners() {
+    const minusBtn = this.shadowRoot.querySelector('.btn-minus')
+    const plusBtn = this.shadowRoot.querySelector('.btn-plus')
+    const valueSpan = this.shadowRoot.querySelector('.amount-value')
 
-  increase() {
-    if (this.value < this.max) {
-      this.value++
-      this.updateDisplay()
-      this.triggerChange()
-    }
-  }
+    minusBtn.addEventListener('click', () => {
+      if (this.value > this.min) {
+        this.value--
+        valueSpan.textContent = this.value
+        this.updateButtonStates()
+        this.dispatchChangeEvent()
+      }
+    })
 
-  updateDisplay() {
-    this.valueDisplay.textContent = this.value
-    this.updateButtonStates()
+    plusBtn.addEventListener('click', () => {
+      if (this.value < this.max) {
+        this.value++
+        valueSpan.textContent = this.value
+        this.updateButtonStates()
+        this.dispatchChangeEvent()
+      }
+    })
   }
 
   updateButtonStates() {
-    // 최소값일 때 마이너스 버튼 비활성화
-    this.minusBtn.disabled = this.value <= this.min
+    const minusBtn = this.shadowRoot.querySelector('.btn-minus')
+    const plusBtn = this.shadowRoot.querySelector('.btn-plus')
 
-    // 최대값일 때 플러스 버튼 비활성화
-    this.plusBtn.disabled = this.value >= this.max
-  }
+    if (this.value <= this.min) {
+      minusBtn.disabled = true
+    } else {
+      minusBtn.disabled = false
+    }
 
-  triggerChange() {
-    // 커스텀 이벤트 발생
-    const event = new CustomEvent('amount-change', {
-      detail: { value: this.value },
-      bubbles: true,
-      composed: true,
-    })
-    this.dispatchEvent(event)
-
-    // value 속성 업데이트
-    this.setAttribute('value', this.value)
-  }
-
-  // 외부에서 값 설정
-  setValue(newValue) {
-    const value = parseInt(newValue)
-    if (value >= this.min && value <= this.max) {
-      this.value = value
-      this.updateDisplay()
+    if (this.value >= this.max) {
+      plusBtn.disabled = true
+    } else {
+      plusBtn.disabled = false
     }
   }
 
-  // 외부에서 값 가져오기
+  dispatchChangeEvent() {
+    this.dispatchEvent(
+      new CustomEvent('amountchange', {
+        detail: { value: this.value },
+        bubbles: true,
+        composed: true,
+      })
+    )
+  }
+
   getValue() {
     return this.value
   }
 
-  // 비활성화 설정
-  setDisabled(disabled) {
-    if (disabled) {
-      this.minusBtn.disabled = true
-      this.plusBtn.disabled = true
-    } else {
-      this.updateButtonStates()
-    }
-  }
-
-  // 속성 변경 감지
-  static get observedAttributes() {
-    return ['value', 'min', 'max', 'disabled']
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (!this.valueDisplay) return
-
-    switch (name) {
-      case 'value':
-        this.setValue(newValue)
-        break
-      case 'min':
-        this.min = parseInt(newValue) || 1
+  setValue(newValue) {
+    const value = parseInt(newValue)
+    if (value >= this.min && value <= this.max) {
+      this.value = value
+      const valueSpan = this.shadowRoot.querySelector('.amount-value')
+      if (valueSpan) {
+        valueSpan.textContent = this.value
         this.updateButtonStates()
-        break
-      case 'max':
-        this.max = parseInt(newValue) || 99
-        this.updateButtonStates()
-        break
-      case 'disabled':
-        this.setDisabled(newValue !== null)
-        break
+      }
     }
   }
 }
 
-customElements.define('etc-amountcounter', AmountCounter)
+customElements.define('etc-amountcounter', EtcAmountCounter)
