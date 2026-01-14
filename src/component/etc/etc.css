@@ -30,7 +30,7 @@ etc-checkbox {
   padding: 0;
 }
 
-.check-box label {
+.check-box .check-ui {
   position: absolute;
   left: 0;
   top: 0;
@@ -44,16 +44,16 @@ etc-checkbox {
   display: block;
 }
 
-.check-box label:hover {
+.check-box .check-ui:hover {
   border-color: #767676;
 }
 
-.check-box input[type="checkbox"]:checked + label {
+.check-box input[type="checkbox"]:checked + .check-ui {
   background: #FFFFFF;
   border-color: #21BF48;
 }
 
-.check-box input[type="checkbox"]:checked + label::after {
+.check-box input[type="checkbox"]:checked + .check-ui::after {
   content: '';
   position: absolute;
   left: 4px;
@@ -65,7 +65,7 @@ etc-checkbox {
   transform: rotate(45deg);
 }
 
-.check-box input[type="checkbox"]:focus + label {
+.check-box input[type="checkbox"]:focus + .check-ui {
   outline: 2px solid #21BF48;
   outline-offset: 2px;
 }
@@ -83,9 +83,32 @@ etc-checkbox {
   display: flex;
   align-items: center;
 }
-
+.check-label:focus {
+  outline: 2px solid #21BF48;
+  outline-offset: 2px;
+}
 .check-label:hover {
   color: #333333;
+}
+.check-label a {
+  color: inherit;                 /* variant 톤 유지 */
+  text-decoration: underline;     /* 링크는 밑줄이 자연스러움 */
+  cursor: pointer;
+}
+.check-label a:focus {
+  outline: 2px solid #21BF48;
+  outline-offset: 2px;
+}
+.check-label.term-underline {
+  text-decoration: underline;
+  font-weight: 700;
+}
+.check-text.variant-default .check-label {
+  color: #000000;
+  font-weight: 400;
+}
+.check-text.variant-emphasis .check-label {
+  color: #767676;
 }
 
 /* 반응형 처리 */
