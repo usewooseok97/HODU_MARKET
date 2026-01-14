@@ -1,9 +1,11 @@
 a {
   display: block;
 }
-.logo {
-  width: 124px;
-  height: 38px;
+.logo-box {
+  width: 300px;
+}
+.logo img {
+  width: 100%;
 }
 .shop {
   width: 32px;
