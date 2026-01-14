@@ -2,16 +2,14 @@
 class Modal extends HTMLElement {
   constructor() {
     super()
-    this.type = 'confirm' // 'confirm' | 'amount'
     this.message = ''
     this.onConfirm = null
     this.onCancel = null
     this.isOpen = false
   }
 
-  // variant 로도 제어할 수 있게 추가
   static get observedAttributes() {
-    return ['type', 'variant', 'message', 'open']
+    return ['message', 'open']
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -19,9 +17,6 @@ class Modal extends HTMLElement {
 
     if (name === 'open') {
       this.isOpen = newValue !== null
-    } else if (name === 'variant') {
-      // variant="amount" 같은 걸 type 이랑 동일하게 취급
-      this.type = newValue || 'confirm'
     } else {
       this[name] = newValue
     }
@@ -37,8 +32,6 @@ class Modal extends HTMLElement {
   }
 
   render() {
-    const isAmountType = this.type === 'amount'
-
     if (!this.isOpen) {
       this.innerHTML = ''
       return
@@ -54,21 +47,23 @@ class Modal extends HTMLElement {
 
           <!-- 내용 영역 -->
           <div class="modal-content">
-            ${isAmountType ? this.renderAmountContent() : this.renderConfirmContent()}
+            <div class="modal-message">
+              ${this.message || '상품을 삭제하시겠습니까?'}
+            </div>
           </div>
 
           <!-- 하단 버튼 -->
           <div class="modal-buttons">
             <button-small 
               class="modal-cancel-btn" 
-              text="취소" 
+              text="아니오" 
               variant="white"
               width="100px"
             ></button-small>
 
             <button-small 
               class="modal-confirm-btn" 
-              text="${isAmountType ? '수정' : '확인'}"
+              text="예"
               width="100px"
             ></button-small>
           </div>
@@ -77,22 +72,6 @@ class Modal extends HTMLElement {
     `
 
     this.loadStyles()
-  }
-
-  renderAmountContent() {
-    return `
-      <div class="modal-amount-wrapper">
-        <etc-amount-counter></etc-amount-counter>
-      </div>
-    `
-  }
-
-  renderConfirmContent() {
-    return `
-      <div class="modal-message">
-        ${this.message || '상품을 삭제하시겠습니까?'}
-      </div>
-    `
   }
 
   setupEventListeners() {
@@ -119,26 +98,13 @@ class Modal extends HTMLElement {
   }
 
   confirm() {
-    if (this.type === 'amount') {
-      const counter = this.querySelector('etc-amount-counter')
-      const value = counter?.getAttribute('value') || 1
-
-      this.dispatchEvent(
-        new CustomEvent('modal-confirm', {
-          detail: { value: parseInt(value, 10) },
-          bubbles: true,
-          composed: true,
-        })
-      )
-    } else {
-      this.dispatchEvent(
-        new CustomEvent('modal-confirm', {
-          detail: {},
-          bubbles: true,
-          composed: true,
-        })
-      )
-    }
+    this.dispatchEvent(
+      new CustomEvent('modal-confirm', {
+        detail: {},
+        bubbles: true,
+        composed: true,
+      })
+    )
 
     if (this.onConfirm) this.onConfirm()
     this.close()
