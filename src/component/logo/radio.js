@@ -33,4 +33,4 @@ class RadioComponent extends HTMLElement {
   }
 }
 
-customElements.define('radio-component', RadioComponent)
+customElements.define('logo-radio', RadioComponent)
