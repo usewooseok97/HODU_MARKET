@@ -2,16 +2,19 @@ a {
   display: block;
 }
 
-.logo {
-  display: block;
+.logo-link {
+  display: inline-block;
+  text-decoration: none;
   line-height: 0;
 }
 
-.logo img {
-  width: 100%;
-  height: auto;
+.logo-img {
   display: block;
+  /* 기본 크기는 원본 이미지 크기를 따름 */
+  max-width: 100%;
+  height: auto;
 }
+
 .shop {
   width: 32px;
   height: 32px;
@@ -138,4 +141,19 @@ a {
 .hidden-checkbox:focus + .checkbox-label .checkbox-img {
   outline: 2px solid #4caf50;
   outline-offset: 2px;
+}
+.radio-off {
+  display: block;
+  width: 28px;
+  height: 28px;
+  background: url(../../assets/images/icon-check-off.png) no-repeat center top /
+    100%;
+}
+
+.radio-on {
+  display: block;
+  width: 28px;
+  height: 28px;
+  background: url(../../assets/images/icon-check-on.png) no-repeat center top /
+    100%;
 }
