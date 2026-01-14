@@ -1,0 +1,74 @@
+.product-list {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* 헤더 */
+.header-text {
+  display: grid;
+  grid-template-columns: 2fr 1fr 0.5fr 0.5fr;
+  gap: 20px;
+  height: 60px;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--disabled-color);
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+.header-text p:first-child {
+  text-align: center;
+  /* 이미지 너비(70px) + 마진(30px) + 텍스트 영역 고려 */
+  padding-left: 130px;
+}
+
+/* 상품 아이템 */
+.product-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 0.5fr 0.5fr;
+  gap: 20px;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--disabled-color);
+}
+
+/* 상품 정보 영역 */
+.contents {
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.contents img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 30px;
+  object-fit: cover;
+}
+
+.contents-text p:nth-child(1) {
+  color: var(--text-color, #333);
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.contents-text p:nth-child(2) {
+  color: var(--whitebutton-text-color, #767676);
+  font-size: 1.6rem;
+}
+
+/* 가격 영역 */
+.price {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--text-color, #333);
+}
+
+/* 버튼 영역 */
+.btn-edit,
+.btn-delete {
+  text-align: center;
+}
