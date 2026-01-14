@@ -1,0 +1,267 @@
+/* 헤더 기본 스타일 */
+.header {
+  width: 100%;
+  height: 90px;
+  background: white;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.10);
+  position: relative;
+}
+
+.header-container {
+  width: 1280px; /* 고정 너비 */
+  height: 100%;
+  margin: 0 auto; /* 중앙 정렬 */
+  display: flex;
+  justify-content: space-between; /* 양 끝 정렬 */
+  align-items: center;
+  padding: 0; /* padding 제거 */
+  gap: 0; /* gap도 제거 - space-between이 알아서 처리 */
+}
+
+/* ===== 왼쪽 그룹 (로고 + 검색창) ===== */
+.left-group {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* 로고와 검색창 사이 30px */
+  flex-shrink: 0; /* 크기 고정 */
+}
+
+/* 로고 영역 */
+.logo-wrapper {
+  width: 124px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* 검색바 영역 */
+.search-wrapper {
+  flex-shrink: 0;
+}
+
+.search-container {
+  width: 400px;
+  height: 46px;
+  background: white;
+  border-radius: 50px;
+  border: 2px solid #21BF48;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  position: relative;
+}
+
+.search-input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #767676;
+  font-size: 1.6rem; /* 16px */
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 400;
+  padding-right: 40px;
+}
+
+.search-input::placeholder {
+  color: #767676;
+}
+
+.search-button {
+  position: absolute;
+  right: 20px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* ===== 오른쪽 그룹 (장바구니 + 마이페이지) ===== */
+.right-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* 크기 고정 */
+}
+
+/* 네비게이션 영역 */
+.nav-wrapper {
+  display: flex;
+  gap: 26px; /* 장바구니와 마이페이지 사이 26px */
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.nav-item:hover {
+  opacity: 0.8;
+}
+
+.icon-wrapper {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-wrapper logo-shop,
+.icon-wrapper logo-shopgr,
+.icon-wrapper logo-user,
+.icon-wrapper logo-usergr {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  transition: opacity 0.2s;
+}
+
+/* 기본 상태 - 기본 아이콘 표시 */
+.icon-wrapper .icon-default {
+  opacity: 1;
+}
+
+.icon-wrapper .icon-active {
+  opacity: 0;
+}
+
+/* active 상태 - 활성화 아이콘 표시 */
+.nav-item.active .icon-wrapper .icon-default {
+  opacity: 0;
+}
+
+.nav-item.active .icon-wrapper .icon-active {
+  opacity: 1;
+}
+
+/* hover 상태에서도 active 아이콘 표시 */
+.nav-item:hover .icon-wrapper .icon-default {
+  opacity: 0;
+}
+
+.nav-item:hover .icon-wrapper .icon-active {
+  opacity: 1;
+}
+
+/* active 상태에서 hover 시 아이콘 유지 */
+.nav-item.active:hover .icon-wrapper .icon-default {
+  opacity: 0;
+}
+
+.nav-item.active:hover .icon-wrapper .icon-active {
+  opacity: 1;
+}
+
+.nav-text {
+  color: #767676;
+  font-size: 1.2rem; /* 12px */
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 400;
+  line-height: 1.4rem; /* 14px */
+  text-align: center;
+}
+
+/* active 상태일 때 텍스트 색상 변경 */
+.nav-item.active .nav-text {
+  color: #21BF48;
+  font-weight: 500;
+}
+
+/* ===== 반응형 처리 ===== */
+/* 1280px 이하 - 컨테이너 너비를 화면에 맞춤 */
+@media (max-width: 1280px) {
+  .header-container {
+    width: 100%;
+    padding: 0 50px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header-container {
+    padding: 0 20px;
+  }
+  
+  .left-group {
+    gap: 20px; /* 로고와 검색창 간격 줄이기 */
+  }
+  
+  .search-container {
+    width: 320px;
+  }
+  
+  .nav-wrapper {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: 70px;
+  }
+  
+  .header-container {
+    padding: 0 20px;
+  }
+  
+  .left-group {
+    gap: 10px;
+  }
+  
+  .search-container {
+    width: 250px;
+    height: 40px;
+  }
+  
+  .search-input {
+    font-size: 1.4rem; /* 14px */
+  }
+  
+  .search-button,
+  .search-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .icon-wrapper {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .icon-wrapper logo-shop,
+  .icon-wrapper logo-shopgr,
+  .icon-wrapper logo-user,
+  .icon-wrapper logo-usergr {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .nav-text {
+    font-size: 1rem; /* 10px */
+  }
+  
+  .nav-wrapper {
+    gap: 12px;
+  }
+}
