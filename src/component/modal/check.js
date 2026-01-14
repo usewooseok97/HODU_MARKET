@@ -36,41 +36,39 @@ class Modal extends HTMLElement {
       this.innerHTML = ''
       return
     }
+    const cancelText = this.getAttribute('cancel-text') ?? '취소'
+    const confirmText = this.getAttribute('confirm-text') ?? '확인'
 
     this.innerHTML = `
-      <div class="modal-overlay">
-        <div class="modal-container">
-          <!-- 오른쪽 위 X 버튼 -->
-          <button class="modal-close" aria-label="닫기">
-            <logo-delete></logo-delete>
-          </button>
+    <div class="modal-overlay">
+      <div class="modal-container">
+        <button class="modal-close" aria-label="닫기">
+          <logo-delete></logo-delete>
+        </button>
 
-          <!-- 내용 영역 -->
-          <div class="modal-content">
-            <div class="modal-message">
-              ${this.message || '상품을 삭제하시겠습니까?'}
-            </div>
-          </div>
-
-          <!-- 하단 버튼 -->
-          <div class="modal-buttons">
-            <button-small 
-              class="modal-cancel-btn" 
-              text="아니오" 
-              variant="white"
-              width="100px"
-            ></button-small>
-
-            <button-small 
-              class="modal-confirm-btn" 
-              text="예"
-              width="100px"
-            ></button-small>
+        <div class="modal-content">
+          <div class="modal-message">
+            ${this.message || ''}
           </div>
         </div>
-      </div>
-    `
 
+        <div class="modal-buttons">
+          <button-small
+            class="modal-cancel-btn"
+            text="${cancelText}"
+            variant="white"
+            width="100px"
+          ></button-small>
+
+          <button-small
+            class="modal-confirm-btn"
+            text="${confirmText}"
+            width="100px"
+          ></button-small>
+        </div>
+      </div>
+    </div>
+  `
     this.loadStyles()
   }
 
