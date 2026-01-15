@@ -1,4 +1,4 @@
-class UserComponent extends HTMLElement {
+class AccountIconComponent extends HTMLElement {
   connectedCallback() {
     this.render()
     this.loadStyles()
@@ -6,7 +6,10 @@ class UserComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <a href="/src/pages/mypage/index.html" class="user"></a>
+      <span class="account-icon">
+        <span class="account-icon__default"></span>
+        <span class="account-icon__active"></span>
+      </span>
     `
   }
 
@@ -20,4 +23,4 @@ class UserComponent extends HTMLElement {
   }
 }
 
-customElements.define('logo-user', UserComponent)
+customElements.define('logo-account', AccountIconComponent)

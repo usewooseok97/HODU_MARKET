@@ -6,7 +6,7 @@ class UserGrComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <a href="" class="user-gr"></a>
+      <a href="/src/pages/mypage/index.html" class="user-gr"></a>
     `
   }
 

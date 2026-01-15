@@ -1,4 +1,4 @@
-class UserComponent extends HTMLElement {
+class CartIconComponent extends HTMLElement {
   connectedCallback() {
     this.render()
     this.loadStyles()
@@ -6,7 +6,10 @@ class UserComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <a href="/src/pages/mypage/index.html" class="user"></a>
+      <span class="cart-icon">
+        <span class="cart-icon__default"></span>
+        <span class="cart-icon__active"></span>
+      </span>
     `
   }
 
@@ -20,4 +23,4 @@ class UserComponent extends HTMLElement {
   }
 }
 
-customElements.define('logo-user', UserComponent)
+customElements.define('logo-cart', CartIconComponent)
