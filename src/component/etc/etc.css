@@ -6,10 +6,10 @@ etc-checkbox {
 
 .check-text {
   position: relative;
-  width: 480px;
+  width: 100%;
   min-height: 20px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
 }
 
@@ -77,11 +77,10 @@ etc-checkbox {
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  color: #000000;
+  color: #767676;
   cursor: pointer;
   user-select: none;
-  display: flex;
-  align-items: center;
+  display: block;
 }
 .check-label:focus {
   outline: 2px solid #21BF48;
@@ -89,6 +88,10 @@ etc-checkbox {
 }
 .check-label:hover {
   color: #333333;
+}
+.check-label strong {
+  font-weight: 700;
+  text-decoration: underline;
 }
 .check-label a {
   color: inherit;
@@ -104,7 +107,7 @@ etc-checkbox {
   font-weight: 700;
 }
 .check-text.variant-default .check-label {
-  color: #000000;
+  color: #767676;
   font-weight: 400;
 }
 .check-text.variant-emphasis .check-label {

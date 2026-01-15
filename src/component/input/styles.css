@@ -73,30 +73,42 @@
 .ps-box {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .ps-text {
   font-size: 1.6rem;
-  color: var(--button-darkcolor);
-  font-weight: 500;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  color: var(--text-color);
+  font-weight: 400;
+}
+
+.ps-input-wrapper {
+  position: relative;
+  width: 100%;
 }
 
 .ps-input {
   width: 100%;
   height: 54px;
-  padding: 0 16px;
+  padding: 0 50px 0 16px;
   font-size: 1.6rem;
   border: 1px solid var(--disabled-color);
   border-radius: 4px;
   outline: none;
-  transition: all 0.3s;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
 }
 
 .ps-input:focus {
-  border: 2px solid var(--input-success-color);
+  border: 1px solid var(--input-success-color);
+}
+
+.ps-input.success {
+  border: 1px solid var(--input-success-color);
+}
+
+.ps-input.error {
+  border: 1px solid var(--input-error-color);
 }
 
 .ps-input::placeholder {
@@ -120,21 +132,68 @@
   background-color: rgba(0, 255, 0, 0.05);
 }
 
-.ps-input--success:focus {
-  border: 2px solid var(--input-success-color);
+/* 비밀번호 상태 아이콘 */
+.ps-status-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
 }
 
-.ps-input--dark {
-  background: #333;
-  color: white;
-  border: 2px solid #666;
+.ps-status-icon.success {
+  display: flex;
+  background: var(--input-success-color);
 }
 
-.ps-input--dark:focus {
-  border: 2px solid #21bf48;
+.ps-status-icon.success::after {
+  content: '';
+  width: 12px;
+  height: 6px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg);
+  margin-bottom: 2px;
 }
 
-/* Item Name Input Styles */
+.ps-status-icon.error {
+  display: flex;
+  background: var(--input-error-color);
+  opacity: 0.5;
+}
+
+.ps-status-icon.error::after {
+  content: '';
+  width: 12px;
+  height: 6px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg);
+  margin-bottom: 2px;
+}
+
+/* 비밀번호 메시지 */
+.ps-message {
+  font-size: 1.6rem;
+  margin: 0;
+  display: none;
+}
+
+.ps-message.success {
+  color: var(--input-success-color);
+  display: block;
+}
+
+.ps-message.error {
+  color: var(--input-error-color);
+  display: block;
+}
+
 .item-box {
   height: 84px;
   display: flex;
@@ -281,36 +340,21 @@
   border: 2px solid var(--input-success-color);
   border-right: none;
 }
-
-.price-input--dark {
-  background: #333;
-  color: white;
-  border: 2px solid #666;
-  border-right: none;
-}
-
-.price-input--dark:focus {
-  border: 2px solid #21bf48;
-  border-right: none;
-}
-
-/* Check Input Styles */
-.check-box {
-  max-width: 480px;
+/* ===== idcheck 컴포넌트 스타일 ===== */
+.idcheck-box {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 30px;
 }
 
-.check-label {
+.idcheck-label {
   font-size: 1.6rem;
-  color: var(--button-darkcolor);
-  font-weight: 500;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  color: var(--text-color);
+  font-weight: 400;
 }
 
-.check-input {
+.idcheck-input {
   width: 100%;
   height: 54px;
   padding: 0 16px;
@@ -318,69 +362,50 @@
   border: 1px solid var(--disabled-color);
   border-radius: 4px;
   outline: none;
-  transition: all 0.3s;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
 }
 
-.check-input::placeholder {
+.idcheck-input:focus {
+  border: 1px solid var(--input-success-color);
+}
+
+.idcheck-input.error {
+  border: 1px solid var(--input-error-color);
+}
+
+.idcheck-input.error:focus {
+  border: 2px solid var(--input-error-color);
+}
+
+.idcheck-input.success {
+  border: 1px solid var(--input-success-color);
+}
+
+.idcheck-input.success:focus {
+  border: 2px solid var(--input-success-color);
+}
+
+.idcheck-input::placeholder {
   font-size: 1.6rem;
   color: var(--text-color);
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
-/* Check Input Variants */
-.check-input--error {
-  border: 2px solid var(--input-error-color);
-  background-color: rgba(255, 0, 0, 0.05);
-}
-
-.check-input--error:focus {
-  border: 2px solid var(--input-error-color);
-}
-
-.check-input--success {
-  border: 2px solid var(--input-success-color);
-  background-color: rgba(0, 255, 0, 0.05);
-}
-
-.check-input--success:focus {
-  border: 2px solid var(--input-success-color);
-}
-
-.check-input--dark {
-  background: #333;
-  color: white;
-  border: 2px solid #666;
-}
-
-.check-input--dark:focus {
-  border: 2px solid #21bf48;
-}
-
-.message {
+.idcheck-message {
   font-size: 1.6rem;
-  margin-top: 5px;
+  margin: 0;
+  min-height: 0;
+}
+
+.idcheck-message:empty {
   display: none;
   font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
-.message.error {
+.idcheck-message.error {
   color: var(--input-error-color);
-  display: block;
 }
 
-.message.success {
+.idcheck-message.success {
   color: var(--input-success-color);
-  display: block;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .id-input,
-  .ps-input,
-  .item-input,
-  .price-input,
-  .check-input {
-    font-size: 1.4rem;
-  }
 }

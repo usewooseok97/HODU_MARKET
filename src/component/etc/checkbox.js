@@ -142,7 +142,7 @@ class EtcCheckbox extends HTMLElement {
     const value = this.getAttribute('value') || 'on'
     const variant = this.getAttribute('variant') || 'default'
 
-    if (this.$fallback) this.$fallback.textContent = text
+    if (this.$fallback) this.$fallback.innerHTML = text
 
     if (this.$input) {
       this.$input.checked = checked

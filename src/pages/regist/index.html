@@ -3,9 +3,167 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <meta name="description" content="회원가입 - HODU MARKET" />
+    <meta property="og:title" content="회원가입 | HODU MARKET" />
+    <meta property="og:description" content="호두마켓에 가입하세요" />
+    <title>회원가입 | HODU MARKET</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <div class="register-page">
+      <!-- 로고 -->
+      <div class="register-logo">
+        <logo-component width="238px"></logo-component>
+      </div>
+
+      <!-- 회원 유형 선택 탭 -->
+      <div class="register-tabs">
+        <button-tab 
+          class="register-tab" 
+          text="구매회원가입" 
+          id="buyerTab" 
+          active
+        ></button-tab>
+        <button-tab 
+          class="register-tab" 
+          text="판매회원가입" 
+          id="sellerTab"
+        ></button-tab>
+      </div>
+
+      <!-- 회원가입 폼 -->
+      <div class="register-container">
+        <form class="register-form" id="registerForm">
+          <!-- 아이디 -->
+          <div class="form-group">
+            <div class="input-with-button">
+              <input-idcheck
+                id="username"
+                name="username"
+                label="아이디"
+                placeholder=""
+              ></input-idcheck>
+              <div class="check-button">
+                <button-ms16p
+                  id="checkUsernameBtn"
+                  text="중복확인"
+                  variant="green"
+                  width="122px"
+                ></button-ms16p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 비밀번호 -->
+          <div class="form-group">
+            <input-password
+              id="password"
+              name="password"
+              label="비밀번호"
+            ></input-password>
+          </div>
+
+          <!-- 비밀번호 재확인 -->
+          <div class="form-group">
+            <input-password
+              id="passwordConfirm"
+              name="passwordConfirm"
+              label="비밀번호 재확인"
+            ></input-password>
+          </div>
+
+          <!-- 이름 -->
+          <div class="form-group">
+            <input-idcheck
+              id="name"
+              name="name"
+              label="이름"
+              placeholder=""
+            ></input-idcheck>
+          </div>
+
+          <!-- 휴대폰번호 -->
+          <div class="form-group">
+            <div class="phone-group">
+              <label class="phone-label">휴대폰번호</label>
+              <div class="phone-inputs">
+                <div class="phone-dropdown">
+                  <etc-num-dropdown id="phonePrefix"></etc-num-dropdown>
+                </div>
+                <div class="phone-input-wrapper">
+                  <input-idcheck
+                    id="phoneMiddle"
+                    name="phoneMiddle"
+                    hide-label
+                  ></input-idcheck>
+                </div>
+                <div class="phone-input-wrapper">
+                  <input-idcheck
+                    id="phoneLast"
+                    name="phoneLast"
+                    hide-label
+                  ></input-idcheck>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 판매자 전용 필드 -->
+          <div class="seller-fields" id="sellerFields" style="display: none;">
+            <!-- 사업자 등록번호 -->
+            <div class="form-group">
+              <div class="input-with-button">
+                <input-idcheck
+                  id="businessNumber"
+                  name="businessNumber"
+                  label="사업자 등록번호"
+                  placeholder="-없이 숫자만 입력"
+                ></input-idcheck>
+                <div class="check-button">
+                  <button-ms16p
+                    id="checkBusinessBtn"
+                    text="인증"
+                    variant="green"
+                    width="122px"
+                  ></button-ms16p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 스토어 이름 -->
+            <div class="form-group">
+              <input-idcheck
+                id="storeName"
+                name="storeName"
+                label="스토어 이름"
+                placeholder=""
+              ></input-idcheck>
+            </div>
+          </div>
+
+          <!-- 약관 동의 체크박스 -->
+          <div class="form-group checkbox-group">
+            <etc-checkbox
+              id="agreeTerms"
+              name="agreeTerms"
+              text="호두샵의 <strong>이용약관</strong> 및 <strong>개인정보처리방침</strong>에 대한 내용을 확인하였고 동의합니다."
+            ></etc-checkbox>
+          </div>
+
+          <!-- 가입하기 버튼 -->
+          <div class="form-group submit-group">
+            <button-medium
+              id="submitBtn"
+              text="가입하기"
+              type="submit"
+              width="480px"
+              disabled
+            ></button-medium>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script type="module" src="./main.js"></script>
   </body>
 </html>
