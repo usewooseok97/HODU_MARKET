@@ -81,21 +81,48 @@ export const handleSignupSubmit = (formElement) => {
     e.preventDefault()
 
     try {
-      // FormData 수집
-      // eslint-disable-next-line no-undef
-      const formData = new FormData(formElement)
-      const userData = Object.fromEntries(formData)
+      // 웹 컴포넌트에서 직접 값 가져오기
+      const username = document.getElementById('username')?.getValue() || ''
+      const password = document.getElementById('password')?.getValue() || ''
+      const name = document.getElementById('name')?.getValue() || ''
 
-      // userType 추출
-      const userType = userData.userType
+      // 전화번호 조합
+      const phonePrefix =
+        document.getElementById('phonePrefix')?.getValue() || '010'
+      const phoneMiddle =
+        document.getElementById('phoneMiddle')?.getValue() || ''
+      const phoneLast = document.getElementById('phoneLast')?.getValue() || ''
+      const phone_number = `${phonePrefix}${phoneMiddle}${phoneLast}`
+
+      // 판매자 여부 확인 (탭 활성화 상태로 확인)
+      const sellerTab = document.getElementById('sellerTab')
+      const isSeller = sellerTab?.hasAttribute('active')
 
       let result
-      if (userType === 'buyer') {
-        result = await signupBuyer(userData)
-      } else if (userType === 'seller') {
-        result = await signupSeller(userData)
+      if (isSeller) {
+        // 판매자 회원가입
+        const storeName = document.getElementById('storeName')?.getValue() || ''
+        const businessNumber =
+          document.getElementById('businessNumber')?.getValue() || ''
+
+        const sellerData = {
+          username,
+          password,
+          name,
+          phone_number,
+          store_name: storeName,
+          company_registration_number: businessNumber,
+        }
+        result = await signupSeller(sellerData)
       } else {
-        throw new Error('Invalid user type')
+        // 구매자 회원가입
+        const buyerData = {
+          username,
+          password,
+          name,
+          phone_number,
+        }
+        result = await signupBuyer(buyerData)
       }
 
       showValidation('회원가입이 완료되었습니다!', false)
@@ -109,15 +136,33 @@ export const handleSignupSubmit = (formElement) => {
       // API 에러 메시지 추출
       let errorMessage = '회원가입에 실패했습니다.'
 
-      if (error.response) {
-        // 서버에서 반환한 에러 메시지 사용
-        const errorData = await error.response.json()
-        if (errorData.error) {
-          errorMessage = errorData.error
-        } else if (typeof errorData === 'object') {
-          // 필드별 에러 메시지 처리
-          const errors = Object.values(errorData).flat()
-          errorMessage = errors.join(', ')
+      if (error.data && typeof error.data === 'object') {
+        // 필드별 에러 메시지 처리
+        const fieldErrors = error.data
+        const errorMessages = []
+
+        // 필드별 에러 메시지를 입력 필드에 표시
+        if (fieldErrors.username) {
+          const usernameInput = document.getElementById('username')
+          usernameInput?.setMessage(fieldErrors.username[0], 'error')
+          errorMessages.push(fieldErrors.username[0])
+        }
+        if (fieldErrors.password) {
+          const passwordInput = document.getElementById('password')
+          passwordInput?.setStatus('error', fieldErrors.password[0])
+          errorMessages.push(fieldErrors.password[0])
+        }
+        if (fieldErrors.name) {
+          const nameInput = document.getElementById('name')
+          nameInput?.setMessage(fieldErrors.name[0], 'error')
+          errorMessages.push(fieldErrors.name[0])
+        }
+        if (fieldErrors.phone_number) {
+          errorMessages.push(fieldErrors.phone_number[0])
+        }
+
+        if (errorMessages.length > 0) {
+          errorMessage = errorMessages.join(', ')
         }
       } else if (error.message) {
         errorMessage = error.message
