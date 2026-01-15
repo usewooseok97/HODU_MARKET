@@ -1,41 +1,39 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HODU Login</title>
-  <link rel="stylesheet" href="/src/pages/login/style.css" />
-</head>
-<body>
-<div class="login">
-  <div class="icon">  
-  <logo-component></logo-component>
-  </div>
-  <div class="login-box">
-  <h1 class="title">로그인</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HODU Login</title>
+    <link rel="stylesheet" href="/src/pages/login/style.css" />
+  </head>
+  <body>
+    <div class="login">
+      <div class="icon">
+        <logo-component></logo-component>
+      </div>
+      <div class="login-box">
+        <h1 class="title">로그인</h1>
 
-  <form class="login-form" action="#" method="post">
-    <input-id></input-id>
-    <input-id placeholder="비밀번호"></input-id>
-    <button-medium text="로그인"></button-medium>
-  </form>
-</div>
+        <form class="login-form" action="#" method="post">
+          <input-id></input-id>
+          <input-id type="password" placeholder="비밀번호"></input-id>
+          <button-medium text="로그인"></button-medium>
+        </form>
+      </div>
 
-    <nav class="links" aria-label="계정 관련 링크">
-      <a class="link" href="#">회원가입</a>
-      <span class="divider" aria-hidden="true">|</span>
-      <a class="link" href="#">비밀번호 찾기</a>
-    </nav>
-</div>
+      <nav class="links" aria-label="계정 관련 링크">
+        <a class="link" href="#">회원가입</a>
+        <span class="divider" aria-hidden="true">|</span>
+        <a class="link" href="#">비밀번호 찾기</a>
+      </nav>
+    </div>
 
-  <!-- body 끝에 추가 -->
-<script type="module" src="/src/component/logo/component.js"></script>
-<!-- body 끝에 추가 -->
-<script type="module" src="/src/component/input/id.js"></script>
-<script type="module" src="/src/component/input/password.js"></script>
-<!-- body 끝에 추가 -->
-<script type="module" src="/src/component/button/medium.js"></script>
-
-
-</body>
+    <!-- body 끝에 추가 -->
+    <script type="module" src="/src/component/logo/component.js"></script>
+    <!-- body 끝에 추가 -->
+    <script type="module" src="/src/component/input/id.js"></script>
+    <script type="module" src="/src/component/input/password.js"></script>
+    <!-- body 끝에 추가 -->
+    <script type="module" src="/src/component/button/medium.js"></script>
+  </body>
 </html>
