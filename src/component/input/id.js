@@ -16,7 +16,7 @@ class IdInput extends HTMLElement {
   }
 
   loadStyles() {
-    if (!document.querySelector('link[href*="styles.css"]')) {
+    if (!document.querySelector('link[href*="/src/component/input/styles.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = '/src/component/input/styles.css'
@@ -49,7 +49,7 @@ class PasswordInput extends HTMLElement {
   }
 
   loadStyles() {
-    if (!document.querySelector('link[href*="styles.css"]')) {
+    if (!document.querySelector('link[href*="/src/component/input/styles.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = '/src/component/input/styles.css'
@@ -89,7 +89,7 @@ class ItemNameInput extends HTMLElement {
   }
 
   loadStyles() {
-    if (!document.querySelector('link[href*="styles.css"]')) {
+    if (!document.querySelector('link[href*="/src/component/input/styles.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = '/src/component/input/styles.css'
@@ -132,7 +132,7 @@ class PriceInput extends HTMLElement {
   }
 
   loadStyles() {
-    if (!document.querySelector('link[href*="styles.css"]')) {
+    if (!document.querySelector('link[href*="/src/component/input/styles.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = '/src/component/input/styles.css'
@@ -178,7 +178,7 @@ class IdCheckInput extends HTMLElement {
   }
 
   loadStyles() {
-    if (!document.querySelector('link[href*="styles.css"]')) {
+    if (!document.querySelector('link[href*="/src/component/input/styles.css"]')) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = '/src/component/input/styles.css'

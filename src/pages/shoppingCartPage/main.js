@@ -96,13 +96,13 @@ function renderCart() {
 function showEmptyCart() {
   emptyCartEl.classList.add('show')
   cartItemsListEl.innerHTML = ''
-  // paymentSectionEl.classList.remove('show') // 주석 처리: 항상 표시
+  paymentSectionEl.classList.remove('show') // 결제 정보 숨김
 }
 
 // ===== 장바구니 아이템 표시 =====
 function showCartItems() {
   emptyCartEl.classList.remove('show')
-  // paymentSectionEl.classList.add('show') // 주석 처리: 항상 표시
+  paymentSectionEl.classList.add('show') // 결제 정보 표시
 
   // 기존 아이템 제거
   cartItemsListEl.innerHTML = ''
@@ -214,7 +214,7 @@ function setupCartItemEvents(cartItem, item) {
   }
 
   // 개별 체크박스 이벤트
-  const checkbox = cartItem.querySelector('.cart-checkbox')
+  const checkbox = cartItem.querySelector('.cart-checkbox-input')
   if (checkbox) {
     checkbox.addEventListener('change', () => {
       calculateTotalPrice()
@@ -236,11 +236,21 @@ function setupCartItemEvents(cartItem, item) {
 // ===== 전체 선택 체크박스 설정 =====
 function setupSelectAllCheckbox() {
   const selectAllCheckbox = document.getElementById('select-all')
-  if (!selectAllCheckbox) return
+  if (!selectAllCheckbox) {
+    console.warn('전체 선택 체크박스를 찾을 수 없습니다.')
+    return
+  }
 
-  selectAllCheckbox.addEventListener('change', (e) => {
+  // 기존 이벤트 리스너 제거 (중복 방지)
+  const newCheckbox = selectAllCheckbox.cloneNode(true)
+  selectAllCheckbox.parentNode.replaceChild(newCheckbox, selectAllCheckbox)
+
+  // 새로운 이벤트 리스너 추가
+  newCheckbox.addEventListener('change', (e) => {
     const isChecked = e.target.checked
-    const itemCheckboxes = cartItemsListEl.querySelectorAll('.cart-checkbox')
+    const itemCheckboxes = cartItemsListEl.querySelectorAll('.cart-checkbox-input')
+
+    console.log(`전체 선택: ${isChecked}, 아이템 수: ${itemCheckboxes.length}`)
 
     itemCheckboxes.forEach((checkbox) => {
       checkbox.checked = isChecked
@@ -248,6 +258,8 @@ function setupSelectAllCheckbox() {
 
     calculateTotalPrice()
   })
+
+  console.log('전체 선택 체크박스 이벤트 설정 완료')
 }
 
 // ===== 전체 선택 체크박스 상태 업데이트 =====
@@ -256,7 +268,7 @@ function updateSelectAllCheckbox() {
   if (!selectAllCheckbox) return
 
   const itemCheckboxes = Array.from(
-    cartItemsListEl.querySelectorAll('.cart-checkbox')
+    cartItemsListEl.querySelectorAll('.cart-checkbox-input')
   )
   const allChecked =
     itemCheckboxes.length > 0 && itemCheckboxes.every((cb) => cb.checked)
@@ -270,7 +282,7 @@ function calculateTotalPrice() {
 
   // 체크된 아이템만 계산
   const checkedItems = cartItemsListEl.querySelectorAll(
-    '.cart-checkbox:checked'
+    '.cart-checkbox-input:checked'
   )
 
   checkedItems.forEach((checkbox) => {
@@ -293,7 +305,7 @@ function calculateTotalPrice() {
 if (orderButton) {
   orderButton.addEventListener('button-click', () => {
     const checkedItems = cartItemsListEl.querySelectorAll(
-      '.cart-checkbox:checked'
+      '.cart-checkbox-input:checked'
     )
 
     if (checkedItems.length === 0) {
@@ -327,25 +339,17 @@ function showDeleteModal(item, cartItemElement) {
     return
   }
 
-  console.log('모달 열기 시도:', modal)
+  console.log('모달 열기:', item)
 
-  // 모달 열기
-  modal.setAttribute('open', '')
-
-  // 모든 이벤트 감지 (디버깅용)
-  modal.addEventListener('click', (e) => {
-    console.log('모달 클릭 이벤트:', e)
-  })
-
-  // 확인 버튼 이벤트 (한 번만 실행되도록)
-  const handleConfirm = (e) => {
-    console.log('✅ 확인 버튼 클릭 감지!', e)
-    console.log(`상품 ${item.id} 삭제 확인`)
+  // 확인 버튼 핸들러
+  const handleConfirm = () => {
+    console.log('✅ 확인 버튼 클릭! 상품 삭제:', item.id)
 
     // 아이템 삭제
     const index = cartItems.findIndex((i) => i.id === item.id)
     if (index > -1) {
       cartItems.splice(index, 1)
+      console.log('아이템 삭제 완료. 남은 아이템:', cartItems.length)
     }
 
     // 재렌더링
@@ -355,31 +359,31 @@ function showDeleteModal(item, cartItemElement) {
     // deleteCartItem(item.id)
 
     // 이벤트 리스너 제거
-    modal.removeEventListener('modal-confirm', handleConfirm)
-    modal.removeEventListener('modal-cancel', handleCancel)
-    modal.removeEventListener('confirm', handleConfirm)
-    modal.removeEventListener('cancel', handleCancel)
+    cleanup()
   }
 
-  // 취소 버튼 이벤트
-  const handleCancel = (e) => {
-    console.log('❌ 취소 버튼 클릭 감지!', e)
-    console.log('삭제 취소')
-
-    // 이벤트 리스너 제거
-    modal.removeEventListener('modal-confirm', handleConfirm)
-    modal.removeEventListener('modal-cancel', handleCancel)
-    modal.removeEventListener('confirm', handleConfirm)
-    modal.removeEventListener('cancel', handleCancel)
+  // 취소 버튼 핸들러
+  const handleCancel = () => {
+    console.log('❌ 취소 버튼 클릭! 삭제 취소')
+    cleanup()
   }
 
-  // 여러 가능한 이벤트 이름 시도
+  // 이벤트 리스너 정리 함수
+  const cleanup = () => {
+    modal.removeEventListener('modal-confirm', handleConfirm)
+    modal.removeEventListener('modal-cancel', handleCancel)
+  }
+
+  // 이벤트 리스너 등록
   modal.addEventListener('modal-confirm', handleConfirm, { once: true })
   modal.addEventListener('modal-cancel', handleCancel, { once: true })
-  modal.addEventListener('confirm', handleConfirm, { once: true })
-  modal.addEventListener('cancel', handleCancel, { once: true })
 
   console.log('이벤트 리스너 등록 완료')
+
+  // 모달 열기 (이벤트 리스너 등록 후)
+  modal.setAttribute('open', '')
+
+  console.log('모달 open 속성 설정 완료')
 }
 
 // ===== 헤더 장바구니 아이콘 활성화 =====

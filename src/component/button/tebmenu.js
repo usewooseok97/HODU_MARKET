@@ -6,17 +6,19 @@ class TebMenuButton extends HTMLElement {
   }
 
   render() {
-    const text = this.getAttribute('text') || '판매중인 상품(3)'
-    const count = this.getAttribute('count') || '1'
+    const text = this.getAttribute('text') || '판매중인 상품'
+    const count = this.getAttribute('count') || 0
     const active = this.hasAttribute('active')
     const type = this.getAttribute('type') || 'button'
 
     const buttonClass = active ? 'teb-menu teb-menu--active' : 'teb-menu'
+    const isCountValid = count !== 0 && count !== '0'
+    const displayText = isCountValid ? `${text}(${count})` : text
 
     this.innerHTML = `
       <button class="${buttonClass}" type="${type}">
-        <span class="teb-menu__text">${text}</span>
-        <span class="teb-menu__badge">${count}</span>
+        <span class="teb-menu__text">${displayText}</span>
+        <span class="teb-menu__badge" style="display: ${isCountValid ? 'inline-block' : 'none'}">${isCountValid ? count : ''}</span>
       </button>
     `
   }
@@ -68,8 +70,15 @@ class TebMenuButton extends HTMLElement {
 
   setCount(count) {
     const badgeEl = this.querySelector('.teb-menu__badge')
+    const textEl = this.querySelector('.teb-menu__text')
     if (badgeEl) {
-      badgeEl.textContent = count
+      const isCountValid = count !== 0 && count !== '0'
+      const text = this.getAttribute('text') || '판매중인 상품'
+      badgeEl.textContent = isCountValid ? count : ''
+      badgeEl.style.display = isCountValid ? 'inline-block' : 'none'
+      if (textEl) {
+        textEl.textContent = isCountValid ? `${text}(${count})` : text
+      }
       this.setAttribute('count', count)
     }
   }
@@ -95,8 +104,15 @@ class TebMenuButton extends HTMLElement {
       }
     } else if (name === 'count') {
       const badgeEl = this.querySelector('.teb-menu__badge')
-      if (badgeEl && newValue !== null) {
-        badgeEl.textContent = newValue
+      const textEl = this.querySelector('.teb-menu__text')
+      if (badgeEl) {
+        const isCountValid = newValue !== 0 && newValue !== '0'
+        const text = this.getAttribute('text') || '판매중인 상품'
+        badgeEl.textContent = isCountValid ? newValue : ''
+        badgeEl.style.display = isCountValid ? 'inline-block' : 'none'
+        if (textEl) {
+          textEl.textContent = isCountValid ? `${text}(${newValue})` : text
+        }
       }
     }
   }
