@@ -9,6 +9,8 @@ class ItemNameInput extends HTMLElement {
   }
 
   render() {
+    const name = this.getAttribute('name') || ''
+    const nameAttr = name ? `name="${name}"` : ''
     const variant = this.getAttribute('variant') || 'default'
 
     let inputClass = 'item-input'
@@ -30,6 +32,7 @@ class ItemNameInput extends HTMLElement {
             class="${inputClass}"
             placeholder="상품명을 입력해주세요."
             maxlength="50"
+            ${nameAttr}
           />
           <span class="char-count">
             <span id="currentCount">0</span>/50
@@ -59,7 +62,9 @@ class ItemNameInput extends HTMLElement {
   }
 
   loadStyles() {
-    if (!document.querySelector('link[href*="/src/component/input/styles.css"]')) {
+    if (
+      !document.querySelector('link[href*="/src/component/input/styles.css"]')
+    ) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = '/src/component/input/styles.css'

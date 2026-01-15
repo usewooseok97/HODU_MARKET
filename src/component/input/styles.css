@@ -136,6 +136,7 @@
 
 /* Item Name Input Styles */
 .item-box {
+  height: 84px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -212,7 +213,6 @@
 
 /* Price Input Styles */
 .price-box {
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   gap: 8px;

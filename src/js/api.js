@@ -81,3 +81,26 @@ export const postRequest = async (endpoint, data) => {
     throw error
   }
 }
+
+/**
+ * FormData POST 요청을 보내는 유틸리티 함수 (파일 업로드용)
+ * @param {string} endpoint - API 엔드포인트 경로
+ * @param {FormData} formData - 전송할 FormData
+ * @param {string} token - 인증 토큰
+ * @returns {Promise<object>} - 응답 데이터
+ */
+export const postFormDataRequest = async (endpoint, formData, token) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    })
+    return await handleResponse(response)
+  } catch (error) {
+    console.error('FormData POST 요청 실패:', error)
+    throw error
+  }
+}

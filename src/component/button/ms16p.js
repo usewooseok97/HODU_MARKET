@@ -43,10 +43,11 @@ class MS16pButton extends HTMLElement {
     if (!button) return
 
     button.addEventListener('click', (e) => {
+      const value = this.getAttribute('value') || ''
       this.dispatchEvent(
         new CustomEvent('button-click', {
           bubbles: true,
-          detail: { originalEvent: e },
+          detail: { originalEvent: e, value },
         })
       )
     })
