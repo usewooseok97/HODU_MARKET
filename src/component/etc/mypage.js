@@ -55,15 +55,13 @@ class MypageDropdown extends HTMLElement {
   }
 
   handleLogout() {
-    // 토큰 삭제
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
+    // 토큰 및 사용자 정보 삭제
+    localStorage.removeItem('auth_token')
+    localStorage.removeItem('refresh_token')
+    localStorage.removeItem('user_type')
 
-    // 필요하면 사용자 정보도 정리
-    localStorage.removeItem('user')
-
-    // 로그인 페이지나 메인으로 이동
-    window.location.href = '/login.html'
+    // 로그인 페이지로 이동
+    window.location.href = '/src/pages/login/index.html'
   }
 
   loadStyles() {

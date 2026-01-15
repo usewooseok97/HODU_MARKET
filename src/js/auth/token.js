@@ -3,6 +3,7 @@ import { postRequest } from '../api.js'
 // localStorage 키 상수
 const TOKEN_KEY = 'auth_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
+const USER_TYPE_KEY = 'user_type'
 
 export const saveToken = (accessToken, refreshToken) => {
   localStorage.setItem(TOKEN_KEY, accessToken)
@@ -17,9 +18,24 @@ export const getRefreshToken = () => {
   return localStorage.getItem(REFRESH_TOKEN_KEY)
 }
 
+export const saveUserType = (userType) => {
+  if (userType === 'BUYER' || userType === 'SELLER') {
+    localStorage.setItem(USER_TYPE_KEY, userType)
+  }
+}
+
+export const getUserType = () => {
+  return localStorage.getItem(USER_TYPE_KEY)
+}
+
+export const removeUserType = () => {
+  localStorage.removeItem(USER_TYPE_KEY)
+}
+
 export const removeTokens = () => {
   localStorage.removeItem(TOKEN_KEY)
   localStorage.removeItem(REFRESH_TOKEN_KEY)
+  removeUserType()
 }
 
 /**
