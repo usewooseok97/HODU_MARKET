@@ -1,1 +1,223 @@
-@import url('./assets/styles/recommendReset.css');
+/* ===================================
+   메인 슬라이드 스타일
+   =================================== */
+
+/* 슬라이드 섹션 전체 영역 */
+.slider-section {
+  width: 100%;
+  margin-bottom: 80px; /* 하단 여백 */
+}
+
+/* 슬라이드 컨테이너 - 전체를 감싸는 영역 */
+.slider-container {
+  position: relative; /* 버튼과 인디케이터의 기준점 */
+  width: 100%;
+  max-width: 1920px; /* 최대 너비 1920px */
+  margin: 0 auto; /* 가운데 정렬 */
+  height: 500px; /* 슬라이드 높이 */
+  overflow: hidden; /* 넘치는 부분 숨김 */
+  background-color: #f2f2f2; /* 배경색 (이미지 로딩 전 보이는 색) */
+}
+
+/* 슬라이드를 감싸는 wrapper */
+.slider-wrapper {
+  position: relative;
+  width: 100%; /* 전체 너비 */
+  height: 100%; /* 전체 높이 */
+}
+
+/* 각각의 슬라이드 */
+.slide {
+  position: absolute; /* 절대 위치 지정 - 모든 슬라이드가 같은 위치에 겹쳐짐 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* 기본적으로 투명하게 숨김 */
+  transition: opacity 0.5s ease-in-out; /* 페이드 효과를 위한 전환 */
+  z-index: 1; /* 쌓임 순서 */
+}
+
+/* 활성화된 슬라이드만 보이게 */
+.slide.active {
+  opacity: 1; /* 불투명하게 표시 */
+  z-index: 2; /* 다른 슬라이드보다 위에 배치 */
+}
+
+/* 슬라이드 내부의 이미지 */
+.slide img {
+  width: 100%; /* 너비를 컨테이너에 맞춤 */
+  height: 100%; /* 높이를 컨테이너에 맞춤 */
+  object-fit: cover; /* 비율 유지하면서 영역 채우기 */
+  display: block; /* 이미지 하단 여백 제거 */
+}
+
+/* 이전/다음 버튼 공통 스타일 */
+.slider-btn {
+  position: absolute; /* 절대 위치 지정 */
+  top: 50%; /* 수직 중앙 */
+  transform: translateY(-50%); /* 정확한 중앙 정렬 */
+  width: 100px; /* 버튼 영역 너비 (불투명 영역) */
+  height: 100px; /* 버튼 영역 높이 (불투명 영역) */
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0) 100%
+  ); /* 왼쪽에서 오른쪽으로 그라데이션 (이전 버튼용) */
+  border: none; /* 테두리 제거 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+  display: flex; /* flexbox 사용 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  z-index: 10; /* 슬라이드 위에 표시 */
+  transition: opacity 0.3s ease; /* 투명도 전환 효과 */
+}
+
+/* 버튼 hover 효과 */
+.slider-btn:hover {
+  opacity: 0.8; /* hover 시 살짝 불투명하게 */
+}
+
+/* 이전 버튼 위치 */
+.prev-btn {
+  left: 0; /* 왼쪽 끝에 배치 */
+  background: linear-gradient(
+    to right,
+    rgba(122, 122, 122, 0.5) 70%
+  ); /* 왼쪽이 진하고 오른쪽으로 투명해지는 그라데이션 */
+  justify-content: flex-start; /* 아이콘을 왼쪽 정렬 */
+  padding-left: 20px; /* 아이콘 왼쪽 여백 */
+  height: 100%;
+}
+
+/* 다음 버튼 위치 */
+.next-btn {
+  right: 0; /* 오른쪽 끝에 배치 */
+  background: linear-gradient(
+    to left,
+    rgba(122, 122, 122, 0.5) 70%
+  ); /* 오른쪽이 진하고 왼쪽으로 투명해지는 그라데이션 */
+  justify-content: flex-end; /* 아이콘을 오른쪽 정렬 */
+  padding-right: 20px; /* 아이콘 오른쪽 여백 */
+  height: 100%;
+}
+
+/* 버튼 내부 이미지 */
+.slider-btn img {
+  width: 60px; /* 아이콘 너비 - 크게 */
+  height: 124px; /* 아이콘 높이 - 크게 */
+  display: block; /* 이미지 하단 여백 제거 */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); /* 아이콘에 그림자 효과 */
+}
+
+/* 슬라이드 인디케이터 영역 */
+.slider-indicators {
+  position: absolute; /* 절대 위치 지정 */
+  bottom: 30px; /* 하단에서 30px */
+  left: 50%; /* 수평 중앙 */
+  transform: translateX(-50%); /* 정확한 중앙 정렬 */
+  display: flex; /* flexbox 사용 */
+  gap: 12px; /* 점 사이 간격 */
+  z-index: 10; /* 슬라이드 위에 표시 */
+}
+
+/* 각각의 인디케이터 점 */
+.indicator {
+  width: 12px; /* 점 너비 */
+  height: 12px; /* 점 높이 */
+  border-radius: 50%; /* 원형으로 만들기 */
+  background-color: rgba(255, 255, 255, 0.5); /* 반투명 흰색 */
+  border: none; /* 테두리 제거 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+  padding: 0; /* 내부 여백 제거 */
+  transition: all 0.3s ease; /* 모든 속성 전환 효과 */
+}
+
+/* 인디케이터 hover 효과 */
+.indicator:hover {
+  background-color: rgba(255, 255, 255, 0.8); /* 좀 더 불투명하게 */
+  transform: scale(1.1); /* 살짝 크게 */
+}
+
+/* 활성화된 인디케이터 */
+.indicator.active {
+  background-color: #21bf48; /* 호두 마켓 메인 컬러 (초록색) */
+  width: 32px; /* 너비를 늘려서 타원형으로 */
+  border-radius: 6px; /* 둥근 모서리 */
+}
+
+/* 반응형 디자인 - 태블릿 */
+@media (max-width: 768px) {
+  /* 슬라이드 높이 줄이기 */
+  .slider-container {
+    height: 400px;
+  }
+
+  /* 버튼 크기 줄이기 */
+  .slider-btn {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* 이전 버튼 패딩 조정 */
+  .prev-btn {
+    padding-left: 15px;
+  }
+
+  /* 다음 버튼 패딩 조정 */
+  .next-btn {
+    padding-right: 15px;
+  }
+
+  /* 버튼 아이콘 크기 줄이기 */
+  .slider-btn img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* 반응형 디자인 - 모바일 */
+@media (max-width: 480px) {
+  /* 슬라이드 높이 더 줄이기 */
+  .slider-container {
+    height: 300px;
+  }
+
+  /* 버튼 더 작게 */
+  .slider-btn {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* 이전 버튼 패딩 조정 */
+  .prev-btn {
+    padding-left: 10px;
+  }
+
+  /* 다음 버튼 패딩 조정 */
+  .next-btn {
+    padding-right: 10px;
+  }
+
+  /* 버튼 아이콘 더 작게 */
+  .slider-btn img {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* 인디케이터 크기 조정 */
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+
+  .indicator.active {
+    width: 28px;
+  }
+
+  /* 인디케이터 위치 조정 */
+  .slider-indicators {
+    bottom: 20px;
+    gap: 8px;
+  }
+}

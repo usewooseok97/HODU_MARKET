@@ -1,4 +1,8 @@
 class IdCheckInput extends HTMLElement {
+  static get observedAttributes() {
+    return ['variant']
+  }
+
   connectedCallback() {
     this.render()
     this.attachEventListeners()
@@ -21,8 +25,27 @@ class IdCheckInput extends HTMLElement {
     this.loadStyles()
   }
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'variant' && oldValue !== newValue) {
+      const input = this.querySelector('#id-check')
+      if (input) {
+        input.className = 'check-input'
+
+        if (newValue === 'error') {
+          input.classList.add('check-input--error')
+        } else if (newValue === 'success') {
+          input.classList.add('check-input--success')
+        } else if (newValue === 'dark') {
+          input.classList.add('check-input--dark')
+        }
+      }
+    }
+  }
+
   loadStyles() {
-    if (!document.querySelector('link[href*="/src/component/input/styles.css"]')) {
+    if (
+      !document.querySelector('link[href*="/src/component/input/styles.css"]')
+    ) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = '/src/component/input/styles.css'
