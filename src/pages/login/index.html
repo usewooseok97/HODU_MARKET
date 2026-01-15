@@ -11,6 +11,7 @@
 
     <!-- 1) 로고 -->
     <header class="logo-area">
+      <logo-component></logo-component>
     </header>
     
     <!-- 2) 로그인 카드 -->
@@ -18,16 +19,17 @@
       <h1 class="title">로그인</h1>
 
       <!-- 입력 + 버튼을 한 묶음으로 -->
-      <div class="form-box">
-        <div class="inputs">
-          <input-idcheck></input-idcheck>
-          <input-password></input-password>
-        </div>
+<form class="form-box">
+  <div class="inputs">
+    <input-id></input-id>
+    <input-password></input-password>
+  </div>
 
-        <div class="submit-area">
-          <button-medium text="로그인"></button-medium>
-        </div>
-      </div>
+  <div class="submit-area">
+    <button-medium text="로그인"></button-medium>
+  </div>
+</form>
+
     </section>
 
     <!-- 3) 하단 링크 -->
@@ -36,7 +38,15 @@
       <span class="divider" aria-hidden="true">|</span>
       <a class="link" href="#">비밀번호 찾기</a>
     </nav>
-
   </main>
+  <!-- body 끝에 추가 -->
+<script type="module" src="/src/component/logo/component.js"></script>
+<!-- body 끝에 추가 -->
+<script type="module" src="/src/component/input/id.js"></script>
+<script type="module" src="/src/component/input/password.js"></script>
+<!-- body 끝에 추가 -->
+<script type="module" src="/src/component/button/medium.js"></script>
+
+
 </body>
 </html>

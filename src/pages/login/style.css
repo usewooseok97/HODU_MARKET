@@ -14,38 +14,27 @@ body {
   color: #111111;
 }
 
-/* 2) 페이지 전체 레이아웃 (가운데 정렬) */
+/* 페이지 전체 레이아웃 (가운데 정렬) */
 .page {
   min-height: 100vh;
 
-  /* 세로로 쌓기 + 가운데 정렬 */
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  /* 화면 가장자리 여백 */
   padding: 72px 16px 48px;
-
-  /* 요소들 사이 간격 */
   gap: 28px;
 }
 
-/* 3) 로고 영역 */
+/* 로고 영역(컨테이너만) */
 .logo-area {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* 로고 아래 공간(시안 느낌) */
   margin-bottom: 8px;
 }
 
-/* 커스텀 태그는 기본 inline처럼 동작할 수 있어 block 처리 */
-.logo-area > logo-imgicon {
-  display: block;
-}
-
-/* 4) 카드 박스 (테두리/둥근 모서리/여백) */
+/* 카드 박스 */
 .card {
   width: 100%;
   max-width: 920px;
@@ -57,50 +46,37 @@ body {
   padding: 34px 48px 32px;
 }
 
-/* 5) 제목 */
+/* 제목 */
 .title {
   margin: 0 0 26px;
   text-align: center;
 
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
-/* 6) 카드 내부 묶음 */
+/* 카드 내부 묶음 */
 .form-box {
   display: flex;
   flex-direction: column;
   gap: 22px;
 }
 
-/* 입력 컴포넌트들을 세로로 배치 */
+/* 입력 영역(컨테이너만) */
 .inputs {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* 컴포넌트 크기(폭)만 맞추기: 내부 디자인은 컴포넌트가 담당 */
-.inputs > input-idcheck,
-.inputs > input-password {
-  display: block;
-  width: 100%;
-}
-
-/* 7) 버튼 영역 */
+/* 버튼 영역(컨테이너만) */
 .submit-area {
   margin-top: 10px;
   display: flex;
   justify-content: center;
 }
 
-/* 버튼 컴포넌트 폭만 맞추기(내부 색/높이 등은 컴포넌트 CSS가 담당) */
-.submit-area > button-medium {
-  display: block;
-  width: 100%;
-}
-
-/* 8) 하단 링크 */
+/* 하단 링크 */
 .links {
   display: flex;
   align-items: center;
@@ -122,7 +98,7 @@ body {
   color: #777777;
 }
 
-/* 9) 모바일 대응 (좁을 때 여백/글씨 크기 줄이기) */
+/* 모바일 대응 */
 @media (max-width: 600px) {
   .page {
     padding: 56px 16px 40px;
