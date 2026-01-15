@@ -96,13 +96,13 @@ function renderCart() {
 function showEmptyCart() {
   emptyCartEl.classList.add('show')
   cartItemsListEl.innerHTML = ''
-  // paymentSectionEl.classList.remove('show') // 주석 처리: 항상 표시
+  paymentSectionEl.classList.remove('show') // 결제 정보 숨김
 }
 
 // ===== 장바구니 아이템 표시 =====
 function showCartItems() {
   emptyCartEl.classList.remove('show')
-  // paymentSectionEl.classList.add('show') // 주석 처리: 항상 표시
+  paymentSectionEl.classList.add('show') // 결제 정보 표시
 
   // 기존 아이템 제거
   cartItemsListEl.innerHTML = ''
