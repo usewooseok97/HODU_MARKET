@@ -3,9 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <title>판매자 센터 - HODU</title>
+    <meta
+      name="description"
+      content="HODU 판매자 센터에서 상품을 관리하고 판매 현황을 확인하세요"
+    />
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <header-seller></header-seller>
+    <main>
+      <section class="dashboard-title">
+        <div>
+          <h1>대시보드</h1>
+          <span class="seller-name">백엔드글로벌</span>
+        </div>
+        <button-msicon width="168px"></button-msicon>
+      </section>
+      <div class="content-wrapper">
+        <aside class="sidebar">
+          <h2 class="sr-only">판매자 메뉴</h2>
+          <nav>
+            <button-tebmenu></button-tebmenu>
+            <button-tebmenu text="주문/배송"></button-tebmenu>
+            <button-tebmenu text="문의/리뷰"></button-tebmenu>
+            <button-tebmenu text="통계"></button-tebmenu>
+            <button-tebmenu text="스토어 설정"></button-tebmenu>
+          </nav>
+        </aside>
+        <section class="product-table">
+          <h2 class="sr-only">상품 목록</h2>
+          <sellercart-header></sellercart-header>
+          <sellercart-list></sellercart-list>
+        </section>
+      </div>
+    </main>
+    <bottom-footer></bottom-footer>
     <script type="module" src="./main.js"></script>
   </body>
 </html>
