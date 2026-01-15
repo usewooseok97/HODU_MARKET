@@ -1,0 +1,120 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  background: #ffffff;
+  color: #111111;
+}
+
+/* 페이지 전체 레이아웃 (가운데 정렬) */
+.page {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 72px 16px 48px;
+  gap: 28px;
+}
+
+/* 로고 영역(컨테이너만) */
+.logo-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* 카드 박스 */
+.card {
+  width: 100%;
+  max-width: 920px;
+
+  background: #ffffff;
+  border: 1px solid #cfcfcf;
+  border-radius: 14px;
+
+  padding: 34px 48px 32px;
+}
+
+/* 제목 */
+.title {
+  margin: 0 0 26px;
+  text-align: center;
+
+  font-size: 32px;
+  font-weight: 400;
+}
+
+/* 카드 내부 묶음 */
+.form-box {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* 입력 영역(컨테이너만) */
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* 버튼 영역(컨테이너만) */
+.submit-area {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+/* 하단 링크 */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.link {
+  text-decoration: none;
+  color: #333333;
+  font-size: 18px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.divider {
+  color: #777777;
+}
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+  .page {
+    padding: 56px 16px 40px;
+    gap: 22px;
+  }
+
+  .card {
+    padding: 26px 18px 22px;
+  }
+
+  .title {
+    font-size: 26px;
+    margin-bottom: 22px;
+  }
+
+  .link {
+    font-size: 16px;
+  }
+}
