@@ -1,0 +1,125 @@
+/* 호스트 태그 */
+etc-amountcounter {
+  display: inline-block;
+}
+
+/* 전체 컨테이너: 150px x 50px */
+.amount-counter {
+  position: relative;
+  width: 150px;
+  height: 50px;
+  background: #FFFFFF;
+  border: 1px solid #C4C4C4;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+/* 버튼 공통 스타일 */
+.amount-btn {
+  position: relative;
+  width: 48px;
+  height: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease;
+}
+
+/* 버튼 hover 효과 */
+.amount-btn:hover:not(:disabled) {
+  background: #E0E0E0;
+}
+
+/* 버튼 active 효과 */
+.amount-btn:active:not(:disabled) {
+  background: #D0D0D0;
+}
+
+/* 버튼 비활성화 */
+.amount-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* 가운데 숫자 영역: 52px */
+.amount-display {
+  position: relative;
+  width: 52px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-left: 1px solid #C4C4C4;
+  border-right: 1px solid #C4C4C4;
+  background: #FFFFFF;
+}
+
+/* 숫자 텍스트 */
+.amount-value {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: #000000;
+  user-select: none;
+}
+
+/* 아이콘 컨테이너 */
+.icon-minus,
+.icon-plus {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* 마이너스 아이콘: 가로선 */
+.minus-line {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  left: 0;
+  top: 9px;
+  background: #C4C4C4;
+  display: block;
+}
+
+.amount-btn:disabled .minus-line {
+  background: #F2F2F2;
+}
+
+/* 플러스 아이콘: 가로선 */
+.plus-horizontal {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  left: 0;
+  top: 9px;
+  background: #C4C4C4;
+  display: block;
+}
+
+/* 플러스 아이콘: 세로선 */
+.plus-vertical {
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  left: 9px;
+  top: 0;
+  background: #C4C4C4;
+  display: block;
+}
+
+.amount-btn:disabled .plus-horizontal,
+.amount-btn:disabled .plus-vertical {
+  background: #F2F2F2;
+}

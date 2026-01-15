@@ -91,8 +91,8 @@ etc-checkbox {
   color: #333333;
 }
 .check-label a {
-  color: inherit;                 /* variant 톤 유지 */
-  text-decoration: underline;     /* 링크는 밑줄이 자연스러움 */
+  color: inherit;
+  text-decoration: underline;
   cursor: pointer;
 }
 .check-label a:focus {
@@ -111,125 +111,9 @@ etc-checkbox {
   color: #767676;
 }
 
-/* 반응형 처리 */
 @media (max-width: 768px) {
   .check-text {
     width: 100%;
     max-width: 480px;
   }
 }
-/* src/component/etc/etc.css */
-        .amount-counter {
-          box-sizing: border-box;
-          position: relative;
-          width: 150px;
-          height: 50px;
-          background: #FFFFFF;
-          border: 1px solid #C4C4C4;
-          border-radius: 5px;
-          display: flex;
-          align-items: center;
-        }
-
-        .amount-btn {
-          position: relative;
-          width: 48px;
-          height: 100%;
-          background: transparent;
-          border: none;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0;
-          transition: background-color 0.2s ease;
-        }
-
-        .amount-btn:hover:not(:disabled) {
-          background: #f5f5f5;
-        }
-
-        .amount-btn:active:not(:disabled) {
-          background: #ebebeb;
-        }
-
-        .amount-btn:disabled {
-          cursor: not-allowed;
-          background: #E0E0E0;
-        }
-
-        .amount-btn.minus {
-          border-radius: 5px 0 0 5px;
-        }
-
-        .amount-btn.plus {
-          border-radius: 0 5px 5px 0;
-        }
-
-        .amount-display {
-          flex: 1;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-left: 1px solid #C4C4C4;
-          border-right: 1px solid #C4C4C4;
-        }
-
-        .amount-value {
-          font-family: 'Spoqa Han Sans Neo', sans-serif;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 18px;
-          line-height: 23px;
-          color: #000000;
-          user-select: none;
-        }
-
-        .icon-minus-line,
-        .icon-plus-line {
-          position: relative;
-          width: 20px;
-          height: 20px;
-          display: block;
-        }
-
-        .vector-1 {
-          position: absolute;
-          width: 20px;
-          height: 2px;
-          left: 0;
-          top: 9px;
-          background: #C4C4C4;
-          display: block;
-        }
-
-        .amount-btn:disabled .vector-1 {
-          background: #F2F2F2;
-        }
-
-        .vector-2 {
-          position: absolute;
-          width: 20px;
-          height: 2px;
-          left: 0;
-          top: 9px;
-          background: #C4C4C4;
-          display: block;
-        }
-
-        .vector-3 {
-          position: absolute;
-          width: 2px;
-          height: 20px;
-          left: 9px;
-          top: 0;
-          background: #C4C4C4;
-          display: block;
-        }
-
-        .amount-btn:disabled .vector-2,
-        .amount-btn:disabled .vector-3 {
-          background: #F2F2F2;
-        }
-

@@ -1,0 +1,239 @@
+@import url('../../assets/styles/recommendReset.css');
+
+/* ===== 메인 컨테이너 ===== */
+.cart-main {
+  width: 100%;
+  min-height: calc(100vh - 170px); /* 헤더(170px) 제외 */
+  padding: 54px 0 180px;
+  background: white;
+}
+
+.cart-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ===== 페이지 타이틀 ===== */
+.cart-title {
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 4.4rem;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+/* ===== 장바구니 헤더 컴포넌트 ===== */
+shoppingcart-header {
+  display: block;
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+/* ===== 빈 장바구니 상태 ===== */
+.empty-cart {
+  display: none; /* 기본적으로 숨김 */
+  text-align: center;
+  padding: 200px 0;
+}
+
+.empty-cart.show {
+  display: block;
+}
+
+.empty-cart-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 17px;
+}
+
+.empty-cart-subtitle {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #767676;
+}
+
+/* ===== 장바구니 아이템 리스트 ===== */
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 80px;
+  width: 100%;
+}
+
+/* ===== 결제 정보 섹션 ===== */
+.payment-section {
+  display: none; /* 기본적으로 숨김 */
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 40px;
+}
+
+.payment-section.show {
+  display: flex;
+}
+
+/* 결제 정보 박스 */
+.payment-info {
+  width: 100%;
+  height: 150px;
+  background: #F2F2F2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+}
+
+/* 결제 항목 */
+.payment-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.payment-label {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #000000;
+  text-align: center;
+}
+
+.payment-value {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.payment-amount {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+.payment-unit {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #000000;
+}
+
+/* 결제 예정 금액 (강조) */
+.payment-total {
+  gap: 4px;
+}
+
+.payment-label-total {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #000000;
+  text-align: center;
+}
+
+.payment-value-total {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.payment-amount-total {
+  font-size: 3.6rem;
+  font-weight: 700;
+  color: #EB5757;
+}
+
+.payment-unit-total {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #EB5757;
+}
+
+/* 구분선 (원형) */
+.payment-divider {
+  width: 34px;
+  height: 34px;
+  background: white;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-divider img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* 주문하기 버튼 */
+.order-button {
+  width: 220px;
+  height: 68px;
+  background: #21BF48;
+  border-radius: 5px;
+  border: none;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.order-button:hover {
+  background: #1ea53f;
+}
+
+.order-button:active {
+  background: #1a8f36;
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 1280px) {
+  .cart-container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-main {
+    padding: 40px 0 100px;
+  }
+
+  .cart-title {
+    font-size: 2.4rem;
+    margin-bottom: 30px;
+  }
+
+  .payment-info {
+    flex-direction: column;
+    height: auto;
+    padding: 30px 20px;
+    gap: 20px;
+  }
+
+  .payment-divider {
+    display: none;
+  }
+
+  .payment-item {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .order-button {
+    width: 100%;
+  }
+
+  .empty-cart {
+    padding: 100px 0;
+  }
+}

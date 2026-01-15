@@ -6,7 +6,7 @@ class ShopComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <a href="" class="shop"></a>
+       <a href="/src/pages/shoppingCartPage/index.html" class="shop"></a>
     `
   }
 

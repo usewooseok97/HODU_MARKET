@@ -44,22 +44,18 @@ class Header extends HTMLElement {
           <div class="right-group">
             <nav class="nav-wrapper">
               <!-- 장바구니 -->
-              <a href="#" class="nav-item cart-link" data-nav="cart">
                 <div class="icon-wrapper">
                   <logo-shop class="icon-default"></logo-shop>
                   <logo-shopgr class="icon-active"></logo-shopgr>
                 </div>
                 <span class="nav-text">장바구니</span>
-              </a>
 
               <!-- 마이페이지 -->
-              <a href="#" class="nav-item mypage-link" data-nav="mypage">
                 <div class="icon-wrapper">
                   <logo-user class="icon-default"></logo-user>
                   <logo-usergr class="icon-active"></logo-usergr>
                 </div>
                 <span class="nav-text">마이페이지</span>
-              </a>
             </nav>
           </div>
         </div>
