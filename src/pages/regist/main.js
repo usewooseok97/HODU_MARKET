@@ -2,6 +2,7 @@
 
 import {
   validateUsername,
+  validatePhoneNumber,
   validateRegistrationNumber,
   handleSignupSubmit,
 } from '@/js/auth/signup'
@@ -22,11 +23,34 @@ const form = document.getElementById('registerForm')
 
 // 상태 관리
 let isUsernameValid = false
+let isUsernameFormatValid = false // 아이디 형식 유효성
 let isPasswordValid = false
 let isPasswordMatch = false
 let isTermsAgreed = false
 let isBusinessValid = false
+let isPhoneValid = false // 전화번호 중복 검사 유효성
 let isSeller = false
+
+// 아이디 형식 검사 (20자 이내, 영문 대소문자/숫자만)
+function validateUsernameFormat(username) {
+  if (!username) return { valid: false, message: '' }
+  if (username.length > 20) {
+    return { valid: false, message: '20자 이내의 영문 소문자, 대문자, 숫자만 사용가능합니다.' }
+  }
+  const validPattern = /^[a-zA-Z0-9]+$/
+  if (!validPattern.test(username)) {
+    return { valid: false, message: '20자 이내의 영문 소문자, 대문자, 숫자만 사용가능합니다.' }
+  }
+  return { valid: true, message: '' }
+}
+
+// 아이디 필수 입력 체크 (다른 필드 입력 시 호출)
+function checkUsernameRequired() {
+  const username = usernameInput?.getValue() || ''
+  if (!username) {
+    usernameInput?.setMessage('필수 정보입니다.', 'error')
+  }
+}
 
 // 탭 전환 처리
 function handleTabClick(e) {
@@ -58,11 +82,19 @@ sellerTab?.addEventListener('click', handleTabClick)
 usernameInput?.addEventListener('input-change', (e) => {
   const value = e.detail.value
   if (value.length >= 1) {
-    // 입력 중에는 메시지 숨김
-    usernameInput.setMessage('', '')
-    isUsernameValid = false
+    // 아이디 형식 검사
+    const formatResult = validateUsernameFormat(value)
+    if (!formatResult.valid && formatResult.message) {
+      usernameInput.setMessage(formatResult.message, 'error')
+      isUsernameFormatValid = false
+    } else {
+      usernameInput.setMessage('', '')
+      isUsernameFormatValid = true
+    }
+    isUsernameValid = false // 중복확인 버튼을 눌러야 유효
   } else {
     usernameInput.setMessage('', '')
+    isUsernameFormatValid = false
     isUsernameValid = false
   }
   updateSubmitButton()
@@ -73,6 +105,15 @@ checkUsernameBtn?.addEventListener('click', async () => {
   const username = usernameInput?.getValue()
   if (!username) {
     usernameInput?.setMessage('아이디를 입력해주세요.', 'error')
+    return
+  }
+
+  // 형식 검사 먼저 수행
+  const formatResult = validateUsernameFormat(username)
+  if (!formatResult.valid) {
+    usernameInput?.setMessage(formatResult.message, 'error')
+    isUsernameValid = false
+    updateSubmitButton()
     return
   }
 
@@ -87,17 +128,22 @@ checkUsernameBtn?.addEventListener('click', async () => {
   updateSubmitButton()
 })
 
-// 비밀번호 유효성 검사 (8자 이상, 영문+숫자 포함)
+// 비밀번호 유효성 검사 (8자 이상, 영문 대소문자+숫자+특수문자 포함)
 function validatePassword(password) {
   const hasMinLength = password.length >= 8
-  const hasLetter = /[a-zA-Z]/.test(password)
+  const hasLowerCase = /[a-z]/.test(password)
+  const hasUpperCase = /[A-Z]/.test(password)
   const hasNumber = /[0-9]/.test(password)
-  return hasMinLength && hasLetter && hasNumber
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+  return hasMinLength && hasLowerCase && hasUpperCase && hasNumber && hasSpecialChar
 }
 
 // 비밀번호 입력 이벤트
 passwordInput?.addEventListener('input-change', (e) => {
   const value = e.detail.value
+
+  // 아이디 필수 입력 체크
+  checkUsernameRequired()
 
   if (value.length === 0) {
     passwordInput.setStatus('', '')
@@ -106,7 +152,7 @@ passwordInput?.addEventListener('input-change', (e) => {
     passwordInput.setStatus('success', '')
     isPasswordValid = true
   } else {
-    passwordInput.setStatus('error', '8자 이상, 영문과 숫자를 포함해주세요.')
+    passwordInput.setStatus('error', '8자 이상, 영문 대소문자, 숫자, 특수문자를 사용하세요.')
     isPasswordValid = false
   }
 
@@ -117,6 +163,8 @@ passwordInput?.addEventListener('input-change', (e) => {
 
 // 비밀번호 재확인 입력 이벤트
 passwordConfirmInput?.addEventListener('input-change', () => {
+  // 아이디 필수 입력 체크
+  checkUsernameRequired()
   checkPasswordMatch()
   updateSubmitButton()
 })
@@ -178,6 +226,7 @@ function updateSubmitButton() {
     nameValue.length > 0 &&
     phoneMiddle.length === 4 &&
     phoneLast.length === 4 &&
+    isPhoneValid &&
     isTermsAgreed
 
   // 판매자인 경우 추가 검증
@@ -195,15 +244,57 @@ function updateSubmitButton() {
 
 // 이름 입력 이벤트
 nameInput?.addEventListener('input-change', () => {
+  // 아이디 필수 입력 체크
+  checkUsernameRequired()
   updateSubmitButton()
 })
 
+// 전화번호 중복 검사
+async function checkPhoneDuplicate() {
+  const phonePrefix = document.getElementById('phonePrefix')?.getValue() || '010'
+  const phoneMiddle = document.getElementById('phoneMiddle')?.getValue() || ''
+  const phoneLast = document.getElementById('phoneLast')?.getValue() || ''
+  const phoneMiddleInput = document.getElementById('phoneMiddle')
+
+  // 전화번호가 완성되지 않은 경우
+  if (phoneMiddle.length !== 4 || phoneLast.length !== 4) {
+    isPhoneValid = false
+    return
+  }
+
+  const phoneNumber = `${phonePrefix}${phoneMiddle}${phoneLast}`
+
+  try {
+    await validatePhoneNumber(phoneNumber)
+    phoneMiddleInput?.setMessage('', '')
+    isPhoneValid = true
+  } catch (error) {
+    phoneMiddleInput?.setMessage('해당 사용자 전화번호는 이미 존재합니다.', 'error')
+    isPhoneValid = false
+  }
+  updateSubmitButton()
+}
+
 // 휴대폰번호 입력 이벤트
 document.getElementById('phoneMiddle')?.addEventListener('input-change', () => {
+  // 아이디 필수 입력 체크
+  checkUsernameRequired()
+  // 전화번호 변경 시 중복 검사 상태 초기화 및 메시지 제거
+  isPhoneValid = false
+  document.getElementById('phoneMiddle')?.setMessage('', '')
   updateSubmitButton()
+  // 전화번호 완성 시 자동 중복 검사
+  checkPhoneDuplicate()
 })
 document.getElementById('phoneLast')?.addEventListener('input-change', () => {
+  // 아이디 필수 입력 체크
+  checkUsernameRequired()
+  // 전화번호 변경 시 중복 검사 상태 초기화
+  isPhoneValid = false
+  document.getElementById('phoneMiddle')?.setMessage('', '')
   updateSubmitButton()
+  // 전화번호 완성 시 자동 중복 검사
+  checkPhoneDuplicate()
 })
 
 // 스토어 이름 입력 이벤트

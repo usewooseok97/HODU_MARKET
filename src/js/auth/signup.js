@@ -48,6 +48,23 @@ export const validateUsername = async (username) => {
 }
 
 /**
+ * 전화번호 중복 검사
+ * @param {string} phoneNumber - 검증할 전화번호
+ * @returns {Promise<object>}
+ */
+export const validatePhoneNumber = async (phoneNumber) => {
+  try {
+    const data = await postRequest('accounts/validate-phone-number/', {
+      phone_number: phoneNumber,
+    })
+    return data
+  } catch (error) {
+    console.error('전화번호 검증 실패:', error)
+    throw error
+  }
+}
+
+/**
  * 사업자등록번호 검증
  * @param {string} registrationNumber - 사업자등록번호
  * @returns {Promise<object>}
@@ -158,7 +175,9 @@ export const handleSignupSubmit = (formElement) => {
           errorMessages.push(fieldErrors.name[0])
         }
         if (fieldErrors.phone_number) {
-          errorMessages.push(fieldErrors.phone_number[0])
+          const phoneMiddleInput = document.getElementById('phoneMiddle')
+          phoneMiddleInput?.setMessage('해당 사용자 전화번호는 이미 존재합니다.', 'error')
+          errorMessages.push('해당 사용자 전화번호는 이미 존재합니다.')
         }
 
         if (errorMessages.length > 0) {
