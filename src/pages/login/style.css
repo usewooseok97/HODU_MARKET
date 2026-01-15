@@ -8,7 +8,7 @@ body {
 }
 
 .login {
-  width: 1920px;          /* 조건 유지 */
+  width: 1920px;
   min-height: 100vh;
   margin: 0 auto;
 
@@ -16,11 +16,9 @@ body {
   flex-direction: column;
   align-items: center;
 
-  /* 로고가 화면 상단에 붙지 않게 */
   padding-top: 100px;
 }
 
-/* 로고 영역: 사진처럼 여백 넉넉히 */
 .icon {
   display: flex;
   justify-content: center;
@@ -32,17 +30,12 @@ body {
   display: block;
 }
 
-/* =========================
-   2) 카드(로그인 박스)
-   - 사진 기준: 박스 폭/패딩/테두리 미세 조정
-========================= */
 .login-box {
-  width: 560px;                 /* 550~580 사이가 가장 비슷 */
-  border: 1px solid #cfcfcf;    /* 사진처럼 너무 진하지 않게 */
+  width: 560px;
+  border: 1px solid #cfcfcf;
   border-radius: 10px;
   background: #fff;
 
-  /* 내부 여백: 좌우가 조금 더 넉넉한 느낌 */
   padding: 34px 58px 38px;
 
   display: flex;
@@ -50,7 +43,6 @@ body {
   align-items: center;
 }
 
-/* 타이틀: 사진처럼 중앙, 위/아래 간격 */
 .title {
   margin: 0 0 22px;
   text-align: center;
@@ -64,11 +56,9 @@ body {
   display: flex;
   flex-direction: column;
 
-  /* 입력 사이 + 버튼 위 간격 */
   gap: 18px;
 }
 
-/* 컴포넌트는 폭만 꽉 채우기 */
 .login-form input-id,
 .login-form input-password,
 .login-form button-medium {
@@ -76,7 +66,7 @@ body {
   width: 100%;
 }
 
-/* 버튼은 입력보다 조금 더 떨어져 보이게 */
+
 .login-form button-medium {
   margin-top: 10px;
 }
@@ -101,7 +91,7 @@ body {
   text-decoration: underline;
 }
 
-/* 구분선은 살짝 연하게 */
+
 .divider {
   color: #333;
   opacity: 0.65;
