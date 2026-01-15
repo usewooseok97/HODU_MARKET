@@ -1,5 +1,42 @@
 // 웹 컴포넌트는 vite-plugin-auto-components에서 자동으로 import됩니다
 
+// sessionStorage에서 바로 구매 상품 데이터 로드
+function loadOrderProduct() {
+  const orderProductListEl = document.getElementById('orderProductList')
+  if (!orderProductListEl) return
+
+  const orderProductData = sessionStorage.getItem('orderProduct')
+  if (!orderProductData) return
+
+  try {
+    const product = JSON.parse(orderProductData)
+
+    // 기존 하드코딩된 아이템 제거
+    orderProductListEl.innerHTML = ''
+
+    // 새 상품 아이템 생성
+    const paymentItem = document.createElement('payment-item')
+    paymentItem.setAttribute('product-id', product.id)
+    paymentItem.setAttribute('image', product.image)
+    paymentItem.setAttribute('seller', product.seller?.store_name || '')
+    paymentItem.setAttribute('name', product.name || product.info || '')
+    paymentItem.setAttribute('price', product.price)
+    paymentItem.setAttribute('quantity', product.quantity)
+    paymentItem.setAttribute('shipping', product.shipping_fee || 0)
+    paymentItem.setAttribute('discount', 0)
+
+    orderProductListEl.appendChild(paymentItem)
+
+    // 사용 후 sessionStorage 정리
+    sessionStorage.removeItem('orderProduct')
+  } catch (error) {
+    console.error('주문 상품 로드 실패:', error)
+  }
+}
+
+// 페이지 로드 시 주문 상품 로드
+loadOrderProduct()
+
 const orderProductListEl = document.getElementById('orderProductList')
 const totalOrderAmountEl = document.getElementById('totalOrderAmount')
 const agreementCheckEl = document.getElementById('agreementCheck')

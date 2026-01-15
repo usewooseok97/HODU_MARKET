@@ -3,6 +3,8 @@ import '@component/modal/check.js'
 import '@component/button/small.js'
 import '@component/logo/delete.js'
 import { getDetailProduct } from '/src/js/product/getdetailproduct.js'
+import { getAccessToken } from '/src/js/auth/token.js'
+import { addToCart } from '/src/js/cart/addToCart.js'
 
 // 현재 상품 데이터 저장
 let currentProduct = null
@@ -128,72 +130,55 @@ async function loadProductDetail() {
 // 페이지 로드 시 상품 데이터 로드
 loadProductDetail()
 
-// import {
-//   validateUsername,
-//   validateRegistrationNumber,
-//   handleSignupSubmit,
-// } from '@/js/auth/signup'
+// 로그인 상태 확인
+function isAuthenticated() {
+  return !!getAccessToken()
+}
 
-// // DOM 요소 선택 - ID 값만 변경하면 전체 동작 변경 가능
-// const form = document.getElementById('signupForm')
-// const userTypeRadios = document.querySelectorAll('input[name="userType"]')
-// const sellerFields = document.getElementById('sellerFields')
-// const checkUsernameBtn = document.getElementById('checkUsernameBtn')
-// const checkRegistrationBtn = document.getElementById('checkRegistrationBtn')
-// const usernameInput = document.getElementById('username')
-// const registrationNumberInput = document.getElementById(
-//   'company_registration_number'
-// )
+// 수량 가져오기
+function getQuantity() {
+  const counter = document.getElementById('productQuantity')
+  return parseInt(counter?.getAttribute('value') || '1')
+}
 
-// // 회원 유형 변경 처리
-// userTypeRadios.forEach((radio) => {
-//   radio.addEventListener('change', (e) => {
-//     const userType = e.target.value
-//     console.log('회원 유형 변경:', userType)
+// 바로 구매 버튼
+const buyNowBtn = document.getElementById('buyNowBtn')
+if (buyNowBtn) {
+  buyNowBtn.addEventListener('button-click', () => {
+    if (!isAuthenticated()) {
+      window.location.href = '/src/pages/login/index.html'
+      return
+    }
+    if (!currentProduct) return
 
-//     if (userType === 'seller') {
-//       sellerFields.style.display = 'block'
-//     } else {
-//       sellerFields.style.display = 'none'
-//     }
-//   })
-// })
+    // sessionStorage에 상품 데이터 저장
+    sessionStorage.setItem(
+      'orderProduct',
+      JSON.stringify({
+        ...currentProduct,
+        quantity: getQuantity(),
+      })
+    )
+    window.location.href = '/src/pages/Payment/index.html'
+  })
+}
 
-// // 아이디 중복 확인
-// checkUsernameBtn.addEventListener('click', async () => {
-//   const username = usernameInput.value
-//   if (!username) {
-//     alert('아이디를 입력해주세요.')
-//     return
-//   }
+// 장바구니 버튼
+const addToCartBtn = document.getElementById('addToCartBtn')
+if (addToCartBtn) {
+  addToCartBtn.addEventListener('button-click', async () => {
+    if (!isAuthenticated()) {
+      window.location.href = '/src/pages/login/index.html'
+      return
+    }
+    if (!currentProduct) return
 
-//   try {
-//     const result = await validateUsername(username)
-//     console.log('아이디 검증 결과:', result)
-//     alert('사용 가능한 아이디입니다.')
-//   } catch (error) {
-//     console.error('아이디 검증 실패:', error)
-//     alert('이미 사용 중인 아이디입니다.')
-//   }
-// })
-
-// // 사업자등록번호 검증
-// checkRegistrationBtn.addEventListener('click', async () => {
-//   const registrationNumber = registrationNumberInput.value
-//   if (!registrationNumber) {
-//     alert('사업자등록번호를 입력해주세요.')
-//     return
-//   }
-
-//   try {
-//     const result = await validateRegistrationNumber(registrationNumber)
-//     console.log('사업자등록번호 검증 결과:', result)
-//     alert('유효한 사업자등록번호입니다.')
-//   } catch (error) {
-//     console.error('사업자등록번호 검증 실패:', error)
-//     alert('유효하지 않은 사업자등록번호입니다.')
-//   }
-// })
-
-// // 회원가입 폼 제출
-// handleSignupSubmit(form)
+    try {
+      await addToCart(currentProduct.id, getQuantity())
+      alert('장바구니에 상품이 담겼습니다.')
+    } catch (error) {
+      console.error('장바구니 추가 실패:', error)
+      alert('장바구니 추가에 실패했습니다.')
+    }
+  })
+}
