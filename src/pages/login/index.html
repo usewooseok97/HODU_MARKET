@@ -15,17 +15,17 @@
         <h1 class="title">로그인</h1>
 
         <!-- ✅ id 추가 -->
-        <form id="loginForm" class="login-form" action="#" method="post">
+        <form id="loginForm" class="login-form" method="post">
           <!-- ✅ name 속성 추가 (컴포넌트가 자동으로 name="username" 생성) -->
           <input-id placeholder="아이디"></input-id>
 
-          <!-- ✅ name 속성 추가 (컴포넌트가 자동으로 name="password" 생성) -->
-          <input-id type="password" placeholder="비밀번호"></input-id>
+          <!-- ✅ name 속성 추가 -->
+          <input-id name="password" type="password" placeholder="비밀번호"></input-id>
 
           <!-- ✅ 에러 메시지 표시 영역 추가 -->
           <div class="validation-message" style="display: none"></div>
 
-          <button-medium text="로그인"></button-medium>
+          <button-medium type="submit" text="로그인"></button-medium>
         </form>
       </div>
 
@@ -36,12 +36,7 @@
       </nav>
     </div>
 
-    <!-- 컴포넌트 -->
-    <script type="module" src="/src/component/logo/component.js"></script>
-    <script type="module" src="/src/component/input/id.js"></script>
-    <script type="module" src="/src/component/button/medium.js"></script>
-
     <!-- ✅ 로그인 로직 추가 -->
-    <script type="module" src="/src/pages/login/main.js"></script>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>
