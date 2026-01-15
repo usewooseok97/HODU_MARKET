@@ -3,9 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <meta name="description" content="장바구니 - HODU MARKET" />
+    <meta property="og:title" content="장바구니 | HODU MARKET" />
+    <meta property="og:description" content="장바구니에 담긴 상품을 확인하세요" />
+    <title>장바구니 | HODU MARKET</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <!-- 헤더 -->
+    <header-search></header-search>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="cart-main">
+      <div class="cart-container">
+        <!-- 페이지 타이틀 -->
+        <h1 class="cart-title">장바구니</h1>
+
+        <!-- 장바구니 리스트 헤더 -->
+        <shoppingcart-header></shoppingcart-header>
+
+        <!-- 빈 장바구니 상태 (초기에는 숨김) -->
+        <div class="empty-cart" id="emptyCart">
+          <p class="empty-cart-title">장바구니에 담긴 상품이 없습니다.</p>
+          <p class="empty-cart-subtitle">원하는 상품을 장바구니에 담아보세요!</p>
+        </div>
+
+        <!-- 장바구니 아이템 리스트 -->
+        <div class="cart-items-list" id="cartItemsList">
+          <shoppingcart-item></shoppingcart-item>
+          <!-- 장바구니 아이템들이 여기에 동적으로 추가됩니다 -->
+        </div>
+
+        <!-- 결제 정보 섹션 (장바구니에 상품이 있을 때만 표시) -->
+        <section class="payment-section" id="paymentSection">
+          <!-- 결제 정보 박스 -->
+          <div class="payment-info">
+            <!-- 총 상품금액 -->
+            <div class="payment-item">
+              <span class="payment-label">총 상품금액</span>
+              <div class="payment-value">
+                <span class="payment-amount" id="totalProductPrice">0</span>
+                <span class="payment-unit">원</span>
+              </div>
+            </div>
+
+            <!-- 구분선 (원형) -->
+            <div class="payment-divider">
+              <img src="/src/assets/images/icon-minus-line.png" alt="minus" />
+            </div>
+
+            <!-- 상품 할인 -->
+            <div class="payment-item">
+              <span class="payment-label">상품 할인</span>
+              <div class="payment-value">
+                <span class="payment-amount">0</span>
+                <span class="payment-unit">원</span>
+              </div>
+            </div>
+
+            <!-- 구분선 (원형) -->
+            <div class="payment-divider">
+              <img src="/src/assets/images/icon-plus-line.png" alt="plus" />
+            </div>
+
+            <!-- 배송비 -->
+            <div class="payment-item">
+              <span class="payment-label">배송비</span>
+              <div class="payment-value">
+                <span class="payment-amount">0</span>
+                <span class="payment-unit">원</span>
+              </div>
+            </div>
+
+            <!-- 결제 예정 금액 -->
+            <div class="payment-item payment-total">
+              <span class="payment-label-total">결제 예정 금액</span>
+              <div class="payment-value-total">
+                <span class="payment-amount-total" id="totalPaymentPrice">0</span>
+                <span class="payment-unit-total">원</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 주문하기 버튼 -->
+          <button-large id="orderButton" text="주문하기" width="220px"></button-large>
+        </section>
+      </div>
+    </main>
+
+    <!-- 푸터 -->
+    <bottom-footer></bottom-footer>
+    
+    <!-- 삭제 확인 모달 -->
+    <modal-check 
+      id="deleteModal"
+      message="상품을 삭제하시겠습니까?" 
+      cancel-text="취소" 
+      confirm-text="확인">
+    </modal-check>
+
     <script type="module" src="./main.js"></script>
   </body>
 </html>

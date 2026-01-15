@@ -19,6 +19,10 @@
   padding: 18px 30px;
   text-align: center;
   font-size: 1.8rem;
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cart-col-check {

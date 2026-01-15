@@ -1,1 +1,474 @@
 // 웹 컴포넌트는 vite-plugin-auto-components에서 자동으로 import됩니다
+
+// ===== 임시 장바구니 데이터 =====
+const TEMP_CART_DATA = [
+  {
+    id: 1,
+    productId: 1,
+    image: '/src/assets/images/cart-Product-list.png',
+    seller: '백엔드글로벌',
+    productName: '딥러닝 개발자 무릎 담요',
+    price: 17500,
+    quantity: 1,
+    shipping: 0,
+    shippingMethod: '택배배송',
+  },
+  {
+    id: 2,
+    productId: 2,
+    image: '/src/assets/images/cart-Product-list.png',
+    seller: '우당탕탕 라이캣의 실험실',
+    productName: 'Hack Your Life 개발자 노트북 파우치',
+    price: 29000,
+    quantity: 1,
+    shipping: 0,
+    shippingMethod: '택배배송',
+  },
+  {
+    id: 3,
+    productId: 3,
+    image: '/src/assets/images/cart-Product-list.png',
+    seller: '코딩 마스터즈',
+    productName: 'JavaScript 마스터 강의 세트',
+    price: 49000,
+    quantity: 1,
+    shipping: 0,
+    shippingMethod: '택배배송',
+  },
+  {
+    id: 4,
+    productId: 4,
+    image: '/src/assets/images/cart-Product-list.png',
+    seller: '프론트엔드 스토어',
+    productName: 'React 개발자를 위한 키보드',
+    price: 89000,
+    quantity: 1,
+    shipping: 0,
+    shippingMethod: '택배배송',
+  },
+  {
+    id: 5,
+    productId: 5,
+    image: '/src/assets/images/cart-Product-list.png',
+    seller: '개발자 굿즈샵',
+    productName: 'VSCode 테마 스티커 팩',
+    price: 12000,
+    quantity: 1,
+    shipping: 0,
+    shippingMethod: '택배배송',
+  },
+]
+
+// ===== DOM 요소 선택 =====
+const emptyCartEl = document.getElementById('emptyCart')
+const cartItemsListEl = document.getElementById('cartItemsList')
+const paymentSectionEl = document.getElementById('paymentSection')
+const totalProductPriceEl = document.getElementById('totalProductPrice')
+const totalPaymentPriceEl = document.getElementById('totalPaymentPrice')
+const orderButton = document.getElementById('orderButton')
+
+// ===== 상태 관리 =====
+let cartItems = []
+
+// ===== 초기화 =====
+function init() {
+  // TODO: API에서 장바구니 데이터 가져오기
+  // cartItems = await fetchCartItems()
+
+  // 임시로 데이터 로드 - 상품이 있는 상태로 표시
+  cartItems = [...TEMP_CART_DATA]
+
+  renderCart()
+}
+
+// ===== 장바구니 렌더링 =====
+function renderCart() {
+  if (cartItems.length === 0) {
+    // 빈 장바구니 표시
+    showEmptyCart()
+  } else {
+    // 장바구니 아이템 표시
+    showCartItems()
+  }
+}
+
+// ===== 빈 장바구니 표시 =====
+function showEmptyCart() {
+  emptyCartEl.classList.add('show')
+  cartItemsListEl.innerHTML = ''
+  // paymentSectionEl.classList.remove('show') // 주석 처리: 항상 표시
+}
+
+// ===== 장바구니 아이템 표시 =====
+function showCartItems() {
+  emptyCartEl.classList.remove('show')
+  // paymentSectionEl.classList.add('show') // 주석 처리: 항상 표시
+
+  // 기존 아이템 제거
+  cartItemsListEl.innerHTML = ''
+
+  // 아이템 렌더링
+  cartItems.forEach((item) => {
+    const itemElement = createCartItem(item)
+    cartItemsListEl.appendChild(itemElement)
+  })
+
+  // 전체 선택 체크박스 이벤트
+  setupSelectAllCheckbox()
+
+  // 총 금액 계산
+  calculateTotalPrice()
+}
+
+// ===== 장바구니 아이템 생성 =====
+function createCartItem(item) {
+  const cartItem = document.createElement('shoppingcart-item')
+
+  // 데이터 속성 설정
+  cartItem.dataset.itemId = item.id
+  cartItem.dataset.productId = item.productId
+  cartItem.dataset.price = item.price
+
+  // 초기 수량 설정
+  cartItem.quantity = item.quantity
+
+  // 아이템이 렌더링된 후 데이터 업데이트
+  setTimeout(() => {
+    updateCartItemData(cartItem, item)
+    setupCartItemEvents(cartItem, item)
+  }, 0)
+
+  return cartItem
+}
+
+// ===== 장바구니 아이템 데이터 업데이트 =====
+function updateCartItemData(cartItem, item) {
+  // 이미지
+  const image = cartItem.querySelector('.cart-product-image')
+  if (image) image.src = item.image
+
+  // 판매자
+  const seller = cartItem.querySelector('.cart-seller')
+  if (seller) seller.textContent = item.seller
+
+  // 상품명
+  const productName = cartItem.querySelector('.cart-product-name')
+  if (productName) productName.textContent = item.productName
+
+  // 가격
+  const price = cartItem.querySelector('.cart-product-price')
+  if (price) price.textContent = `${item.price.toLocaleString('ko-KR')}원`
+
+  // 배송 정보
+  const shipping = cartItem.querySelector('.cart-shipping')
+  if (shipping) {
+    const shippingText =
+      item.shipping === 0
+        ? '무료배송'
+        : `${item.shipping.toLocaleString('ko-KR')}원`
+    shipping.textContent = `${item.shippingMethod} / ${shippingText}`
+  }
+
+  // 총 가격
+  updateItemTotalPrice(cartItem, item)
+}
+
+// ===== 아이템별 총 가격 업데이트 =====
+function updateItemTotalPrice(cartItem, item) {
+  const totalPrice = cartItem.querySelector('.cart-total-price')
+  if (totalPrice) {
+    const total = item.price * cartItem.quantity
+    totalPrice.textContent = `${total.toLocaleString('ko-KR')}원`
+  }
+}
+
+// ===== 장바구니 아이템 이벤트 설정 =====
+function setupCartItemEvents(cartItem, item) {
+  // 수량 변경 이벤트
+  cartItem.addEventListener('quantity-change', (e) => {
+    const newQuantity = e.detail.quantity
+    console.log(`상품 ${item.id} 수량 변경:`, newQuantity)
+
+    // 데이터 업데이트
+    item.quantity = newQuantity
+
+    // 아이템 총 가격 업데이트
+    updateItemTotalPrice(cartItem, item)
+
+    // 전체 총 금액 재계산
+    calculateTotalPrice()
+
+    // TODO: API 호출 - 장바구니 수량 업데이트
+    // updateCartItemQuantity(item.id, newQuantity)
+  })
+
+  // 삭제 버튼 이벤트
+  const deleteBtn = cartItem.querySelector('.cart-delete-btn')
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', () => {
+      console.log(`상품 ${item.id} 삭제 요청`)
+
+      // 모달 표시
+      showDeleteModal(item, cartItem)
+    })
+  }
+
+  // 개별 체크박스 이벤트
+  const checkbox = cartItem.querySelector('.cart-checkbox')
+  if (checkbox) {
+    checkbox.addEventListener('change', () => {
+      calculateTotalPrice()
+      updateSelectAllCheckbox()
+    })
+  }
+
+  // 주문하기 버튼 이벤트 (개별)
+  const orderBtn = cartItem.querySelector('.order-btn')
+  if (orderBtn) {
+    orderBtn.addEventListener('click', () => {
+      console.log(`상품 ${item.id} 개별 주문`)
+      // TODO: 주문 페이지로 이동
+      alert('주문/결제 페이지는 아직 구현되지 않았습니다.')
+    })
+  }
+}
+
+// ===== 전체 선택 체크박스 설정 =====
+function setupSelectAllCheckbox() {
+  const selectAllCheckbox = document.getElementById('select-all')
+  if (!selectAllCheckbox) return
+
+  selectAllCheckbox.addEventListener('change', (e) => {
+    const isChecked = e.target.checked
+    const itemCheckboxes = cartItemsListEl.querySelectorAll('.cart-checkbox')
+
+    itemCheckboxes.forEach((checkbox) => {
+      checkbox.checked = isChecked
+    })
+
+    calculateTotalPrice()
+  })
+}
+
+// ===== 전체 선택 체크박스 상태 업데이트 =====
+function updateSelectAllCheckbox() {
+  const selectAllCheckbox = document.getElementById('select-all')
+  if (!selectAllCheckbox) return
+
+  const itemCheckboxes = Array.from(
+    cartItemsListEl.querySelectorAll('.cart-checkbox')
+  )
+  const allChecked =
+    itemCheckboxes.length > 0 && itemCheckboxes.every((cb) => cb.checked)
+
+  selectAllCheckbox.checked = allChecked
+}
+
+// ===== 총 금액 계산 =====
+function calculateTotalPrice() {
+  let totalPrice = 0
+
+  // 체크된 아이템만 계산
+  const checkedItems = cartItemsListEl.querySelectorAll(
+    '.cart-checkbox:checked'
+  )
+
+  checkedItems.forEach((checkbox) => {
+    const cartItem = checkbox.closest('shoppingcart-item')
+    if (cartItem) {
+      const price = parseInt(cartItem.dataset.price) || 0
+      const quantity = cartItem.quantity || 1
+      totalPrice += price * quantity
+    }
+  })
+
+  // 화면 업데이트
+  totalProductPriceEl.textContent = totalPrice.toLocaleString('ko-KR')
+  totalPaymentPriceEl.textContent = totalPrice.toLocaleString('ko-KR')
+
+  console.log('총 금액:', totalPrice)
+}
+
+// ===== 전체 주문하기 버튼 =====
+if (orderButton) {
+  orderButton.addEventListener('button-click', () => {
+    const checkedItems = cartItemsListEl.querySelectorAll(
+      '.cart-checkbox:checked'
+    )
+
+    if (checkedItems.length === 0) {
+      alert('주문할 상품을 선택해주세요.')
+      return
+    }
+
+    console.log('전체 주문하기 클릭, 선택된 상품 수:', checkedItems.length)
+
+    // TODO: 주문 페이지로 이동
+    alert('주문/결제 페이지는 아직 구현되지 않았습니다.')
+  })
+}
+
+// ===== 페이지 로드 시 초기화 =====
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('장바구니 페이지 로드 완료')
+
+  // 헤더의 장바구니 아이콘 활성화
+  activateCartIcon()
+
+  init()
+})
+
+// ===== 삭제 확인 모달 표시 =====
+function showDeleteModal(item, cartItemElement) {
+  const modal = document.getElementById('deleteModal')
+
+  if (!modal) {
+    console.error('모달을 찾을 수 없습니다')
+    return
+  }
+
+  console.log('모달 열기 시도:', modal)
+
+  // 모달 열기
+  modal.setAttribute('open', '')
+
+  // 모든 이벤트 감지 (디버깅용)
+  modal.addEventListener('click', (e) => {
+    console.log('모달 클릭 이벤트:', e)
+  })
+
+  // 확인 버튼 이벤트 (한 번만 실행되도록)
+  const handleConfirm = (e) => {
+    console.log('✅ 확인 버튼 클릭 감지!', e)
+    console.log(`상품 ${item.id} 삭제 확인`)
+
+    // 아이템 삭제
+    const index = cartItems.findIndex((i) => i.id === item.id)
+    if (index > -1) {
+      cartItems.splice(index, 1)
+    }
+
+    // 재렌더링
+    renderCart()
+
+    // TODO: API 호출 - 장바구니 아이템 삭제
+    // deleteCartItem(item.id)
+
+    // 이벤트 리스너 제거
+    modal.removeEventListener('modal-confirm', handleConfirm)
+    modal.removeEventListener('modal-cancel', handleCancel)
+    modal.removeEventListener('confirm', handleConfirm)
+    modal.removeEventListener('cancel', handleCancel)
+  }
+
+  // 취소 버튼 이벤트
+  const handleCancel = (e) => {
+    console.log('❌ 취소 버튼 클릭 감지!', e)
+    console.log('삭제 취소')
+
+    // 이벤트 리스너 제거
+    modal.removeEventListener('modal-confirm', handleConfirm)
+    modal.removeEventListener('modal-cancel', handleCancel)
+    modal.removeEventListener('confirm', handleConfirm)
+    modal.removeEventListener('cancel', handleCancel)
+  }
+
+  // 여러 가능한 이벤트 이름 시도
+  modal.addEventListener('modal-confirm', handleConfirm, { once: true })
+  modal.addEventListener('modal-cancel', handleCancel, { once: true })
+  modal.addEventListener('confirm', handleConfirm, { once: true })
+  modal.addEventListener('cancel', handleCancel, { once: true })
+
+  console.log('이벤트 리스너 등록 완료')
+}
+
+// ===== 헤더 장바구니 아이콘 활성화 =====
+function activateCartIcon() {
+  // header-search 컴포넌트가 로드될 때까지 대기
+  const checkHeader = setInterval(() => {
+    const cartLink = document.querySelector('.cart-link')
+
+    if (cartLink) {
+      // 모든 nav-item에서 active 제거
+      const navItems = document.querySelectorAll('.nav-item')
+      navItems.forEach((item) => {
+        item.classList.remove('active')
+        // 모든 아이콘 초기화
+        const defaultIcon = item.querySelector('.icon-default')
+        const activeIcon = item.querySelector('.icon-active')
+        if (defaultIcon) defaultIcon.style.display = 'block'
+        if (activeIcon) activeIcon.style.display = 'none'
+
+        const navText = item.querySelector('.nav-text')
+        if (navText) navText.style.color = '#767676'
+      })
+
+      // 장바구니에 active 추가
+      cartLink.classList.add('active')
+
+      // 장바구니 아이콘 활성화
+      const cartDefaultIcon = cartLink.querySelector('.icon-default')
+      const cartActiveIcon = cartLink.querySelector('.icon-active')
+      const cartText = cartLink.querySelector('.nav-text')
+
+      if (cartDefaultIcon) cartDefaultIcon.style.display = 'none'
+      if (cartActiveIcon) cartActiveIcon.style.display = 'block'
+      if (cartText) cartText.style.color = '#21BF48'
+
+      console.log('장바구니 아이콘 활성화 완료')
+      clearInterval(checkHeader)
+    }
+  }, 100)
+
+  // 5초 후에도 찾지 못하면 중단
+  setTimeout(() => clearInterval(checkHeader), 5000)
+}
+
+// ===== API 연동 준비 (나중에 구현) =====
+
+/**
+ * 장바구니 데이터 가져오기
+ */
+async function fetchCartItems() {
+  try {
+    // TODO: API 호출
+    // import { getRequest } from '@/js/api.js'
+    // const data = await getRequest('cart/')
+    // return data.results || []
+
+    return []
+  } catch (error) {
+    console.error('장바구니 데이터 로드 실패:', error)
+    return []
+  }
+}
+
+/**
+ * 장바구니 아이템 수량 업데이트
+ */
+async function updateCartItemQuantity(itemId, quantity) {
+  try {
+    // TODO: API 호출
+    // import { putRequest } from '@/js/api.js'
+    // await putRequest(`cart/${itemId}/`, { quantity })
+
+    console.log('수량 업데이트 API 호출:', itemId, quantity)
+  } catch (error) {
+    console.error('수량 업데이트 실패:', error)
+  }
+}
+
+/**
+ * 장바구니 아이템 삭제
+ */
+async function deleteCartItem(itemId) {
+  try {
+    // TODO: API 호출
+    // import { deleteRequest } from '@/js/api.js'
+    // await deleteRequest(`cart/${itemId}/`)
+
+    console.log('삭제 API 호출:', itemId)
+  } catch (error) {
+    console.error('아이템 삭제 실패:', error)
+  }
+}
