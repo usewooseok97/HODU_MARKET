@@ -177,6 +177,24 @@
   width: 100%;
 }
 
+/* 전화번호 입력 내부 에러 메시지 숨기기 */
+.phone-input-wrapper input-idcheck .idcheck-message {
+  display: none;
+}
+
+/* 전화번호 에러 메시지 */
+.phone-error-message {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #EB5757;
+  margin: 0;
+  min-height: 0;
+}
+
+.phone-error-message:empty {
+  display: none;
+}
+
 /* ===== 판매자 전용 필드 ===== */
 .seller-fields {
   display: flex;

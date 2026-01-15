@@ -2,7 +2,6 @@
 
 import {
   validateUsername,
-  validatePhoneNumber,
   validateRegistrationNumber,
   handleSignupSubmit,
 } from '@/js/auth/signup'
@@ -44,11 +43,46 @@ function validateUsernameFormat(username) {
   return { valid: true, message: '' }
 }
 
-// 아이디 필수 입력 체크 (다른 필드 입력 시 호출)
-function checkUsernameRequired() {
+// 상단 필드 필수 입력 체크 (순서대로 검사)
+function checkPreviousFieldsRequired(currentField) {
   const username = usernameInput?.getValue() || ''
-  if (!username) {
-    usernameInput?.setMessage('필수 정보입니다.', 'error')
+  const password = passwordInput?.getValue() || ''
+  const passwordConfirm = passwordConfirmInput?.getValue() || ''
+  const name = nameInput?.getValue() || ''
+  const phoneMiddle = document.getElementById('phoneMiddle')?.getValue() || ''
+  const phoneLast = document.getElementById('phoneLast')?.getValue() || ''
+
+  // 필드 순서: 아이디 -> 비밀번호 -> 비밀번호 재확인 -> 이름 -> 전화번호
+  switch (currentField) {
+    case 'password':
+      if (!username) usernameInput?.setMessage('필수 정보입니다.', 'error')
+      break
+    case 'passwordConfirm':
+      if (!username) usernameInput?.setMessage('필수 정보입니다.', 'error')
+      if (!password) passwordInput?.setStatus('error', '필수 정보입니다.')
+      break
+    case 'name':
+      if (!username) usernameInput?.setMessage('필수 정보입니다.', 'error')
+      if (!password) passwordInput?.setStatus('error', '필수 정보입니다.')
+      if (!passwordConfirm) passwordConfirmInput?.setStatus('error', '필수 정보입니다.')
+      break
+    case 'phone':
+      if (!username) usernameInput?.setMessage('필수 정보입니다.', 'error')
+      if (!password) passwordInput?.setStatus('error', '필수 정보입니다.')
+      if (!passwordConfirm) passwordConfirmInput?.setStatus('error', '필수 정보입니다.')
+      if (!name) nameInput?.setMessage('필수 정보입니다.', 'error')
+      break
+    case 'storeName':
+    case 'businessNumber':
+      if (!username) usernameInput?.setMessage('필수 정보입니다.', 'error')
+      if (!password) passwordInput?.setStatus('error', '필수 정보입니다.')
+      if (!passwordConfirm) passwordConfirmInput?.setStatus('error', '필수 정보입니다.')
+      if (!name) nameInput?.setMessage('필수 정보입니다.', 'error')
+      if (!phoneMiddle || !phoneLast) {
+        const phoneErrorEl = document.getElementById('phoneErrorMessage')
+        if (phoneErrorEl) phoneErrorEl.textContent = '필수 정보입니다.'
+      }
+      break
   }
 }
 
@@ -100,6 +134,30 @@ usernameInput?.addEventListener('input-change', (e) => {
   updateSubmitButton()
 })
 
+// 아이디 포커스 아웃 시 유효성 검사
+usernameInput?.addEventListener('blur', () => {
+  const username = usernameInput?.getValue() || ''
+
+  if (!username) {
+    usernameInput?.setMessage('필수 정보입니다.', 'error')
+    return
+  }
+
+  // 형식 검사
+  const formatResult = validateUsernameFormat(username)
+  if (!formatResult.valid) {
+    usernameInput?.setMessage(formatResult.message, 'error')
+    isUsernameFormatValid = false
+  } else {
+    isUsernameFormatValid = true
+    // 유효성 검사 통과했지만 중복확인 안 한 경우
+    if (!isUsernameValid) {
+      usernameInput?.setMessage('중복확인을 해주세요.', 'error')
+    }
+  }
+  updateSubmitButton()
+})
+
 // 아이디 중복 확인
 checkUsernameBtn?.addEventListener('click', async () => {
   const username = usernameInput?.getValue()
@@ -142,8 +200,8 @@ function validatePassword(password) {
 passwordInput?.addEventListener('input-change', (e) => {
   const value = e.detail.value
 
-  // 아이디 필수 입력 체크
-  checkUsernameRequired()
+  // 상단 필드 필수 입력 체크
+  checkPreviousFieldsRequired('password')
 
   if (value.length === 0) {
     passwordInput.setStatus('', '')
@@ -163,8 +221,8 @@ passwordInput?.addEventListener('input-change', (e) => {
 
 // 비밀번호 재확인 입력 이벤트
 passwordConfirmInput?.addEventListener('input-change', () => {
-  // 아이디 필수 입력 체크
-  checkUsernameRequired()
+  // 상단 필드 필수 입력 체크
+  checkPreviousFieldsRequired('passwordConfirm')
   checkPasswordMatch()
   updateSubmitButton()
 })
@@ -243,62 +301,68 @@ function updateSubmitButton() {
 }
 
 // 이름 입력 이벤트
-nameInput?.addEventListener('input-change', () => {
-  // 아이디 필수 입력 체크
-  checkUsernameRequired()
+nameInput?.addEventListener('input-change', (e) => {
+  // 상단 필드 필수 입력 체크
+  checkPreviousFieldsRequired('name')
+  // 이름 입력 시 에러 메시지 초기화
+  const value = e.detail.value
+  if (value.length > 0) {
+    nameInput?.setMessage('', '')
+  }
   updateSubmitButton()
 })
 
-// 전화번호 중복 검사
-async function checkPhoneDuplicate() {
-  const phonePrefix = document.getElementById('phonePrefix')?.getValue() || '010'
+// 전화번호 유효성 검사 (형식만 체크, 중복은 회원가입 시 서버에서 검사)
+function checkPhoneValid() {
   const phoneMiddle = document.getElementById('phoneMiddle')?.getValue() || ''
   const phoneLast = document.getElementById('phoneLast')?.getValue() || ''
-  const phoneMiddleInput = document.getElementById('phoneMiddle')
 
-  // 전화번호가 완성되지 않은 경우
-  if (phoneMiddle.length !== 4 || phoneLast.length !== 4) {
-    isPhoneValid = false
-    return
-  }
-
-  const phoneNumber = `${phonePrefix}${phoneMiddle}${phoneLast}`
-
-  try {
-    await validatePhoneNumber(phoneNumber)
-    phoneMiddleInput?.setMessage('', '')
+  // 전화번호가 완성되었는지 확인
+  if (phoneMiddle.length === 4 && phoneLast.length === 4) {
     isPhoneValid = true
-  } catch (error) {
-    phoneMiddleInput?.setMessage('해당 사용자 전화번호는 이미 존재합니다.', 'error')
+  } else {
     isPhoneValid = false
   }
   updateSubmitButton()
 }
 
+// 전화번호 에러 메시지 설정 함수
+function setPhoneErrorMessage(message) {
+  const phoneErrorEl = document.getElementById('phoneErrorMessage')
+  if (phoneErrorEl) {
+    phoneErrorEl.textContent = message
+  }
+}
+
 // 휴대폰번호 입력 이벤트
 document.getElementById('phoneMiddle')?.addEventListener('input-change', () => {
-  // 아이디 필수 입력 체크
-  checkUsernameRequired()
-  // 전화번호 변경 시 중복 검사 상태 초기화 및 메시지 제거
-  isPhoneValid = false
-  document.getElementById('phoneMiddle')?.setMessage('', '')
-  updateSubmitButton()
-  // 전화번호 완성 시 자동 중복 검사
-  checkPhoneDuplicate()
+  // 상단 필드 필수 입력 체크
+  checkPreviousFieldsRequired('phone')
+  // 전화번호 입력 시 에러 메시지 초기화
+  setPhoneErrorMessage('')
+  // 전화번호 유효성 검사
+  checkPhoneValid()
 })
 document.getElementById('phoneLast')?.addEventListener('input-change', () => {
-  // 아이디 필수 입력 체크
-  checkUsernameRequired()
-  // 전화번호 변경 시 중복 검사 상태 초기화
-  isPhoneValid = false
-  document.getElementById('phoneMiddle')?.setMessage('', '')
-  updateSubmitButton()
-  // 전화번호 완성 시 자동 중복 검사
-  checkPhoneDuplicate()
+  // 상단 필드 필수 입력 체크
+  checkPreviousFieldsRequired('phone')
+  // 전화번호 입력 시 에러 메시지 초기화
+  setPhoneErrorMessage('')
+  // 전화번호 유효성 검사
+  checkPhoneValid()
 })
 
 // 스토어 이름 입력 이벤트
 document.getElementById('storeName')?.addEventListener('input-change', () => {
+  // 상단 필드 필수 입력 체크
+  checkPreviousFieldsRequired('storeName')
+  updateSubmitButton()
+})
+
+// 사업자등록번호 입력 이벤트
+document.getElementById('businessNumber')?.addEventListener('input-change', () => {
+  // 상단 필드 필수 입력 체크
+  checkPreviousFieldsRequired('businessNumber')
   updateSubmitButton()
 })
 

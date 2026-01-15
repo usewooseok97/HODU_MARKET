@@ -175,8 +175,10 @@ export const handleSignupSubmit = (formElement) => {
           errorMessages.push(fieldErrors.name[0])
         }
         if (fieldErrors.phone_number) {
-          const phoneMiddleInput = document.getElementById('phoneMiddle')
-          phoneMiddleInput?.setMessage('해당 사용자 전화번호는 이미 존재합니다.', 'error')
+          const phoneErrorEl = document.getElementById('phoneErrorMessage')
+          if (phoneErrorEl) {
+            phoneErrorEl.textContent = '해당 사용자 전화번호는 이미 존재합니다.'
+          }
           errorMessages.push('해당 사용자 전화번호는 이미 존재합니다.')
         }
 
