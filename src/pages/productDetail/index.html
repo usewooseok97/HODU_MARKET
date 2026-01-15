@@ -28,7 +28,9 @@
           <!-- 우측: 제품 정보 -->
           <div class="product-details">
             <!-- 판매자 정보 -->
-            <p class="seller-name">백엔드글로벌</p>
+            <p class="seller-name" id="sellerName" role="button" tabindex="0">
+              백엔드글로벌
+            </p>
 
             <!-- 제품명 -->
             <h1 class="product-name">딥러닝 개발자 무릎 담요</h1>
@@ -140,6 +142,8 @@
 
     <!-- 푸터 -->
     <bottom-footer></bottom-footer>
+    <!-- 판매자 정보 모달 -->
+    <modal-check id="sellerModal" cancel-text="닫기" confirm-text="확인"></modal-check>
     <script type="module" src="./main.js"></script>
   </body>
 </html>
