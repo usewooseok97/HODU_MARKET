@@ -5,6 +5,9 @@ class ItemNameInput extends HTMLElement {
   }
 
   render() {
+    const name = this.getAttribute('name') || ''
+    const nameAttr = name ? `name="${name}"` : ''
+
     this.innerHTML = `
       <div class="item-box">
         <label for="itemName" class="item-text">상품명</label>
@@ -15,6 +18,7 @@ class ItemNameInput extends HTMLElement {
             class="item-input"
             placeholder="상품명을 입력해주세요."
             maxlength="50"
+            ${nameAttr}
           />
           <span class="char-count">
             <span id="currentCount">0</span>/50

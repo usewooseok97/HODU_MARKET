@@ -7,11 +7,13 @@ class ImgIconComponent extends HTMLElement {
 
   render() {
     const isClick = this.hasAttribute('isclick')
+    const name = this.getAttribute('name') || ''
+    const nameAttr = name ? `name="${name}"` : ''
 
     if (isClick) {
       this.innerHTML = `
         <label class="img-upload">
-          <input type="file" accept="image/*" class="sr-only" />
+          <input type="file" accept="image/*" class="sr-only" ${nameAttr} />
           <span class="img-upload__icon"></span>
         </label>
       `
