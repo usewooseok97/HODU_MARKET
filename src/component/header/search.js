@@ -1,4 +1,5 @@
 // src/component/header/search.js
+import '@component/etc/mypage.js'
 
 class Header extends HTMLElement {
   constructor() {
@@ -44,22 +45,29 @@ class Header extends HTMLElement {
           <div class="right-group">
             <nav class="nav-wrapper">
               <!-- 장바구니 -->
+              <div class="nav-item" data-nav="cart">
                 <div class="icon-wrapper">
                   <logo-shop class="icon-default"></logo-shop>
                   <logo-shopgr class="icon-active"></logo-shopgr>
                 </div>
                 <span class="nav-text">장바구니</span>
+              </div>
 
               <!-- 마이페이지 -->
+              <div class="nav-item nav-item--mypage" data-nav="mypage">
                 <div class="icon-wrapper">
                   <logo-user class="icon-default"></logo-user>
                   <logo-usergr class="icon-active"></logo-usergr>
                 </div>
                 <span class="nav-text">마이페이지</span>
-            </nav>
-          </div>
+
+                <!-- 드롭다운이 붙을 자리 -->
+                <div class="mypage-dropdown-wrapper"></div>
+              </div>
+          </nav>
         </div>
-      </header>
+      </div>
+    </header>
     `
 
     this.loadStyles()
@@ -72,14 +80,18 @@ class Header extends HTMLElement {
       item.addEventListener('click', (e) => {
         e.preventDefault()
 
-        // 모든 nav-item에서 active 제거
-        navItems.forEach((nav) => nav.classList.remove('active'))
+        const navType = item.dataset.nav
 
-        // 클릭된 항목에 active 추가
+        // active 토글
+        navItems.forEach((nav) => nav.classList.remove('active'))
         item.classList.add('active')
 
-        // 커스텀 이벤트 발생
-        const navType = item.dataset.nav
+        // 마이페이지 클릭이면 드롭다운 토글
+        if (navType === 'mypage') {
+          this.toggleMypageDropdown(item)
+        }
+
+        // 커스텀 이벤트 (필요 시)
         this.dispatchEvent(
           new CustomEvent('nav-click', {
             detail: { type: navType },
@@ -103,6 +115,33 @@ class Header extends HTMLElement {
         )
       })
     }
+  }
+  toggleMypageDropdown(mypageItem) {
+    const wrapper = mypageItem.querySelector('.mypage-dropdown-wrapper')
+    const existing = wrapper.querySelector('etc-mypage')
+
+    // 이미 열려 있으면 제거(=토글)
+    if (existing) {
+      existing.remove()
+      return
+    }
+
+    // 새로 생성해서 붙이기
+    const dropdown = document.createElement('etc-mypage')
+    wrapper.appendChild(dropdown)
+
+    // 바깥 클릭하면 닫히게
+    const handleOutsideClick = (e) => {
+      if (!dropdown.contains(e.target) && !mypageItem.contains(e.target)) {
+        dropdown.remove()
+        document.removeEventListener('click', handleOutsideClick)
+      }
+    }
+
+    // 이벤트 버블링 때문에 한 틱 뒤에 등록
+    setTimeout(() => {
+      document.addEventListener('click', handleOutsideClick)
+    }, 0)
   }
 
   loadStyles() {

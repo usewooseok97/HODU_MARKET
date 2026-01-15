@@ -265,3 +265,15 @@
     gap: 12px;
   }
 }
+.nav-item--mypage {
+  position: relative;
+}
+
+.mypage-dropdown-wrapper {
+  position: absolute;
+  top: 100%;      /* nav-item 아래 */
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+  z-index: 1000;  /* 헤더보다 위로 */
+}
