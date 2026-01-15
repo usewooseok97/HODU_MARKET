@@ -7,8 +7,11 @@ class CartListHeader extends HTMLElement {
     this.innerHTML = `
       <div class="cart-list-header cart-grid">
         <div class="cart-col-check">
-          <input type="checkbox" id="select-all" class="cart-checkbox" />
-          <label for="select-all" class="sr-only">전체 상품 선택</label>
+          <label class="cart-checkbox-wrapper">
+            <input type="checkbox" id="select-all" class="cart-checkbox-input" />
+            <span class="cart-checkbox-custom"></span>
+            <span class="sr-only">전체 상품 선택</span>
+          </label>
         </div>
         <div class="cart-col-info">상품정보</div>
         <div class="cart-col-quantity">수량</div>
