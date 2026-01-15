@@ -6,7 +6,7 @@ class FaceComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <img src="./src/assets/images/icon-fb.png" alt="facebook" class="face" />
+      <img src="/src/assets/images/icon-fb.png" alt="facebook" class="face" />
     `
   }
 

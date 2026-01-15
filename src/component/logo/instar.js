@@ -6,7 +6,7 @@ class InstaComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <img src="./src/assets/images/icon-insta.png" alt="instagram" class="instar" />
+      <img src="/src/assets/images/icon-insta.png" alt="instagram" class="instar" />
     `
   }
 
