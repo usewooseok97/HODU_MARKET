@@ -50,16 +50,20 @@ class MypageDropdown extends HTMLElement {
 
   handleMypage() {
     // 마이페이지로 이동
-    console.log('마이페이지로 이동')
+    console.log('마이페이지로 이동(UI만 존재)')
     // window.location.href = '/mypage'
   }
 
   handleLogout() {
-    // 로그아웃 처리
-    console.log('로그아웃 처리')
-    // 실제 로그아웃 로직
-    // localStorage.removeItem('token')
-    // window.location.href = '/login'
+    // 토큰 삭제
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+
+    // 필요하면 사용자 정보도 정리
+    localStorage.removeItem('user')
+
+    // 로그인 페이지나 메인으로 이동
+    window.location.href = '/login.html'
   }
 
   loadStyles() {
