@@ -22,8 +22,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 0;
 }
 
@@ -41,6 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
 .modal-close:hover {
@@ -53,40 +52,30 @@
   display: block;
 }
 
-/* 컨텐츠 영역 */
+/* 컨텐츠 영역 - 버튼 제외한 공간의 중앙 */
 .modal-content {
   position: absolute;
-  top: 44px;
+  top: 35px;       /* X버튼 아래 간격 */
   left: 0;
   right: 0;
+  height: 70px;    /* 1~2줄 대응 */
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 60px;
-}
-
-/* Amount 타입 - 수량 조절 카운터 */
-.modal-amount-wrapper {
-  width: 100%;
-  height: 60px;
-  display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-.modal-amount-wrapper amount-counter {
-  display: block;
-}
-
-/* Confirm 타입 - 메시지 */
-.modal-message {
-  color: #000000;
-  font-size: 1.6rem; /* 16px */
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
-  font-weight: 400;
+  padding: 0 30px;
   text-align: center;
-  line-height: normal;
-  padding: 0 20px;
+}
+
+/* 메시지 텍스트 */
+.modal-message {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  white-space: normal;
+  word-break: keep-all;
+  line-height: 22px;  /* 피그마 기준 */
+  font-size: 1.6rem;
 }
 
 /* 버튼 영역 */
@@ -96,24 +85,23 @@
   left: 0;
   right: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 0 75px;
+  height: 40px;
 }
 
 .modal-cancel-btn,
 .modal-confirm-btn {
-  flex: 0 0 100px; /* 고정 너비 100px */
+  flex: 0 0 100px;
 }
 
-/* button-s 컴포넌트 스타일 오버라이드 (필요시) */
+/* button-small 컴포넌트 스타일 */
 .modal-buttons button-small {
   width: 100px;
   height: 40px;
   display: block;
 }
-/* 안쪽 실제 버튼(.s-button)이 자기 마음대로 width 가지고 있으면 덮어쓰기 */
+
 .modal-buttons button-small .s-button {
   width: 100%;
 }
@@ -126,8 +114,16 @@
     margin: 0 20px;
   }
   
+  .modal-content {
+    padding: 40px 20px 20px;
+  }
+  
+  .modal-message {
+    font-size: 1.4rem;
+  }
+  
   .modal-buttons {
-    padding: 0 50px;
+    padding: 0 50px 30px;
   }
   
   .modal-cancel-btn,

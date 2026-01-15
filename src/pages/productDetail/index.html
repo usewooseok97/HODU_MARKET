@@ -3,10 +3,155 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <meta name="description" content="딥러닝 개발자 무릎 담요 - 백엔드글로벌" />
+    <meta property="og:title" content="딥러닝 개발자 무릎 담요" />
+    <meta property="og:description" content="17,500원 - 택배배송 / 무료배송" />
+    <title>딥러닝 개발자 무릎 담요 | HODU MARKET</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <!-- 헤더 -->
     <header-search></header-search>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="product-detail-main">
+      <div class="product-detail-container">
+        <!-- 제품 정보 섹션 -->
+        <section class="product-info-section">
+          <!-- 좌측: 이미지 영역 -->
+          <div class="product-images">
+            <div class="main-image-wrapper">
+              <img 
+                id="mainImage"
+              />
+            </div>
+          </div>
+
+          <!-- 우측: 제품 정보 -->
+          <div class="product-details">
+            <!-- 판매자 정보 -->
+            <p class="seller-name">백엔드글로벌</p>
+
+            <!-- 제품명 -->
+            <h1 class="product-name">딥러닝 개발자 무릎 담요</h1>
+
+            <!-- 가격 -->
+            <div class="price-section">
+              <span class="price">17,500</span>
+              <span class="price-unit">원</span>
+            </div>
+
+            <!-- 배송 정보 -->
+            <div class="shipping-info">
+              <span class="shipping-label">택배배송 / </span>
+              <span class="shipping-free">무료배송</span>
+            </div>
+
+            <!-- 구분선 -->
+            <hr class="divider" />
+
+            <!-- 수량 선택 -->
+            <div class="quantity-section">
+              <etc-amountcounter 
+                id="productQuantity"
+                min="1" 
+                max="370" 
+                value="1"
+              ></etc-amountcounter>
+            </div>
+
+            <!-- 구분선 -->
+            <hr class="divider" />
+
+            <!-- 총 금액 -->
+            <div class="total-section">
+              <div class="total-label-wrapper">
+                <span class="total-label">총 상품 금액</span>
+              </div>
+              <div class="total-price-wrapper">
+                <span class="total-quantity">총 수량 <strong id="totalQuantity">1</strong>개</span>
+                <div class="total-price">
+                  <span id="totalPrice" class="price-amount">17,500</span>
+                  <span class="price-unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 버튼 영역 -->
+            <div class="action-buttons">
+              <button-medium 
+                id="buyNowBtn"
+                text="바로 구매" 
+                width="416px"
+              ></button-medium>
+              
+              <button-medium 
+                id="addToCartBtn"
+                text="장바구니" 
+                variant="dark"
+                width="200px"
+              ></button-medium>
+            </div>
+          </div>
+        </section>
+
+        <!-- 탭 섹션 -->
+        <section class="product-tabs-section">
+          <!-- 탭 버튼 -->
+          <div class="tabs-header">
+            <button-tab 
+              class="tab-button" 
+              text="버튼" 
+              active
+            ></button-tab>
+            <button-tab 
+              class="tab-button" 
+              text="리뷰"
+            ></button-tab>
+            <button-tab 
+              class="tab-button" 
+              text="Q&A"
+            ></button-tab>
+            <button-tab 
+              class="tab-button" 
+              text="반품/교환정보"
+            ></button-tab>
+          </div>
+
+          <!-- 탭 컨텐츠 -->
+          <!-- <div class="tabs-content">
+            <div class="tab-panel active" data-tab="detail">
+             
+              //상세정보 컨텐츠
+              <div class="detail-content">
+                <img src="/src/assets/images/cart-Product-list.png" alt="제품 상세 이미지" />
+                <p>제품 상세 설명이 들어갑니다.</p>
+              </div>
+            </div>
+
+            <div class="tab-panel" data-tab="review">
+              <div class="review-content">
+                <p>리뷰 컨텐츠가 들어갑니다.</p>
+              </div>
+            </div>
+
+            <div class="tab-panel" data-tab="qna">
+              <div class="qna-content">
+                <p>Q&A 컨텐츠가 들어갑니다.</p>
+              </div>
+            </div>
+
+            <div class="tab-panel" data-tab="return">
+              <div class="return-content">
+                <p>반품/교환정보 컨텐츠가 들어갑니다.</p>
+              </div>
+            </div>
+          </div> -->
+        </section>
+      </div>
+    </main>
+
+    <!-- 푸터 -->
     <bottom-footer></bottom-footer>
     <script type="module" src="./main.js"></script>
   </body>
