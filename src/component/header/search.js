@@ -11,7 +11,15 @@ class Header extends HTMLElement {
     this.setupEventListeners()
   }
 
+  // 로그인 여부 확인
+  isLoggedIn() {
+    return !!localStorage.getItem('refresh_token')
+  }
+
   render() {
+    const isLoggedIn = this.isLoggedIn()
+    const authText = isLoggedIn ? '마이페이지' : '로그인'
+
     this.innerHTML = `
       <header class="header">
         <div class="header-container">
@@ -25,9 +33,9 @@ class Header extends HTMLElement {
             <!-- 검색바 영역 -->
             <div class="search-wrapper">
               <div class="search-container">
-                <input 
-                  type="text" 
-                  class="search-input" 
+                <input
+                  type="text"
+                  class="search-input"
                   placeholder="상품을 검색해보세요!"
                   aria-label="상품 검색"
                 >
@@ -41,30 +49,22 @@ class Header extends HTMLElement {
             </div>
           </div>
 
-          <!-- 오른쪽 그룹: 장바구니 + 마이페이지 -->
+          <!-- 오른쪽 그룹: 장바구니 + 로그인/마이페이지 -->
           <div class="right-group">
             <nav class="nav-wrapper">
               <!-- 장바구니 -->
               <div class="nav-item" data-nav="cart">
-                <div class="icon-wrapper">
-                  <logo-shop class="icon-default"></logo-shop>
-                  <logo-shopgr class="icon-active"></logo-shopgr>
-                </div>
+                <logo-cart></logo-cart>
                 <span class="nav-text">장바구니</span>
               </div>
 
-              <!-- 마이페이지 -->
-              <div class="nav-item nav-item--mypage" data-nav="mypage">
-                <div class="icon-wrapper">
-                  <logo-user class="icon-default"></logo-user>
-                  <logo-usergr class="icon-active"></logo-usergr>
-                </div>
-                <span class="nav-text">마이페이지</span>
-
-                <!-- 드롭다운이 붙을 자리 -->
+              <!-- 로그인/마이페이지 -->
+              <div class="nav-item" data-nav="mypage">
+                <logo-account></logo-account>
+                <span class="nav-text">${authText}</span>
                 <div class="mypage-dropdown-wrapper"></div>
               </div>
-          </nav>
+            </nav>
         </div>
       </div>
     </header>
@@ -78,17 +78,28 @@ class Header extends HTMLElement {
 
     navItems.forEach((item) => {
       item.addEventListener('click', (e) => {
-        e.preventDefault()
-
         const navType = item.dataset.nav
 
-        // active 토글
-        navItems.forEach((nav) => nav.classList.remove('active'))
-        item.classList.add('active')
-
-        // 마이페이지 클릭이면 드롭다운 토글
         if (navType === 'mypage') {
-          this.toggleMypageDropdown(item)
+          e.preventDefault()
+          if (this.isLoggedIn()) {
+            // 로그인 상태: 드롭다운 토글
+            navItems.forEach((nav) => nav.classList.remove('active'))
+            item.classList.add('active')
+            this.toggleMypageDropdown(item)
+          } else {
+            // 비로그인 상태: 로그인 페이지로 이동
+            window.location.href = '/src/pages/login/index.html'
+          }
+        } else if (navType === 'cart') {
+          // 장바구니 클릭 시
+          if (this.isLoggedIn()) {
+            // 로그인 상태: 장바구니 페이지로 이동
+            window.location.href = '/src/pages/shoppingCartPage/index.html'
+          } else {
+            // 비로그인 상태: 로그인 페이지로 이동
+            window.location.href = '/src/pages/login/index.html'
+          }
         }
 
         // 커스텀 이벤트 (필요 시)

@@ -66,8 +66,7 @@ class ProductList extends HTMLElement {
       const products = data.results || data
 
       // 처음 5개만 렌더링
-      const limitedProducts = products.slice(0, 5)
-      this.renderProducts(limitedProducts)
+      this.renderProducts(products)
     } catch (error) {
       console.error('상품 로드 실패:', error)
     }

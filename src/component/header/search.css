@@ -3,7 +3,7 @@
   width: 100%;
   height: 90px;
   background: white;
-  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.10);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
@@ -45,7 +45,7 @@
   height: 46px;
   background: white;
   border-radius: 50px;
-  border: 2px solid #21BF48;
+  border: 2px solid #21bf48;
   display: flex;
   align-items: center;
   padding: 0 20px;
@@ -112,65 +112,22 @@
   transition: opacity 0.2s;
 }
 
-.nav-item:hover {
-  opacity: 0.8;
-}
-
-.icon-wrapper {
+/* 아이콘 컴포넌트 크기 */
+.nav-item logo-cart,
+.nav-item logo-account {
   width: 32px;
   height: 32px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.icon-wrapper logo-shop,
-.icon-wrapper logo-shopgr,
-.icon-wrapper logo-user,
-.icon-wrapper logo-usergr {
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  top: 0;
-  left: 0;
   display: block;
-  transition: opacity 0.2s;
 }
 
-/* 기본 상태 - 기본 아이콘 표시 */
-.icon-wrapper .icon-default {
-  opacity: 1;
-}
-
-.icon-wrapper .icon-active {
+/* hover 시 아이콘 전환 */
+.nav-item:hover .cart-icon__default,
+.nav-item:hover .account-icon__default {
   opacity: 0;
 }
 
-/* active 상태 - 활성화 아이콘 표시 */
-.nav-item.active .icon-wrapper .icon-default {
-  opacity: 0;
-}
-
-.nav-item.active .icon-wrapper .icon-active {
-  opacity: 1;
-}
-
-/* hover 상태에서도 active 아이콘 표시 */
-.nav-item:hover .icon-wrapper .icon-default {
-  opacity: 0;
-}
-
-.nav-item:hover .icon-wrapper .icon-active {
-  opacity: 1;
-}
-
-/* active 상태에서 hover 시 아이콘 유지 */
-.nav-item.active:hover .icon-wrapper .icon-default {
-  opacity: 0;
-}
-
-.nav-item.active:hover .icon-wrapper .icon-active {
+.nav-item:hover .cart-icon__active,
+.nav-item:hover .account-icon__active {
   opacity: 1;
 }
 
@@ -181,12 +138,6 @@
   font-weight: 400;
   line-height: 1.4rem; /* 14px */
   text-align: center;
-}
-
-/* active 상태일 때 텍스트 색상 변경 */
-.nav-item.active .nav-text {
-  color: #21BF48;
-  font-weight: 500;
 }
 
 /* ===== 반응형 처리 ===== */
@@ -202,15 +153,15 @@
   .header-container {
     padding: 0 20px;
   }
-  
+
   .left-group {
     gap: 20px; /* 로고와 검색창 간격 줄이기 */
   }
-  
+
   .search-container {
     width: 320px;
   }
-  
+
   .nav-wrapper {
     gap: 16px;
   }
@@ -220,35 +171,35 @@
   .header {
     height: 70px;
   }
-  
+
   .header-container {
     padding: 0 20px;
   }
-  
+
   .left-group {
     gap: 10px;
   }
-  
+
   .search-container {
     width: 250px;
     height: 40px;
   }
-  
+
   .search-input {
     font-size: 1.4rem; /* 14px */
   }
-  
+
   .search-button,
   .search-icon {
     width: 24px;
     height: 24px;
   }
-  
+
   .icon-wrapper {
     width: 28px;
     height: 28px;
   }
-  
+
   .icon-wrapper logo-shop,
   .icon-wrapper logo-shopgr,
   .icon-wrapper logo-user,
@@ -256,11 +207,11 @@
     width: 28px;
     height: 28px;
   }
-  
+
   .nav-text {
     font-size: 1rem; /* 10px */
   }
-  
+
   .nav-wrapper {
     gap: 12px;
   }
@@ -271,9 +222,9 @@
 
 .mypage-dropdown-wrapper {
   position: absolute;
-  top: 100%;      /* nav-item 아래 */
+  top: 100%; /* nav-item 아래 */
   left: 50%;
   transform: translateX(-50%);
   margin-top: 8px;
-  z-index: 1000;  /* 헤더보다 위로 */
+  z-index: 1000; /* 헤더보다 위로 */
 }
