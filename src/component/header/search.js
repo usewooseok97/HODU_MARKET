@@ -1,5 +1,6 @@
 // src/component/header/search.js
 import '@component/etc/mypage.js'
+import '@component/button/msicon.js'
 
 class Header extends HTMLElement {
   constructor() {
@@ -16,9 +17,19 @@ class Header extends HTMLElement {
     return !!localStorage.getItem('refresh_token')
   }
 
+  // 사용자 타입 확인
+  getUserType() {
+    return localStorage.getItem('user_type')
+  }
+
   render() {
     const isLoggedIn = this.isLoggedIn()
+    const userType = this.getUserType()
     const authText = isLoggedIn ? '마이페이지' : '로그인'
+
+    // SELLER일 때 장바구니 숨김, 판매자 센터 표시
+    const showCart = userType !== 'SELLER'
+    const showSellerCenter = isLoggedIn && userType === 'SELLER'
 
     this.innerHTML = `
       <header class="header">
@@ -49,14 +60,16 @@ class Header extends HTMLElement {
             </div>
           </div>
 
-          <!-- 오른쪽 그룹: 장바구니 + 로그인/마이페이지 -->
+          <!-- 오른쪽 그룹: 장바구니(조건부) + 로그인/마이페이지 + 판매자 센터(조건부) -->
           <div class="right-group">
             <nav class="nav-wrapper">
+              ${showCart ? `
               <!-- 장바구니 -->
               <div class="nav-item" data-nav="cart">
                 <logo-cart></logo-cart>
                 <span class="nav-text">장바구니</span>
               </div>
+              ` : ''}
 
               <!-- 로그인/마이페이지 -->
               <div class="nav-item" data-nav="mypage">
@@ -64,6 +77,17 @@ class Header extends HTMLElement {
                 <span class="nav-text">${authText}</span>
                 <div class="mypage-dropdown-wrapper"></div>
               </div>
+
+              ${showSellerCenter ? `
+              <!-- 판매자 센터 -->
+              <div class="nav-item nav-item--seller-center" data-nav="seller-center">
+                <button-msicon
+                  text="판매자 센터"
+                  icon="icon-shopping-bag.png"
+                  width="168px">
+                </button-msicon>
+              </div>
+              ` : ''}
             </nav>
         </div>
       </div>
@@ -100,6 +124,10 @@ class Header extends HTMLElement {
             // 비로그인 상태: 로그인 페이지로 이동
             window.location.href = '/src/pages/login/index.html'
           }
+        } else if (navType === 'seller-center') {
+          // 판매자 센터 클릭 시
+          e.preventDefault()
+          window.location.href = '/src/adminpages/SellerCenter/index.html'
         }
 
         // 커스텀 이벤트 (필요 시)

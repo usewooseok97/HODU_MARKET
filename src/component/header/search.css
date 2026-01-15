@@ -228,3 +228,17 @@
   margin-top: 8px;
   z-index: 1000; /* 헤더보다 위로 */
 }
+
+/* 판매자 센터 버튼 스타일 */
+.nav-item--seller-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item--seller-center button-msicon {
+  display: block;
+}
+
+.nav-item--seller-center .ms-icon-button {
+  margin: 0;
+}

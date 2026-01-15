@@ -1,5 +1,5 @@
 import { postRequest } from '../api.js'
-import { saveToken, removeTokens, getAccessToken } from './token.js'
+import { saveToken, removeTokens, getAccessToken, saveUserType } from './token.js'
 
 /**
  * 로그인 API 호출
@@ -19,6 +19,11 @@ export const login = async (username, password, loginType = 'BUYER') => {
     // 토큰 저장
     if (data.access && data.refresh) {
       saveToken(data.access, data.refresh)
+    }
+
+    // user_type 저장
+    if (data.user && data.user.user_type) {
+      saveUserType(data.user.user_type)
     }
 
     return data

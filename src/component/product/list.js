@@ -36,6 +36,7 @@ class ProductList extends HTMLElement {
   createProductCard(product) {
     const card = document.createElement('div')
     card.className = 'product-card'
+    card.style.cursor = 'pointer'
 
     card.innerHTML = `
       <img src="${product.image}" alt="" class="product-image" />
@@ -45,6 +46,11 @@ class ProductList extends HTMLElement {
         <div class="price">${this.formatPrice(product.price)}</div>
       </div>
     `
+
+    // 클릭 시 상세 페이지로 이동
+    card.addEventListener('click', () => {
+      window.location.href = `/src/pages/productDetail/index.html?product_id=${product.id}`
+    })
 
     return card
   }
