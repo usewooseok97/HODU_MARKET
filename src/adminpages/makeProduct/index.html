@@ -3,9 +3,166 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <meta
+      name="description"
+      content="HODU 판매자 센터에서 새로운 상품을 등록하세요. 상품 이미지, 가격, 배송 정보를 입력할 수 있습니다."
+    />
+    <meta property="og:title" content="상품 등록 - HODU 판매자 센터" />
+    <meta
+      property="og:description"
+      content="HODU 판매자 센터에서 새로운 상품을 등록하세요."
+    />
+    <title>상품 등록 - HODU 판매자 센터</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <header-seller></header-seller>
+    <main>
+      <section class="page-title">
+        <h1>상품 등록</h1>
+      </section>
+
+      <div class="content-wrapper">
+        <!-- 주의사항 사이드바 -->
+        <aside class="caution-box">
+          <h2 class="caution-title">*상품 등록 주의사항</h2>
+          <ul class="caution-list">
+            <li>- 너무 귀여운 사진은 심장이 아플 수 있습니다.</li>
+            <li>
+              - 유소년에게서 전자기기를 빌고 어싱이 온갖 물어 약물하다. 이상의
+              가치에 사람이 있는가? 주며, 같는 힘차게 얼음이 얼음 가지를
+              황금시대의 있음으로써 사라지지 것이다. 이 동력은꺾이지, 이상의
+              속에서 이것은 피가 보배를 황금시대의 해이 사막이다.
+            </li>
+            <li>
+              - 자신과 무는 옷을 지혜는 아니다. , 다운지라 삶에 는 가진데,
+              얼마나서, 원소스러운 꿈이에서 그리에 했느가? 수 있스러운 방하와
+              인도하겠다는 어디 무엇을 이상을 같지 따뜻한 청춘 같이다.
+            </li>
+            <li>
+              - 가치를 그들을 예수는 전미를 가슴이 과실이 이것이다. 희망의
+              것이다.보라, 풍부하게 이것은 황금시대를 얼마나 인간에 풍고,
+              이것이다.
+            </li>
+          </ul>
+        </aside>
+
+        <!-- 상품 등록 폼 -->
+        <form class="product-form" action="#" method="post">
+          <div class="form-top">
+            <!-- 상품 이미지 업로드 -->
+            <fieldset class="image-upload-section">
+              <legend class="sr-only">상품 이미지 업로드</legend>
+              <p class="section-label">상품 이미지</p>
+              <div class="image-upload-area">
+                <logo-imgicon isclick></logo-imgicon>
+              </div>
+            </fieldset>
+
+            <!-- 상품 정보 입력 -->
+            <fieldset class="product-info-section">
+              <legend class="sr-only">상품 정보 입력</legend>
+
+              <!-- 상품명 -->
+              <div class="form-group">
+                <label for="product-name">상품명</label>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="product-name"
+                    name="product-name"
+                    maxlength="20"
+                    placeholder="딥러닝 개발자 무릎 담요"
+                    required
+                    aria-required="true"
+                  />
+                  <span class="char-count"
+                    ><span class="current">0</span>/20</span
+                  >
+                </div>
+              </div>
+
+              <!-- 판매가 -->
+              <div class="form-group">
+                <label for="product-price">판매가</label>
+                <div class="input-with-unit">
+                  <input
+                    type="number"
+                    id="product-price"
+                    name="product-price"
+                    placeholder="17,500"
+                    required
+                    aria-required="true"
+                  />
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <!-- 배송방법 -->
+              <div class="form-group">
+                <p class="group-label">배송방법</p>
+                <div class="delivery-buttons">
+                  <button type="button" class="delivery-btn active">
+                    택배, 소포, 등기
+                  </button>
+                  <button type="button" class="delivery-btn">
+                    직접배송(화물배달)
+                  </button>
+                </div>
+              </div>
+
+              <!-- 기본 배송비 -->
+              <div class="form-group">
+                <label for="shipping-fee">기본 배송비</label>
+                <div class="input-with-unit">
+                  <input
+                    type="number"
+                    id="shipping-fee"
+                    name="shipping-fee"
+                    placeholder="2,500"
+                    required
+                    aria-required="true"
+                  />
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <!-- 재고 -->
+              <div class="form-group">
+                <label for="stock">재고</label>
+                <div class="input-with-unit">
+                  <input
+                    type="number"
+                    id="stock"
+                    name="stock"
+                    placeholder="300"
+                    required
+                    aria-required="true"
+                  />
+                  <span class="unit">개</span>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <!-- 상품 상세 정보 -->
+          <fieldset class="detail-section">
+            <legend class="sr-only">상품 상세 정보</legend>
+            <p class="section-label">상품 상세 정보</p>
+            <div class="editor-area">
+              <p class="editor-placeholder">에디터 영역</p>
+            </div>
+          </fieldset>
+
+          <!-- 버튼 영역 -->
+          <div class="button-group">
+            <button type="button" class="btn-cancel">취소</button>
+            <button type="submit" class="btn-submit">저장하기</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
     <script type="module" src="./main.js"></script>
   </body>
 </html>

@@ -17,7 +17,9 @@ class IdCheckInput extends HTMLElement {
   }
 
   loadStyles() {
-    if (!document.querySelector('link[href*="/src/component/input/styles.css"]')) {
+    if (
+      !document.querySelector('link[href*="/src/component/input/styles.css"]')
+    ) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = '/src/component/input/styles.css'

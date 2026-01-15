@@ -1,9 +1,5 @@
 @import url('/src/assets/styles/recommendReset.css');
 
-/* 메인 레이아웃 */
-main {
-}
-
 /* 대시보드 타이틀 섹션 */
 .dashboard-title {
   display: flex;

@@ -1,0 +1,370 @@
+@import url('/src/assets/styles/recommendReset.css');
+
+/* 페이지 타이틀 섹션 */
+.page-title {
+  padding: 4.4rem 10rem 4.2rem;
+  background-color: var(--background-color);
+}
+
+.page-title h1 {
+  font-weight: 700;
+  font-size: 3.6rem;
+  line-height: 1.22;
+  color: var(--text-color);
+}
+
+/* 컨텐츠 래퍼 */
+.content-wrapper {
+  display: flex;
+  gap: 8rem;
+  padding: 3.8rem 10rem;
+  background-color: var(--tab-title-color);
+  min-height: calc(100vh - 15rem);
+}
+
+/* 주의사항 박스 */
+.caution-box {
+  flex-shrink: 0;
+  width: 25rem;
+  padding: 2rem;
+  border: 1px solid var(--input-error-color);
+  border-radius: 5px;
+  background-color: var(--background-color);
+  height: fit-content;
+}
+
+.caution-title {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--input-error-color);
+  margin-bottom: 1rem;
+}
+
+.caution-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.caution-list li {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: var(--whitebutton-text-color);
+}
+
+/* 상품 등록 폼 */
+.product-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.form-top {
+  display: flex;
+  gap: 4rem;
+}
+
+/* fieldset 리셋 */
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 섹션 라벨 */
+.section-label {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--whitebutton-text-color);
+  margin-bottom: 1rem;
+}
+
+/* 이미지 업로드 섹션 */
+.image-upload-section {
+  flex-shrink: 0;
+}
+
+.image-upload-area {
+  width: 45.4rem;
+  height: 45.4rem;
+  background-color: var(--disabled-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.image-upload-area logo-imgicon {
+  width: 100%;
+  height: 100%;
+}
+
+/* 상품 정보 입력 섹션 */
+.product-info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+/* 폼 그룹 */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group label,
+.group-label {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--whitebutton-text-color);
+}
+
+/* 입력 필드 래퍼 */
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper input {
+  width: 100%;
+  height: 5.4rem;
+  padding: 1.6rem;
+  padding-right: 6rem;
+  border: 1px solid var(--disabled-color);
+  border-radius: 5px;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  border-color: var(--button-color);
+}
+
+.input-wrapper input::placeholder {
+  color: var(--whitebutton-text-color);
+}
+
+/* 글자 수 카운트 */
+.char-count {
+  position: absolute;
+  right: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: var(--disabled-color);
+}
+
+.char-count .current {
+  color: var(--button-color);
+}
+
+/* 단위가 있는 입력 필드 */
+.input-with-unit {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.input-with-unit input {
+  width: 22rem;
+  height: 5.4rem;
+  padding: 1.6rem;
+  border: 1px solid var(--disabled-color);
+  border-radius: 5px;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  text-align: right;
+}
+
+.input-with-unit input:focus {
+  outline: none;
+  border-color: var(--button-color);
+}
+
+.input-with-unit input::placeholder {
+  color: var(--whitebutton-text-color);
+}
+
+/* number input 스피너 제거 */
+.input-with-unit input[type='number']::-webkit-outer-spin-button,
+.input-with-unit input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-with-unit input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.unit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5.4rem;
+  height: 5.4rem;
+  background-color: var(--disabled-color);
+  border-radius: 5px;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--background-color);
+}
+
+/* 배송방법 버튼 */
+.delivery-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.delivery-btn {
+  flex: 1;
+  height: 5.4rem;
+  border: 1px solid var(--disabled-color);
+  border-radius: 5px;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--whitebutton-text-color);
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.delivery-btn:hover {
+  background-color: var(--button-taphover-color);
+  border-color: var(--button-color);
+}
+
+.delivery-btn.active {
+  background-color: var(--button-color);
+  border-color: var(--button-color);
+  color: var(--button-text-color);
+}
+
+/* 상품 상세 정보 섹션 */
+.detail-section {
+  width: 100%;
+}
+
+.editor-area {
+  width: 100%;
+  min-height: 40rem;
+  background-color: var(--component-background-color);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editor-placeholder {
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: var(--background-color);
+}
+
+/* 버튼 영역 */
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.4rem;
+  margin-top: 2rem;
+}
+
+.btn-cancel {
+  width: 20rem;
+  height: 6rem;
+  border: 1px solid var(--disabled-color);
+  border-radius: 5px;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--whitebutton-text-color);
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background-color: var(--tab-title-color);
+  border-color: var(--whitebutton-text-color);
+}
+
+.btn-submit {
+  width: 20rem;
+  height: 6rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--button-text-color);
+  background-color: var(--button-color);
+  transition: opacity 0.3s ease;
+}
+
+.btn-submit:hover {
+  opacity: 0.9;
+}
+
+.btn-submit:active {
+  transform: scale(0.98);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1200px) {
+  .content-wrapper {
+    flex-direction: column;
+    padding: 2rem 4rem;
+    gap: 3rem;
+  }
+
+  .caution-box {
+    width: 100%;
+  }
+
+  .form-top {
+    flex-direction: column;
+  }
+
+  .image-upload-area {
+    width: 100%;
+    max-width: 45.4rem;
+    height: 35rem;
+  }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+  .page-title {
+    padding: 2rem;
+  }
+
+  .page-title h1 {
+    font-size: 2.4rem;
+  }
+
+  .content-wrapper {
+    padding: 2rem;
+  }
+
+  .input-with-unit input {
+    width: 100%;
+  }
+
+  .delivery-buttons {
+    flex-direction: column;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn-cancel,
+  .btn-submit {
+    width: 100%;
+  }
+}

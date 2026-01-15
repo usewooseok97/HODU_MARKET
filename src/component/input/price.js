@@ -5,9 +5,11 @@ class PriceInput extends HTMLElement {
   }
 
   render() {
+    const labelText = this.getAttribute('text') || '판매가'
+
     this.innerHTML = `
       <div class="price-box">
-        <label for="price" class="price-text">판매가</label>
+        <label for="price" class="price-text">${labelText}</label>
         <div class="input-group">
           <input type="text" id="price" class="price-input" value="0" />
           <button class="unit-button" type="button">원</button>
@@ -19,7 +21,9 @@ class PriceInput extends HTMLElement {
   }
 
   loadStyles() {
-    if (!document.querySelector('link[href*="/src/component/input/styles.css"]')) {
+    if (
+      !document.querySelector('link[href*="/src/component/input/styles.css"]')
+    ) {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = '/src/component/input/styles.css'
