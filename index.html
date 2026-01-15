@@ -9,9 +9,60 @@
   </head>
 </head>
 <body>
-<header-search></header-search>
-<product-list></product-list>
-<bottom-footer></bottom-footer>
+   <header>
+    <header-search></header-search>
+  </header>
+  
+  <!-- 메인 슬라이드 섹션 -->
+  <section class="slider-section">
+    <h2 class="sr-only">메인 슬라이드</h2>
+    
+    <!-- 슬라이드 컨테이너 -->
+    <div class="slider-container">
+      <!-- 슬라이드 wrapper -->
+      <div class="slider-wrapper">
+        <!-- 첫 번째 슬라이드 -->
+        <div class="slide active">
+          <img src="/src/assets/images/weniv1.png" alt="위니브 슬라이드 1">
+        </div>
+        <!-- 두 번째 슬라이드 -->
+        <div class="slide">
+          <img src="/src/assets/images/weniv2.png" alt="위니브 슬라이드 2">
+        </div>
+        <!-- 세 번째 슬라이드 -->
+        <div class="slide">
+          <img src="/src/assets/images/weniv3.png" alt="위니브 슬라이드 3">
+        </div>
+      </div>
+
+      <!-- 이전 버튼 -->
+      <button class="slider-btn prev-btn" aria-label="이전 슬라이드">
+        <img src="/src/assets/images/icon-swiper-1.png" alt="">
+      </button>
+
+      <!-- 다음 버튼 -->
+      <button class="slider-btn next-btn" aria-label="다음 슬라이드">
+        <img src="/src/assets/images/icon-swiper-2.png" alt="">
+      </button>
+
+      <!-- 슬라이드 인디케이터 (점 3개) -->
+      <div class="slider-indicators">
+        <button class="indicator active" data-slide="0" aria-label="1번 슬라이드로 이동"></button>
+        <button class="indicator" data-slide="1" aria-label="2번 슬라이드로 이동"></button>
+        <button class="indicator" data-slide="2" aria-label="3번 슬라이드로 이동"></button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 상품 목록 섹션 -->
+  <section>
+    <h2 class="sr-only">상품 목록</h2>
+    <product-list></product-list>
+  </section>
+  
+  <footer>
+    <bottom-footer></bottom-footer>
+  </footer>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

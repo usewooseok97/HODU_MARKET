@@ -1,3 +1,4 @@
+@import url(/src/assets/styles/recommendReset.css);
 a {
   display: block;
 }
@@ -14,28 +15,32 @@ a {
 .shop {
   width: 32px;
   height: 32px;
-  background: url('/src/assets/images/icon-shopping-cart.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-shopping-cart.png') no-repeat center
+    center / contain;
   display: block;
 }
 
 .shop-gr {
   width: 32px;
   height: 32px;
-  background: url('/src/assets/images/icon-shopping-cart-2.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-shopping-cart-2.png') no-repeat
+    center center / contain;
   display: block;
 }
 
 .user {
   width: 32px;
   height: 32px;
-  background: url('/src/assets/images/icon-user.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-user.png') no-repeat center center /
+    contain;
   display: block;
 }
 
 .user-gr {
   width: 32px;
   height: 32px;
-  background: url('/src/assets/images/icon-user-2.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-user-2.png') no-repeat center
+    center / contain;
   display: block;
 }
 
@@ -45,76 +50,87 @@ a {
 .bag {
   width: 32px;
   height: 32px;
-  background: url('/src/assets/images/icon-shopping-bag.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-shopping-bag.png') no-repeat center
+    center / contain;
   display: block;
 }
 
 .plus {
   width: 32px;
   height: 32px;
-  background: url('/src/assets/images/icon-plus.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-plus.png') no-repeat center center /
+    contain;
   display: block;
 }
 
 .down-arrow {
   width: 22px;
   height: 22px;
-  background: url('/src/assets/images/icon-down-arrow.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-down-arrow.png') no-repeat center
+    center / contain;
   display: block;
 }
 
 .right-arrow {
   width: 22px;
   height: 22px;
-  background: url('/src/assets/images/icon-rhigt-arrow.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-rhigt-arrow.png') no-repeat center
+    center / contain;
   display: block;
 }
 
 .up-arrow {
   width: 22px;
   height: 22px;
-  background: url('/src/assets/images/icon-up-arrow.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-up-arrow.png') no-repeat center
+    center / contain;
   display: block;
 }
 
 .minus {
   width: 20px;
   height: 20px;
-  background: url('/src/assets/images/icon-minus-line.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-minus-line.png') no-repeat center
+    center / contain;
   display: block;
 }
 
 .plus-icon {
   width: 20px;
   height: 20px;
-  background: url('/src/assets/images/icon-plus-line.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-plus-line.png') no-repeat center
+    center / contain;
   display: block;
 }
 
 .delect {
   width: 22px;
   height: 22px;
-  background: url('/src/assets/images/icon-delete.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-delete.png') no-repeat center
+    center / contain;
   display: block;
 }
 
 .swiper-l {
   width: 60px;
   height: 124px;
-  background: url('/src/assets/images/icon-swiper-1.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-swiper-1.png') no-repeat center
+    center / contain;
   display: block;
 }
 
 .swiper-r {
   width: 60px;
   height: 124px;
-  background: url('/src/assets/images/icon-swiper-2.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-swiper-2.png') no-repeat center
+    center / contain;
   display: block;
 }
 
 .img-icon {
   width: 50px;
   height: 50px;
-  background: url('/src/assets/images/icon-img.png') no-repeat center center / contain;
+  background: url('/src/assets/images/icon-img.png') no-repeat center center /
+    contain;
   display: block;
 }
