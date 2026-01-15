@@ -135,17 +135,22 @@ class PaymentItem extends HTMLElement {
   }
 
   render() {
-    const totalPrice = this.calculateTotalPrice()
+    // 주문금액 = 상품 가격 × 수량 (배송비/할인 제외)
+    const orderAmount = this._data.price * this._data.quantity
 
     this.innerHTML = `
       <div class="payment-item payment-grid">
         <div class="payment-col-info">
           <div class="payment-product">
-            <img src="${this._data.image}" alt="${this._data.name} 상품 이미지" class="payment-product-image" />
+            <img src="${this._data.image}" alt="${
+              this._data.name
+            } 상품 이미지" class="payment-product-image" />
             <div class="payment-product-details">
               <span class="payment-seller">${this._data.seller}</span>
               <h3 class="payment-product-name">${this._data.name}</h3>
-              <span class="payment-quantity">수량 : ${this._data.quantity}개</span>
+              <span class="payment-quantity">수량 : ${
+                this._data.quantity
+              }개</span>
             </div>
           </div>
         </div>
@@ -156,7 +161,9 @@ class PaymentItem extends HTMLElement {
           <span class="payment-shipping-value">${this.getShippingText()}</span>
         </div>
         <div class="payment-col-total">
-          <span class="payment-total-price">${this.formatPrice(totalPrice)}</span>
+          <span class="payment-total-price">${this.formatPrice(
+            orderAmount
+          )}</span>
         </div>
       </div>
     `
