@@ -1,5 +1,59 @@
 
-// // 웹 컴포넌트는 vite-plugin-auto-components에서 자동으로 import됩니다
+// 웹 컴포넌트는 vite-plugin-auto-components에서 자동으로 import됩니다
+import '@component/modal/check.js'
+import '@component/button/small.js'
+import '@component/logo/delete.js'
+
+const sellerNameEl = document.getElementById('sellerName')
+const sellerModal = document.getElementById('sellerModal')
+
+function buildSellerInfoHtml({ name, phone_number, company_registration_number, store_name }) {
+  return `
+    <div class="seller-modal">
+      <h3 class="seller-modal-title">판매자 정보</h3>
+      <div class="seller-modal-row">
+        <span class="seller-modal-label">이름</span>
+        <span class="seller-modal-value">${name ?? '-'}</span>
+      </div>
+      <div class="seller-modal-row">
+        <span class="seller-modal-label">연락처</span>
+        <span class="seller-modal-value">${phone_number ?? '-'}</span>
+      </div>
+      <div class="seller-modal-row">
+        <span class="seller-modal-label">사업자번호</span>
+        <span class="seller-modal-value">${company_registration_number ?? '-'}</span>
+      </div>
+      <div class="seller-modal-row">
+        <span class="seller-modal-label">스토어명</span>
+        <span class="seller-modal-value">${store_name ?? '-'}</span>
+      </div>
+    </div>
+  `
+}
+
+function openSellerModal() {
+  if (!sellerModal) return
+  // TODO: API 연동 후 실제 판매자 데이터로 교체
+  const sellerData = {
+    name: '백엔드글로벌',
+    phone_number: '02-1234-5678',
+    company_registration_number: '123-45-67890',
+    store_name: '백엔드글로벌 스토어',
+  }
+  sellerModal.setAttribute('message', buildSellerInfoHtml(sellerData))
+  sellerModal.setAttribute('open', '')
+}
+
+function handleSellerKeydown(e) {
+  if (e.key !== 'Enter' && e.key !== ' ') return
+  e.preventDefault()
+  openSellerModal()
+}
+
+if (sellerNameEl) {
+  sellerNameEl.addEventListener('click', openSellerModal)
+  sellerNameEl.addEventListener('keydown', handleSellerKeydown)
+}
 
 // import {
 //   validateUsername,
@@ -70,4 +124,3 @@
 
 // // 회원가입 폼 제출
 // handleSignupSubmit(form)
-
