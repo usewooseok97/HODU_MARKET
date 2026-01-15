@@ -1,0 +1,62 @@
+@import url('/src/assets/styles/recommendReset.css');
+
+/* 메인 레이아웃 */
+main {
+}
+
+/* 대시보드 타이틀 섹션 */
+.dashboard-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4.4rem 10rem 4.2rem;
+  background-color: var(--background-color);
+}
+
+.dashboard-title > div {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.dashboard-title h1 {
+  font-weight: 700;
+  font-size: 3.6rem;
+  line-height: 1.22;
+  color: var(--text-color);
+}
+
+.seller-name {
+  font-weight: 500;
+  font-size: 3.6rem;
+  line-height: 1.22;
+  color: var(--button-color);
+}
+
+/* 컨텐츠 래퍼 (사이드바 + 테이블) */
+.content-wrapper {
+  display: flex;
+  gap: 3rem;
+  padding: 3.8rem 10rem;
+}
+
+/* 사이드바 */
+.sidebar {
+  flex-shrink: 0;
+  width: 25rem;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 상품 테이블 영역 */
+.product-table {
+  flex: 1;
+  background-color: var(--tab-title-color);
+  border-radius: 5px;
+  border: 1px solid var(--disabled-color);
+  overflow: hidden;
+}

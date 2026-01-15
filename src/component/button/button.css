@@ -1,7 +1,8 @@
 /* L-button (Large button) 스타일 */
+
 .l-button {
-  width: 100%;  /* 부모 컨테이너 크기에 맞춤 */
-  height: 68px;  /* 세로 고정 */
+  width: 100%; /* 부모 컨테이너 크기에 맞춤 */
+  height: 68px; /* 세로 고정 */
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -59,8 +60,8 @@
    M-button (Medium button) 스타일
    ======================================== */
 .m-button {
-  width: 100%;  /* 부모 컨테이너 크기에 맞춤 */
-  height: 60px;  /* 세로 고정 */
+  width: 100%; /* 부모 컨테이너 크기에 맞춤 */
+  height: 60px; /* 세로 고정 */
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -167,8 +168,9 @@
    MS-icon-button (아이콘 버튼) 스타일
    ======================================== */
 .ms-icon-button {
-  width: 100%;  /* 가변 너비, 최소값 168px */
-  height: 54px;  /* 세로 고정 */
+  width: 168px;
+  box-sizing: border-box;
+  height: 54px; /* 세로 고정 */
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -180,7 +182,7 @@
   /* 플렉스 레이아웃 */
   display: flex;
   align-items: center;
-  padding: 0 20px 0 60px;  /* 아이콘 공간 + 오른쪽 패딩 */
+  padding: 0 20px 0 60px; /* 아이콘 공간 + 오른쪽 패딩 */
 
   /* 트랜지션 효과 */
   transition: all 0.2s ease;
@@ -231,8 +233,8 @@
    MS-16p-button 스타일
    ======================================== */
 .ms-16p-button {
-  width: 100%;  /* 가변 너비, 최소값 166px */
-  height: 54px;  /* 세로 고정 */
+  width: 100%; /* 가변 너비, 최소값 166px */
+  height: 54px; /* 세로 고정 */
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -315,8 +317,8 @@
    S-button (Small button) 스타일
    ======================================== */
 .s-button {
-  width: 100%;  /* 가변 너비, 최소값 80px */
-  height: 40px;  /* 세로 고정 */
+  width: 100%; /* 가변 너비, 최소값 80px */
+  height: 40px; /* 세로 고정 */
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -391,8 +393,8 @@
    Tab-button 스타일
    ======================================== */
 .tab-button {
-  min-width: 320px;  /* 가변 너비, 최소값 320px */
-  height: 60px;  /* 세로 고정 */
+  min-width: 320px; /* 가변 너비, 최소값 320px */
+  height: 60px; /* 세로 고정 */
   border: none;
   cursor: pointer;
   position: relative;
@@ -410,14 +412,14 @@
   left: 50%;
   top: 19px;
   transform: translateX(-50%);
-  
+
   /* 기본 텍스트 스타일 (비활성화) */
   color: #767676;
   font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
   white-space: nowrap;
-  
+
   transition: all 0.2s ease;
 }
 
@@ -427,10 +429,10 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  
+
   /* 기본 인디케이터 (비활성화) */
   background: #e0e0e0;
-  
+
   transition: all 0.2s ease;
 }
 
@@ -467,8 +469,8 @@
    ============================ */
 
 .teb-menu {
-  min-width: 250px;  /* 가변 너비, 최소값 250px */
-  height: 50px;  /* 세로 고정 */
+  min-width: 250px; /* 가변 너비, 최소값 250px */
+  height: 50px; /* 세로 고정 */
 
   border: none;
   border-radius: 5px;
@@ -480,12 +482,12 @@
 
   padding: 0 20px;
 
-  background: #ffffff;          /* off */
+  background: #ffffff; /* off */
   color: #000000;
 
   font-size: 1.6rem;
   font-weight: 500;
-  
+
   transition: all 0.2s ease;
 }
 
@@ -512,7 +514,7 @@
 
 /* hover (off 상태에서만) */
 .teb-menu:not(.teb-menu--active):hover {
-  background: #effff3;  /* hover */
+  background: #effff3; /* hover */
 }
 
 /* active 상태 */
