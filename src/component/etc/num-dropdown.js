@@ -1,6 +1,6 @@
 /**
  * NumDropdown Web Component
- * 스크롤 가능한 번호 선택 드롭다운 (010, 011, 016, 017 등)
+ * 클릭하면 드롭다운이 열리는 번호 선택 컴포넌트
  *
  * @example
  * <etc-num-dropdown></etc-num-dropdown>
@@ -13,7 +13,9 @@ class NumDropdown extends HTMLElement {
   constructor() {
     super()
     this.numbers = ['010', '011', '016', '017', '018', '019']
-    this.selectedIndex = null
+    this.selectedNumber = '010'
+    this.isOpen = false
+    this._onDocumentClick = this._onDocumentClick.bind(this)
   }
 
   connectedCallback() {
@@ -21,49 +23,66 @@ class NumDropdown extends HTMLElement {
     this.attachEventListeners()
   }
 
+  disconnectedCallback() {
+    document.removeEventListener('click', this._onDocumentClick)
+  }
+
   render() {
-    // 드롭다운 HTML 생성
     this.innerHTML = `
       <div class="num-dropdown">
-        <ul class="num-dropdown__list">
-          ${this.numbers
-            .map(
-              (num, index) => `
-            <li class="num-dropdown__item" data-number="${num}" data-index="${index}">
-              ${num}
-            </li>
-          `
-            )
-            .join('')}
-        </ul>
-        
-        <!-- 스크롤바 영역 -->
-        <div class="num-dropdown__scrollbar">
-          <div class="num-dropdown__scrollbar-thumb"></div>
+        <button type="button" class="num-dropdown__trigger">
+          <span class="num-dropdown__value">${this.selectedNumber}</span>
+          <span class="num-dropdown__arrow"></span>
+        </button>
+        <div class="num-dropdown__menu">
+          <ul class="num-dropdown__list">
+            ${this.numbers
+              .map(
+                (num) => `
+              <li class="num-dropdown__item${num === this.selectedNumber ? ' num-dropdown__item--selected' : ''}" data-number="${num}">
+                ${num}
+              </li>
+            `
+              )
+              .join('')}
+          </ul>
+          <div class="num-dropdown__scrollbar">
+            <div class="num-dropdown__scrollbar-thumb"></div>
+          </div>
         </div>
       </div>
     `
 
-    // 스타일 로드
     this.loadStyles()
   }
 
   attachEventListeners() {
+    const trigger = this.querySelector('.num-dropdown__trigger')
     const items = this.querySelectorAll('.num-dropdown__item')
     const list = this.querySelector('.num-dropdown__list')
 
+    // 트리거 클릭 - 드롭다운 열기/닫기
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation()
+      this.toggle()
+    })
+
     // 아이템 클릭 이벤트
     items.forEach((item) => {
-      item.addEventListener('click', () => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation()
         const number = item.dataset.number
-        const index = parseInt(item.dataset.index)
 
-        // 기존 선택 제거
+        // 선택 업데이트
+        this.selectedNumber = number
+        this.querySelector('.num-dropdown__value').textContent = number
+
+        // 선택 상태 업데이트
         items.forEach((i) => i.classList.remove('num-dropdown__item--selected'))
-
-        // 새 선택 추가
         item.classList.add('num-dropdown__item--selected')
-        this.selectedIndex = index
+
+        // 드롭다운 닫기
+        this.close()
 
         // 커스텀 이벤트 발생
         this.dispatchEvent(
@@ -75,10 +94,39 @@ class NumDropdown extends HTMLElement {
       })
     })
 
-    // 스크롤 이벤트 (스크롤바 업데이트)
+    // 스크롤 이벤트
     list.addEventListener('scroll', () => {
       this.updateScrollbar()
     })
+
+    // 외부 클릭 시 닫기
+    document.addEventListener('click', this._onDocumentClick)
+  }
+
+  _onDocumentClick(e) {
+    if (!this.contains(e.target)) {
+      this.close()
+    }
+  }
+
+  toggle() {
+    if (this.isOpen) {
+      this.close()
+    } else {
+      this.open()
+    }
+  }
+
+  open() {
+    this.isOpen = true
+    this.querySelector('.num-dropdown').classList.add('num-dropdown--open')
+    this.querySelector('.num-dropdown__arrow').classList.add('num-dropdown__arrow--up')
+  }
+
+  close() {
+    this.isOpen = false
+    this.querySelector('.num-dropdown')?.classList.remove('num-dropdown--open')
+    this.querySelector('.num-dropdown__arrow')?.classList.remove('num-dropdown__arrow--up')
   }
 
   updateScrollbar() {
@@ -89,19 +137,21 @@ class NumDropdown extends HTMLElement {
 
     const scrollPercentage =
       list.scrollTop / (list.scrollHeight - list.clientHeight)
-    const maxThumbTop = 150 - 90 - 12 // 전체 높이 - thumb 높이 - 패딩
+    const maxThumbTop = 150 - 90 - 12
     const thumbTop = 6 + scrollPercentage * maxThumbTop
 
     thumb.style.top = `${thumbTop}px`
   }
 
+  getValue() {
+    return this.selectedNumber
+  }
+
   loadStyles() {
-    // CSS 파일이 이미 로드되었는지 확인
     if (document.querySelector('link[href*="num-dropdown.css"]')) {
       return
     }
 
-    // CSS 파일 동적 로드
     const link = document.createElement('link')
     link.rel = 'stylesheet'
     link.href = '/src/component/etc/num-dropdown.css'
@@ -109,7 +159,6 @@ class NumDropdown extends HTMLElement {
   }
 }
 
-// 커스텀 엘리먼트 등록
 customElements.define('etc-num-dropdown', NumDropdown)
 
 export default NumDropdown

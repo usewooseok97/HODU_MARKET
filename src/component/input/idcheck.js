@@ -9,22 +9,16 @@ class IdCheckInput extends HTMLElement {
   }
 
   render() {
-    const variant = this.getAttribute('variant') || 'default'
-
-    let inputClass = 'check-input'
-    if (variant === 'error') {
-      inputClass += ' check-input--error'
-    } else if (variant === 'success') {
-      inputClass += ' check-input--success'
-    } else if (variant === 'dark') {
-      inputClass += ' check-input--dark'
-    }
+    const label = this.getAttribute('label') || '아이디'
+    const placeholder = this.getAttribute('placeholder') || ''
+    const hideLabel = this.hasAttribute('hide-label')
+    const inputId = this.getAttribute('id') || 'id-check'
 
     this.innerHTML = `
-      <div class="check-box">
-        <label for="id-check" class="check-label">아이디</label>
-        <input type="text" id="id-check" class="${inputClass}" placeholder="text" />
-        <p class="message"></p>
+      <div class="idcheck-box">
+        ${hideLabel ? '' : `<label for="${inputId}-input" class="idcheck-label">${label}</label>`}
+        <input type="text" id="${inputId}-input" class="idcheck-input" placeholder="${placeholder}" />
+        <p class="idcheck-message"></p>
       </div>
     `
 
@@ -60,27 +54,46 @@ class IdCheckInput extends HTMLElement {
   }
 
   attachEventListeners() {
-    const input = this.querySelector('#id-check')
-    const message = this.querySelector('.message')
+    const input = this.querySelector('.idcheck-input')
 
-    if (input && message) {
+    if (input) {
       input.addEventListener('input', () => {
-        const value = input.value
-
-        if (value.length >= 4) {
-          message.textContent = '사용 가능한 아이디입니다.'
-          message.style.color = 'green'
-          this.setAttribute('variant', 'success')
-        } else if (value.length > 0) {
-          message.textContent = '4자 이상 입력해주세요.'
-          message.style.color = 'red'
-          this.setAttribute('variant', 'error')
-        } else {
-          message.textContent = ''
-          this.setAttribute('variant', 'default')
-        }
+        this.dispatchEvent(new CustomEvent('input-change', {
+          bubbles: true,
+          detail: { value: input.value }
+        }))
       })
     }
+  }
+
+  setMessage(text, type = '') {
+    const message = this.querySelector('.idcheck-message')
+    const input = this.querySelector('.idcheck-input')
+
+    if (message) {
+      message.textContent = text
+      message.className = 'idcheck-message'
+      if (type) message.classList.add(type)
+    }
+
+    if (input) {
+      input.classList.remove('error', 'success')
+      if (type) input.classList.add(type)
+    }
+  }
+
+  getValue() {
+    const input = this.querySelector('.idcheck-input')
+    return input ? input.value : ''
+  }
+
+  setValue(value) {
+    const input = this.querySelector('.idcheck-input')
+    if (input) input.value = value
+  }
+
+  static get observedAttributes() {
+    return ['label', 'placeholder', 'hide-label']
   }
 }
 

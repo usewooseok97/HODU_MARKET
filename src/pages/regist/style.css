@@ -1,0 +1,412 @@
+@import url('../../assets/styles/recommendReset.css');
+
+/* ===== 페이지 전체 레이아웃 ===== */
+.register-page {
+  width: 100%;
+  min-height: 100vh;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 0 100px;
+}
+
+/* ===== 로고 ===== */
+.register-logo {
+  width: 238px;
+  height: 74px;
+  margin-bottom: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== 회원 유형 선택 탭 ===== */
+.register-tabs {
+  width: 550px;
+  display: flex;
+  margin-bottom: 0;
+}
+
+.register-tab {
+  flex: 1;
+  height: auto;
+}
+
+/* 내부 버튼 스타일 오버라이드 */
+.register-tab .tab-button {
+  width: 100%;
+  height: 60px;
+  min-width: unset;
+  background: #F2F2F2;
+  border: 1px solid #C4C4C4;
+  border-radius: 10px 10px 0 0;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+/* 왼쪽 탭 (구매회원) */
+.register-tab:first-child .tab-button {
+  border-top-right-radius: 0;
+  border-right: none;
+}
+
+/* 오른쪽 탭 (판매회원) */
+.register-tab:last-child .tab-button {
+  border-top-left-radius: 0;
+  border-left: none;
+}
+
+/* 활성화된 탭 */
+.register-tab[active] .tab-button,
+.register-tab .tab-button.tab-button--active {
+  background: white;
+  border-bottom: 1px solid white;
+  z-index: 1;
+}
+
+/* 탭 텍스트 */
+.register-tab .tab-button__text {
+  position: static;
+  transform: none;
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2.2rem;
+  color: #000000;
+}
+
+/* 활성화된 탭 텍스트 */
+.register-tab[active] .tab-button__text,
+.register-tab .tab-button--active .tab-button__text {
+  color: #21BF48;
+  font-weight: 700;
+}
+
+/* 탭 인디케이터 숨기기 */
+.register-tab .tab-button__indicator {
+  display: none;
+}
+
+/* ===== 회원가입 폼 컨테이너 ===== */
+.register-container {
+  width: 550px;
+  background: white;
+  border: 1px solid #C4C4C4;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 35px;
+  box-sizing: border-box;
+}
+
+/* ===== 폼 그룹 ===== */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* ===== 아이디 + 중복확인 버튼 ===== */
+.input-with-button {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.input-with-button > input-idcheck {
+  flex: 1;
+}
+
+.input-with-button > input-idcheck .idcheck-box {
+  margin-bottom: 0;
+}
+
+.check-button {
+  flex-shrink: 0;
+  width: 122px;
+  padding-top: 36px;
+}
+
+.check-button button-ms16p {
+  display: block;
+}
+
+/* ===== 휴대폰번호 입력 ===== */
+.phone-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.phone-label {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #767676;
+}
+
+.phone-inputs {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.phone-dropdown {
+  width: 152px;
+  flex-shrink: 0;
+}
+
+.phone-input-wrapper {
+  width: 152px;
+  flex-shrink: 0;
+}
+
+.phone-input-wrapper input-idcheck .idcheck-box {
+  margin-bottom: 0;
+}
+
+.phone-input-wrapper input-idcheck .idcheck-input {
+  width: 100%;
+}
+
+/* ===== 판매자 전용 필드 ===== */
+.seller-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===== 체크박스 그룹 ===== */
+.checkbox-group {
+  margin-top: 34px;
+  margin-bottom: 0;
+}
+
+.checkbox-group etc-checkbox {
+  width: 100%;
+}
+
+/* ===== 제출 버튼 그룹 ===== */
+.submit-group {
+  margin-top: 34px;
+  display: flex;
+  justify-content: center;
+}
+
+.submit-group button-medium {
+  width: 100%;
+}
+
+/* ===== input-idcheck 스타일 조정 ===== */
+.form-group input-idcheck {
+  width: 100%;
+  display: block;
+}
+
+.form-group input-idcheck .idcheck-box {
+  margin-bottom: 0;
+}
+
+.form-group input-idcheck .idcheck-label {
+  white-space: nowrap;
+}
+
+/* ===== input-password 스타일 조정 ===== */
+.form-group input-password {
+  width: 100%;
+  display: block;
+}
+
+/* ===== 비밀번호 아이콘 (눈 모양) ===== */
+.password-toggle {
+  width: 28px;
+  height: 28px;
+  background: #F2F2F2;
+  border-radius: 50%;
+  position: absolute;
+  right: 16px;
+  top: 43px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle::before {
+  content: '';
+  width: 14px;
+  height: 9px;
+  border: 2px solid white;
+  border-radius: 50% 50% 0 0;
+}
+
+/* 활성화 상태 */
+.password-toggle.active {
+  background: #21BF48;
+}
+
+/* ===== 휴대폰 번호 드롭다운 화살표 ===== */
+.phone-dropdown-arrow {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  right: 16px;
+  top: 46px;
+  pointer-events: none;
+}
+
+.phone-dropdown-arrow::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5.41px solid transparent;
+  border-right: 5.41px solid transparent;
+  border-top: 6.41px solid #767676;
+  position: absolute;
+  top: 8px;
+  left: 5px;
+}
+
+/* ===== 반응형 디자인 ===== */
+@media (max-width: 768px) {
+  .register-page {
+    padding: 40px 20px 60px;
+  }
+
+  .register-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 40px;
+  }
+
+  .register-tabs {
+    width: 100%;
+    max-width: 550px;
+  }
+
+  .register-tab {
+    flex: 1;
+  }
+
+  .register-container {
+    width: 100%;
+    max-width: 550px;
+    padding: 20px;
+  }
+
+  .input-with-button {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-with-button > input-idcheck {
+    width: 100%;
+  }
+
+  .check-button {
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .phone-inputs {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .phone-dropdown,
+  .phone-input-wrapper {
+    width: 100%;
+  }
+
+  .submit-group button-medium {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-page {
+    padding: 30px 15px 50px;
+  }
+
+  .register-logo {
+    width: 150px;
+    margin-bottom: 30px;
+  }
+
+  .register-tabs {
+    height: 60px;
+  }
+
+  .register-tab .tab-button__text {
+    font-size: 1.6rem;
+  }
+
+  .register-container {
+    padding: 15px;
+  }
+
+  .phone-label,
+  .form-group label {
+    font-size: 1.4rem;
+  }
+
+  .checkbox-group {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  .submit-group {
+    margin-top: 16px;
+  }
+}
+
+/* ===== 버튼 비활성화 상태 스타일 ===== */
+button-medium[disabled] {
+  pointer-events: none;
+}
+
+button-medium[disabled] .m-button {
+  background: #C4C4C4 !important;
+  cursor: not-allowed;
+}
+
+/* ===== 인증 완료 메시지 ===== */
+.success-message {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #21BF48;
+  margin-top: 8px;
+}
+
+.error-message {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #EB5757;
+  margin-top: 8px;
+}
+
+/* ===== input-idcheck 내부 메시지 스타일 ===== */
+input-idcheck .idcheck-message {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+/* ===== 약관 동의 체크박스 텍스트 스타일 ===== */
+.checkbox-group etc-checkbox .check-label {
+  font-size: 1.6rem;
+  color: #767676;
+}
+
+.checkbox-group etc-checkbox .check-label a {
+  color: #767676;
+  font-weight: 700;
+  text-decoration: underline;
+}
