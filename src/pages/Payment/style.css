@@ -108,15 +108,15 @@ payment-header {
   font-size: 1.8rem;
   font-weight: 500;
   color: #000000;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
+  margin-bottom: 0;
+  padding-bottom: 8px;
   border-bottom: 2px solid #C4C4C4;
 }
 
 .info-row {
   display: flex;
   align-items: center;
-  padding: 20px 0;
+  padding: 8px 0; /* 위·아래 8px로 줄이기 */
   border-bottom: 1px solid #C4C4C4;
 }
 
@@ -190,35 +190,20 @@ payment-header {
   background: white;
 }
 
-.postal-search-btn {
+/* 우편번호 조회 버튼 컴포넌트 스타일 */
+#postalSearchBtn {
+  display: inline-block;
   width: 154px;
-  height: 40px;
-  background: #21BF48;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-size: 1.6rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.postal-search-btn:hover {
-  background: #1ea53f;
-}
-
-.postal-search-btn:active {
-  background: #1a8f36;
 }
 
 /* ===== 하단 섹션 (결제수단 + 최종결제) ===== */
 .bottom-section {
   display: grid;
   grid-template-columns: 760px 480px;
-  gap: 40px;
+  gap: 20px;
   width: 100%;
   max-width: 1280px;
-  padding: 0 30px;
+  padding: 0;
   margin: 0 auto;
 }
 
@@ -507,4 +492,7 @@ payment-header {
   .payment-submit-btn {
     width: 100%;
   }
+}
+.info-row.no-border {
+  border-bottom: none;
 }

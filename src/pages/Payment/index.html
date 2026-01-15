@@ -26,31 +26,29 @@
 
           <!-- 상품 리스트 -->
           <div class="order-product-list" id="orderProductList">
-  <payment-item
-    product-id="1"
-    image="/src/assets/images/cart-Product-list.png"
-    seller="백엔드글로벌"
-    name="딥러닝 개발자 무릎 담요"
-    price="17500"
-    quantity="1"
-    shipping="0"
-    discount="0"
-  ></payment-item>
+            <payment-item
+              product-id="1"
+              image="/src/assets/images/cart-Product-list.png"
+              seller="백엔드글로벌"
+              name="딥러닝 개발자 무릎 담요"
+              price="17500"
+              quantity="1"
+              shipping="0"
+              discount="0"
+            ></payment-item>
 
-  <payment-item
-    product-id="2"
-    image="/src/assets/images/cart-Product-list.png"
-    seller="우당탕탕 라이캣의 실험실"
-    name="Hack Your Life 개발자 노트북 파우치"
-    price="29000"
-    quantity="1"
-    shipping="0"
-    discount="0"
-  ></payment-item>
-</div>
-
-            <!-- 상품 아이템들이 동적으로 추가됩니다 -->
+            <payment-item
+              product-id="2"
+              image="/src/assets/images/cart-Product-list.png"
+              seller="우당탕탕 라이캣의 실험실"
+              name="Hack Your Life 개발자 노트북 파우치"
+              price="29000"
+              quantity="1"
+              shipping="0"
+              discount="0"
+            ></payment-item>
           </div>
+          <!-- 상품 아이템들이 동적으로 추가됩니다 -->
         </section>
 
         <!-- 총 주문금액 -->
@@ -64,66 +62,154 @@
           <h2 class="section-title">배송정보</h2>
           <div class="section-divider"></div>
 
-          <!-- 주문자 정보 -->
-          <div class="info-group">
-            <h3 class="group-title">주문자 정보</h3>
-            <div class="info-row">
-              <label class="info-label">이름</label>
-              <input type="text" class="info-input" id="ordererName" />
-            </div>
-            <div class="info-row">
-              <label class="info-label">휴대폰</label>
-              <div class="phone-input-group">
-                <input type="text" class="phone-input" maxlength="3" />
-                <span class="phone-divider">-</span>
-                <input type="text" class="phone-input" maxlength="4" />
-                <span class="phone-divider">-</span>
-                <input type="text" class="phone-input" maxlength="4" />
+          <form id="shippingForm">
+            <!-- 주문자 정보 -->
+            <div class="info-group">
+              <h3 class="group-title">주문자 정보</h3>
+              <div class="info-row">
+                <label class="info-label" for="ordererName">이름</label>
+                <input
+                  type="text"
+                  class="info-input"
+                  id="ordererName"
+                  name="ordererName"
+                  required
+                />
+              </div>
+              <div class="info-row">
+                <label class="info-label">휴대폰</label>
+                <div class="phone-input-group">
+                  <input
+                    type="text"
+                    class="phone-input"
+                    name="ordererPhone1"
+                    maxlength="3"
+                    required
+                  />
+                  <span class="phone-divider">-</span>
+                  <input
+                    type="text"
+                    class="phone-input"
+                    name="ordererPhone2"
+                    maxlength="4"
+                    required
+                  />
+                  <span class="phone-divider">-</span>
+                  <input
+                    type="text"
+                    class="phone-input"
+                    name="ordererPhone3"
+                    maxlength="4"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="info-row">
+                <label class="info-label" for="ordererEmail">이메일</label>
+                <input
+                  type="email"
+                  class="info-input"
+                  id="ordererEmail"
+                  name="ordererEmail"
+                  required
+                />
               </div>
             </div>
-            <div class="info-row">
-              <label class="info-label">이메일</label>
-              <input type="email" class="info-input" id="ordererEmail" />
-            </div>
-          </div>
 
-          <!-- 배송지 정보 -->
-          <div class="info-group">
-            <h3 class="group-title">배송지 정보</h3>
-            <div class="info-row">
-              <label class="info-label">수령인</label>
-              <input type="text" class="info-input" id="receiverName" />
-            </div>
-            <div class="info-row">
-              <label class="info-label">휴대폰</label>
-              <div class="phone-input-group">
-                <input type="text" class="phone-input" maxlength="3" />
-                <span class="phone-divider">-</span>
-                <input type="text" class="phone-input" maxlength="4" />
-                <span class="phone-divider">-</span>
-                <input type="text" class="phone-input" maxlength="4" />
+            <!-- 배송지 정보 -->
+            <div class="info-group">
+              <h3 class="group-title">배송지 정보</h3>
+              <div class="info-row">
+                <label class="info-label" for="receiverName">수령인</label>
+                <input
+                  type="text"
+                  class="info-input"
+                  id="receiverName"
+                  name="receiverName"
+                  required
+                />
+              </div>
+              <div class="info-row">
+                <label class="info-label">휴대폰</label>
+                <div class="phone-input-group">
+                  <input
+                    type="text"
+                    class="phone-input"
+                    name="receiverPhone1"
+                    maxlength="3"
+                    required
+                  />
+                  <span class="phone-divider">-</span>
+                  <input
+                    type="text"
+                    class="phone-input"
+                    name="receiverPhone2"
+                    maxlength="4"
+                    required
+                  />
+                  <span class="phone-divider">-</span>
+                  <input
+                    type="text"
+                    class="phone-input"
+                    name="receiverPhone3"
+                    maxlength="4"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="info-row no-border">
+                <label class="info-label" for="postalCode">배송주소</label>
+                <div class="address-input-group">
+                  <input
+                    type="text"
+                    class="address-input-postal"
+                    id="postalCode"
+                    name="postalCode"
+                    readonly
+                    required
+                  />
+                  <button-small
+                    text="우편번호 조회"
+                    width="154px"
+                    id="postalSearchBtn"
+                  ></button-small>
+                </div>
+              </div>
+              <!-- 아래 두 줄은 구분선 없애기 위해 no-border 클래스 추가 -->
+              <div class="info-row no-border">
+                <label class="info-label"></label>
+                <input
+                  type="text"
+                  class="info-input-large"
+                  id="address"
+                  name="address"
+                  readonly
+                  required
+                />
+              </div>
+              <div class="info-row no-border">
+                <label class="info-label"></label>
+                <input
+                  type="text"
+                  class="info-input-large"
+                  id="addressDetail"
+                  name="addressDetail"
+                  placeholder="상세주소를 입력하세요"
+                />
+              </div>
+              <div class="section-divider" style="margin:0 0 8px;width:100%;height:1px;background:#C4C4C4;"></div>
+              <div class="info-row">
+                <label class="info-label" for="deliveryMessage">배송 메시지</label>
+                <input
+                  type="text"
+                  class="info-input-large"
+                  id="deliveryMessage"
+                  name="deliveryMessage"
+                  placeholder="배송 메시지를 입력하세요"
+                />
               </div>
             </div>
-            <div class="info-row">
-              <label class="info-label">배송주소</label>
-              <div class="address-input-group">
-                <input type="text" class="address-input-postal" id="postalCode" readonly />
-                <button type="button" class="postal-search-btn">우편번호 조회</button>
-              </div>
-            </div>
-            <div class="info-row">
-              <label class="info-label"></label>
-              <input type="text" class="info-input-large" id="address" readonly />
-            </div>
-            <div class="info-row">
-              <label class="info-label"></label>
-              <input type="text" class="info-input-large" id="addressDetail" />
-            </div>
-            <div class="info-row">
-              <label class="info-label">배송 메시지</label>
-              <input type="text" class="info-input-large" id="deliveryMessage" />
-            </div>
-          </div>
+          </form>
         </section>
 
         <!-- 하단 섹션 (결제수단 + 최종결제 정보) -->
@@ -132,26 +218,51 @@
           <section class="payment-method-section">
             <h2 class="section-title">결제수단</h2>
             <div class="section-divider"></div>
-            
+
             <div class="payment-methods">
               <label class="payment-method-item">
-                <input type="radio" name="paymentMethod" value="card" class="payment-radio" />
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="card"
+                  class="payment-radio"
+                />
                 <span class="payment-method-text">신용/체크카드</span>
               </label>
               <label class="payment-method-item">
-                <input type="radio" name="paymentMethod" value="transfer" class="payment-radio" />
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="transfer"
+                  class="payment-radio"
+                />
                 <span class="payment-method-text">무통장 입금</span>
               </label>
               <label class="payment-method-item">
-                <input type="radio" name="paymentMethod" value="phone" class="payment-radio" />
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="phone"
+                  class="payment-radio"
+                />
                 <span class="payment-method-text">휴대폰 결제</span>
               </label>
               <label class="payment-method-item">
-                <input type="radio" name="paymentMethod" value="naverpay" class="payment-radio" />
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="naverpay"
+                  class="payment-radio"
+                />
                 <span class="payment-method-text">네이버페이</span>
               </label>
               <label class="payment-method-item">
-                <input type="radio" name="paymentMethod" value="kakaopay" class="payment-radio" />
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="kakaopay"
+                  class="payment-radio"
+                />
                 <span class="payment-method-text">카카오페이</span>
               </label>
             </div>
@@ -183,9 +294,9 @@
                   <span class="detail-unit">원</span>
                 </div>
               </div>
-              
+
               <div class="payment-divider-line"></div>
-              
+
               <div class="payment-detail-row highlight-row">
                 <span class="payment-detail-label">- 결제금액</span>
                 <span class="final-amount">46,500원</span>
@@ -193,14 +304,18 @@
 
               <div class="payment-agreement-box">
                 <div class="agreement-section">
-                  <label class="agreement-checkbox">
-                    <input type="checkbox" class="checkbox-input" id="agreementCheck" />
-                    <span class="checkbox-custom"></span>
-                    <span class="agreement-text">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</span>
-                  </label>
+                  <etc-checkbox
+                    id="agreementCheck"
+                    text="주문 내용을 확인하였으며, 정보 제공 등에 동의합니다."
+                  ></etc-checkbox>
                 </div>
 
-                <button type="button" class="payment-submit-btn" id="paymentBtn" disabled>
+                <button
+                  type="button"
+                  class="payment-submit-btn"
+                  id="paymentBtn"
+                  disabled
+                >
                   결제하기
                 </button>
               </div>
