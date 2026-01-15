@@ -208,4 +208,4 @@ class IdCheckInput extends HTMLElement {
   }
 }
 
-customElements.define('input-idcheck', IdCheckInput)
+customElements.define('input-id', IdCheckInput)
