@@ -7,38 +7,27 @@
   <link rel="stylesheet" href="/src/pages/login/style.css" />
 </head>
 <body>
-  <main class="page">
+<div class="login">
+  <div class="icon">  
+  <logo-component></logo-component>
+  </div>
+  <div class="login-box">
+  <h1 class="title">로그인</h1>
 
-    <!-- 1) 로고 -->
-    <header class="logo-area">
-      <logo-component></logo-component>
-    </header>
-    
-    <!-- 2) 로그인 카드 -->
-    <section class="card" aria-label="로그인">
-      <h1 class="title">로그인</h1>
-
-      <!-- 입력 + 버튼을 한 묶음으로 -->
-<form class="form-box">
-  <div class="inputs">
+  <form class="login-form" action="#" method="post">
     <input-id></input-id>
-    <input-password></input-password>
-  </div>
-
-  <div class="submit-area">
+    <input-id placeholder="비밀번호"></input-id>
     <button-medium text="로그인"></button-medium>
-  </div>
-</form>
+  </form>
+</div>
 
-    </section>
-
-    <!-- 3) 하단 링크 -->
     <nav class="links" aria-label="계정 관련 링크">
       <a class="link" href="#">회원가입</a>
       <span class="divider" aria-hidden="true">|</span>
       <a class="link" href="#">비밀번호 찾기</a>
     </nav>
-  </main>
+</div>
+
   <!-- body 끝에 추가 -->
 <script type="module" src="/src/component/logo/component.js"></script>
 <!-- body 끝에 추가 -->

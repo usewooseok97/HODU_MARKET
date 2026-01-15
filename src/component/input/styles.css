@@ -1,33 +1,75 @@
-.id-box {
-  height: 60px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
+@import url(/src/assets/styles/recommendReset.css);
+
+/* 전체 폰트 적용 */
+* {
+  font-family:
+    'Spoqa Han Sans Neo',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 
-.id-box label {
-  font-size: 1.6rem;
-  color: var(--button-darkcolor);
-  white-space: nowrap;
-  transition: all 0.3s;
-  font-weight: 500;
+/* ID Input Styles */
+.id-box {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .id-input {
   width: 100%;
-  flex: 1;
-  height: 100%;
+  height: 54px;
   border: none;
   border-bottom: 1px solid var(--disabled-color);
   font-size: 1.6rem;
   outline: none;
   background: transparent;
+  padding: 0 8px;
+  transition: all 0.3s;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+}
+
+.id-input::placeholder {
+  color: var(--text-color);
+  font-size: 1.6rem;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 .id-input:focus {
   border-bottom: 2px solid var(--input-success-color);
 }
 
+/* ID Input Variants */
+.id-input--error {
+  border-bottom: 2px solid var(--input-error-color);
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+.id-input--error:focus {
+  border-bottom: 2px solid var(--input-error-color);
+}
+
+.id-input--success {
+  border-bottom: 2px solid var(--input-success-color);
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.id-input--success:focus {
+  border-bottom: 2px solid var(--input-success-color);
+}
+
+.id-input--dark {
+  background: #333;
+  color: white;
+  border-bottom: 2px solid #666;
+}
+
+.id-input--dark:focus {
+  border-bottom: 2px solid #21bf48;
+}
+
+/* Password Input Styles */
 .ps-box {
   display: flex;
   flex-direction: column;
@@ -38,6 +80,7 @@
   font-size: 1.6rem;
   color: var(--button-darkcolor);
   font-weight: 500;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 .ps-input {
@@ -48,7 +91,8 @@
   border: 1px solid var(--disabled-color);
   border-radius: 4px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 .ps-input:focus {
@@ -58,8 +102,39 @@
 .ps-input::placeholder {
   color: var(--text-color);
   font-size: 1.6rem;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
+/* Password Input Variants */
+.ps-input--error {
+  border: 2px solid var(--input-error-color);
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+.ps-input--error:focus {
+  border: 2px solid var(--input-error-color);
+}
+
+.ps-input--success {
+  border: 2px solid var(--input-success-color);
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.ps-input--success:focus {
+  border: 2px solid var(--input-success-color);
+}
+
+.ps-input--dark {
+  background: #333;
+  color: white;
+  border: 2px solid #666;
+}
+
+.ps-input--dark:focus {
+  border: 2px solid #21bf48;
+}
+
+/* Item Name Input Styles */
 .item-box {
   height: 84px;
   display: flex;
@@ -71,6 +146,7 @@
   font-size: 1.6rem;
   color: var(--button-darkcolor);
   font-weight: 500;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 .input-wrapper {
@@ -85,12 +161,14 @@
   border: 1px solid var(--disabled-color);
   border-radius: 4px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 .item-input::placeholder {
   color: var(--text-color);
   font-size: 1.6rem;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 .char-count {
@@ -101,8 +179,39 @@
   font-size: 1.6rem;
   color: var(--disabled-color);
   pointer-events: none;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
+/* Item Name Input Variants */
+.item-input--error {
+  border: 2px solid var(--input-error-color);
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+.item-input--error:focus {
+  border: 2px solid var(--input-error-color);
+}
+
+.item-input--success {
+  border: 2px solid var(--input-success-color);
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.item-input--success:focus {
+  border: 2px solid var(--input-success-color);
+}
+
+.item-input--dark {
+  background: #333;
+  color: white;
+  border: 2px solid #666;
+}
+
+.item-input--dark:focus {
+  border: 2px solid #21bf48;
+}
+
+/* Price Input Styles */
 .price-box {
   display: flex;
   flex-direction: column;
@@ -113,6 +222,7 @@
   font-size: 1.6rem;
   color: var(--button-darkcolor);
   font-weight: 500;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 .input-group {
@@ -129,6 +239,8 @@
   border-right: none;
   border-radius: 4px 0 0 4px;
   outline: none;
+  transition: all 0.3s;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 .unit-button {
@@ -144,7 +256,45 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
+
+/* Price Input Variants */
+.price-input--error {
+  border: 2px solid var(--input-error-color);
+  border-right: none;
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+.price-input--error:focus {
+  border: 2px solid var(--input-error-color);
+  border-right: none;
+}
+
+.price-input--success {
+  border: 2px solid var(--input-success-color);
+  border-right: none;
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.price-input--success:focus {
+  border: 2px solid var(--input-success-color);
+  border-right: none;
+}
+
+.price-input--dark {
+  background: #333;
+  color: white;
+  border: 2px solid #666;
+  border-right: none;
+}
+
+.price-input--dark:focus {
+  border: 2px solid #21bf48;
+  border-right: none;
+}
+
+/* Check Input Styles */
 .check-box {
   max-width: 480px;
   display: flex;
@@ -157,6 +307,7 @@
   font-size: 1.6rem;
   color: var(--button-darkcolor);
   font-weight: 500;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 .check-input {
@@ -167,29 +318,50 @@
   border: 1px solid var(--disabled-color);
   border-radius: 4px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
-.check-input.error {
-  border: 1px solid var(--input-error-color);
+.check-input::placeholder {
+  font-size: 1.6rem;
+  color: var(--text-color);
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
-.check-input.error:focus {
+/* Check Input Variants */
+.check-input--error {
+  border: 2px solid var(--input-error-color);
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+.check-input--error:focus {
   border: 2px solid var(--input-error-color);
 }
 
-.check-input.success {
-  border: 1px solid var(--input-success-color);
+.check-input--success {
+  border: 2px solid var(--input-success-color);
+  background-color: rgba(0, 255, 0, 0.05);
 }
 
-.check-input.success:focus {
+.check-input--success:focus {
   border: 2px solid var(--input-success-color);
+}
+
+.check-input--dark {
+  background: #333;
+  color: white;
+  border: 2px solid #666;
+}
+
+.check-input--dark:focus {
+  border: 2px solid #21bf48;
 }
 
 .message {
   font-size: 1.6rem;
   margin-top: 5px;
   display: none;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 .message.error {
@@ -201,7 +373,14 @@
   color: var(--input-success-color);
   display: block;
 }
-.check-input::placeholder {
-  font-size: 1.6rem;
-  color: var(--text-color);
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .id-input,
+  .ps-input,
+  .item-input,
+  .price-input,
+  .check-input {
+    font-size: 1.4rem;
+  }
 }
