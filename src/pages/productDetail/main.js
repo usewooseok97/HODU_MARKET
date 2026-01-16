@@ -2,6 +2,7 @@ import './style.css'
 import '@component/modal/check.js'
 import '@component/button/small.js'
 import '@component/logo/delete.js'
+import '@component/etc/amountCounter.js'
 import { getDetailProduct } from '/src/js/product/getdetailproduct.js'
 import { getAccessToken, getUserType } from '/src/js/auth/token.js'
 import { addToCart } from '/src/js/cart/addToCart.js'
@@ -20,6 +21,8 @@ const sellerModal = document.getElementById('sellerModal')
 const loginModal = document.getElementById('loginModal')
 const cartDuplicateModal = document.getElementById('cartDuplicateModal')
 const stockExceededModal = document.getElementById('stockExceededModal')
+const addToCartSuccessModal = document.getElementById('addToCartSuccessModal')
+const addToCartErrorModal = document.getElementById('addToCartErrorModal')
 const buyNowBtn = document.getElementById('buyNowBtn')
 const addToCartBtn = document.getElementById('addToCartBtn')
 const quantityCounter = document.getElementById('productQuantity')
@@ -145,6 +148,10 @@ cartDuplicateModal?.addEventListener('modal-confirm', () => {
   location.href = '/src/pages/shoppingCartPage/index.html'
 })
 
+addToCartSuccessModal?.addEventListener('modal-confirm', () => {
+  location.href = '/src/pages/shoppingCartPage/index.html'
+})
+
 // =========================
 // 바로 구매
 // =========================
@@ -191,10 +198,10 @@ addToCartBtn?.addEventListener('button-click', async () => {
     }
 
     await addToCart(currentProduct.id, getQuantity())
-    alert('장바구니에 상품이 담겼습니다.')
+    addToCartSuccessModal?.setAttribute('open', '')
   } catch (e) {
     console.error(e)
-    alert('장바구니 추가 실패')
+    addToCartErrorModal?.setAttribute('open', '')
   }
 })
 
