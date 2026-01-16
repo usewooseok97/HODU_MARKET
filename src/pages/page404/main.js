@@ -1,4 +1,5 @@
-// 웹 컴포넌트는 vite-plugin-auto-components에서 자동으로 import됩니다
+// 웹 컴포넌트 직접 import (404 폴백 상황에서 안정성 확보)
+import '@component/button/medium.js'
 
 // DOM 요소 선택
 const goHomeBtn = document.getElementById('goHomeBtn')

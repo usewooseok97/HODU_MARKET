@@ -21,7 +21,13 @@ export const addToCart = async (productId, quantity) => {
 
   if (!response.ok) {
     console.error('장바구니 추가 API 에러:', data)
-    throw new Error(data.detail || data.message || '장바구니 추가에 실패했습니다.')
+    const errorMessage = data.detail || data.message || '장바구니 추가에 실패했습니다.'
+    const error = new Error(errorMessage)
+    // 중복 상품 여부 판단
+    error.isDuplicate = errorMessage.includes('이미')
+    // 재고 초과 여부 판단
+    error.isStockExceeded = errorMessage.includes('재고') || errorMessage.includes('수량')
+    throw error
   }
 
   console.log('장바구니 추가 성공:', data)

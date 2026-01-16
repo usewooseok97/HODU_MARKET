@@ -1,0 +1,3 @@
+# Netlify redirects file for 404 handling
+# Existing files take precedence
+/*  /page404.html  404
