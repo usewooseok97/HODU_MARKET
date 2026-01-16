@@ -1,3 +1,6 @@
+import '@component/logo/cart.js'
+
+
 // src/component/header/seller.js
 
 class HeaderSeller extends HTMLElement {

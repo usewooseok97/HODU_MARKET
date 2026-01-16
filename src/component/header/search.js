@@ -1,5 +1,7 @@
 // src/component/header/search.js
+import '@component/logo/account.js'
 import '@component/etc/mypage.js'
+import '@component/logo/cart.js'
 import '@component/button/msicon.js'
 
 class Header extends HTMLElement {
