@@ -1,3 +1,5 @@
+import './styles.css'
+
 class ItemNameInput extends HTMLElement {
   static get observedAttributes() {
     return ['variant']
@@ -41,7 +43,6 @@ class ItemNameInput extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -58,17 +59,6 @@ class ItemNameInput extends HTMLElement {
           input.classList.add('item-input--dark')
         }
       }
-    }
-  }
-
-  loadStyles() {
-    if (
-      !document.querySelector('link[href*="/src/component/input/styles.css"]')
-    ) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/input/styles.css'
-      document.head.appendChild(link)
     }
   }
 

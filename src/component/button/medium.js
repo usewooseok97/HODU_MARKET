@@ -1,3 +1,5 @@
+import './button.css'
+
 class MButton extends HTMLElement {
   constructor() {
     super()
@@ -37,7 +39,6 @@ class MButton extends HTMLElement {
       </button>
     `
 
-    this.loadStyles()
   }
 
   attachEventListeners() {
@@ -53,15 +54,6 @@ class MButton extends HTMLElement {
         })
       )
     })
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="button.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/button/button.css'
-      document.head.appendChild(link)
-    }
   }
 
   // ⭐ width 속성 추가

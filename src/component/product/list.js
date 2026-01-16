@@ -1,3 +1,4 @@
+import './product.css'
 import { getproduct } from '/src/js/product/getproduct.js'
 import { addToCart } from '/src/js/cart/addToCart.js'
 import { getAccessToken } from '/src/js/auth/token.js'
@@ -17,16 +18,6 @@ class ProductList extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="product.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/product/product.css'
-      document.head.appendChild(link)
-    }
   }
 
   // 가격 포맷팅 함수 (천 단위 콤마)

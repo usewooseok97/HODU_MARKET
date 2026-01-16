@@ -1,22 +1,14 @@
+import './styles.css'
+
 class RightArrowComponent extends HTMLElement {
   connectedCallback() {
     this.render()
-    this.loadStyles()
   }
 
   render() {
     this.innerHTML = `
       <a href="" class="right-arrow"></a>
     `
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="logo/styles.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/logo/styles.css'
-      document.head.appendChild(link)
-    }
   }
 }
 

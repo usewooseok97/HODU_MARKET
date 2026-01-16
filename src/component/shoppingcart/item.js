@@ -1,3 +1,4 @@
+import './cart.css'
 // 수량 카운터 컴포넌트 import
 import '../etc/amountCounter.js'
 

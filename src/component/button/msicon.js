@@ -1,3 +1,5 @@
+import './button.css'
+
 class MSIconButton extends HTMLElement {
   constructor() {
     super()
@@ -31,7 +33,6 @@ class MSIconButton extends HTMLElement {
       </button>
     `
 
-    this.loadStyles()
   }
 
   attachEventListeners() {
@@ -46,15 +47,6 @@ class MSIconButton extends HTMLElement {
         })
       )
     })
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="button.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/button/button.css'
-      document.head.appendChild(link)
-    }
   }
 
   // ⭐ width까지 observe

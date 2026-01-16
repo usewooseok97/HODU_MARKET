@@ -1,3 +1,5 @@
+import './styles.css'
+
 // checkbox.js
 class CheckboxComponent extends HTMLElement {
   connectedCallback() {
@@ -16,17 +18,6 @@ class CheckboxComponent extends HTMLElement {
         </label>
       </div>
     `
-
-    this.loadStyles()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="checkbox/styles.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/checkbox/styles.css'
-      document.head.appendChild(link)
-    }
   }
 
   attachEventListeners() {
