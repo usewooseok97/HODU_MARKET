@@ -104,3 +104,110 @@ export const postFormDataRequest = async (endpoint, formData, token) => {
     throw error
   }
 }
+
+/**
+ * 인증이 필요한 GET 요청
+ * @param {string} endpoint - API 엔드포인트 경로
+ * @param {string} token - 인증 토큰
+ * @returns {Promise<object>} - 응답 데이터
+ */
+export const getAuthRequest = async (endpoint, token) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return await handleResponse(response)
+  } catch (error) {
+    console.error('인증 GET 요청 실패:', error)
+    throw error
+  }
+}
+
+/**
+ * 인증이 필요한 POST 요청
+ * @param {string} endpoint - API 엔드포인트 경로
+ * @param {object} data - 전송할 데이터
+ * @param {string} token - 인증 토큰
+ * @returns {Promise<object>} - 응답 데이터
+ */
+export const postAuthRequest = async (endpoint, data, token) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+    return await handleResponse(response)
+  } catch (error) {
+    console.error('인증 POST 요청 실패:', error)
+    throw error
+  }
+}
+
+/**
+ * 인증이 필요한 PUT 요청
+ * @param {string} endpoint - API 엔드포인트 경로
+ * @param {object} data - 전송할 데이터
+ * @param {string} token - 인증 토큰
+ * @returns {Promise<object>} - 응답 데이터
+ */
+export const putAuthRequest = async (endpoint, data, token) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+    return await handleResponse(response)
+  } catch (error) {
+    console.error('인증 PUT 요청 실패:', error)
+    throw error
+  }
+}
+
+/**
+ * 인증이 필요한 DELETE 요청
+ * @param {string} endpoint - API 엔드포인트 경로
+ * @param {string} token - 인증 토큰
+ * @returns {Promise<object>} - 응답 데이터
+ */
+export const deleteAuthRequest = async (endpoint, token) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    // DELETE는 204 No Content 또는 빈 응답일 수 있음
+    if (response.status === 204 || response.status === 200) {
+      // 응답 본문이 있는지 확인
+      const text = await response.text()
+      if (!text) {
+        return { success: true }
+      }
+      try {
+        return JSON.parse(text)
+      } catch {
+        return { success: true }
+      }
+    }
+
+    return await handleResponse(response)
+  } catch (error) {
+    console.error('인증 DELETE 요청 실패:', error)
+    throw error
+  }
+}

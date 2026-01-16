@@ -64,6 +64,12 @@ shoppingcart-header {
   width: 100%;
 }
 
+/* 장바구니 아이템 웹 컴포넌트 */
+shoppingcart-item {
+  display: block;
+  width: 100%;
+}
+
 /* ===== 결제 정보 섹션 ===== */
 .payment-section {
   display: none; /* 기본적으로 숨김 */
