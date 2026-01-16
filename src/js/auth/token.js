@@ -4,6 +4,7 @@ import { postRequest } from '../api.js'
 const TOKEN_KEY = 'auth_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
 const USER_TYPE_KEY = 'user_type'
+const USERNAME_KEY = 'username'
 
 export const saveToken = (accessToken, refreshToken) => {
   localStorage.setItem(TOKEN_KEY, accessToken)
@@ -24,6 +25,45 @@ export const saveUserType = (userType) => {
   }
 }
 
+export const saveUsername = (username) => {
+  if (username) {
+    localStorage.setItem(USERNAME_KEY, username)
+  }
+}
+
+export const getUsername = () => {
+  const stored = localStorage.getItem(USERNAME_KEY)
+  if (stored) return stored
+
+  const token = getAccessToken()
+  if (!token) return null
+
+  try {
+    // eslint-disable-next-line no-undef
+    const payload = JSON.parse(atob(token.split('.')[1]))
+    return payload?.username ?? null
+  } catch {
+    return null
+  }
+}
+
+export const getUserId = () => {
+  const token = getAccessToken()
+  if (!token) return null
+
+  try {
+    // eslint-disable-next-line no-undef
+    const payload = JSON.parse(atob(token.split('.')[1]))
+    return payload?.user_id ?? null
+  } catch {
+    return null
+  }
+}
+
+export const removeUsername = () => {
+  localStorage.removeItem(USERNAME_KEY)
+}
+
 export const getUserType = () => {
   return localStorage.getItem(USER_TYPE_KEY)
 }
@@ -36,6 +76,7 @@ export const removeTokens = () => {
   localStorage.removeItem(TOKEN_KEY)
   localStorage.removeItem(REFRESH_TOKEN_KEY)
   removeUserType()
+  removeUsername()
 }
 
 /**

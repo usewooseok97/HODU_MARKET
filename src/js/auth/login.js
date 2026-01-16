@@ -1,5 +1,11 @@
 import { postRequest } from '../api.js'
-import { saveToken, removeTokens, getAccessToken, saveUserType } from './token.js'
+import {
+  saveToken,
+  removeTokens,
+  getAccessToken,
+  saveUserType,
+  saveUsername,
+} from './token.js'
 
 /**
  * 로그인 API 호출
@@ -24,6 +30,9 @@ export const login = async (username, password, loginType = 'BUYER') => {
     // user_type 저장
     if (data.user && data.user.user_type) {
       saveUserType(data.user.user_type)
+    }
+    if (data.user && data.user.username) {
+      saveUsername(data.user.username)
     }
 
     return data

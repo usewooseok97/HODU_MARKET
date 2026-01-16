@@ -1,4 +1,6 @@
 import { getSellerProducts } from '../../js/seller/getSellerProducts.js'
+import { deleteSellerProduct } from '../../js/seller/deleteSellerProduct.js'
+import '@component/button/small.js'
 
 class SellerCartList extends HTMLElement {
   constructor() {
@@ -111,13 +113,21 @@ class SellerCartList extends HTMLElement {
 
     if (deleteBtn) {
       deleteBtn.addEventListener('button-click', () => {
-        this.dispatchEvent(
-          new CustomEvent('delete-click', {
-            bubbles: true,
-            detail: product,
-          })
-        )
+        const confirmed = window.confirm('이 상품을 삭제하시겠습니까?')
+        if (!confirmed) return
+
+        this.handleDelete(product)
       })
+    }
+  }
+
+  async handleDelete(product) {
+    try {
+      await deleteSellerProduct(product.id)
+      this.loadProducts()
+    } catch (error) {
+      console.error('삭제 처리 실패:', error)
+      alert('상품 삭제에 실패했습니다.')
     }
   }
 
@@ -140,11 +150,20 @@ class SellerCartList extends HTMLElement {
 
   // 상품 데이터 로드
   async loadProducts() {
-    const sellerName = this.getAttribute('seller-name')
+    const productList = this.querySelector('#sellercart-list')
 
-    if (!sellerName) {
-      console.warn('seller-name 속성이 필요합니다.')
-      return
+    try {
+      const data = await getSellerProducts()
+      const products = Array.isArray(data) ? data : data?.results ?? []
+
+      this._products = products
+      this.renderProducts(products)
+    } catch (error) {
+      console.error('판매자 상품 로드 실패:', error)
+      if (productList) {
+        productList.innerHTML =
+          '<p class="empty-message">상품을 불러오지 못했습니다.</p>'
+      }
     }
   }
 
