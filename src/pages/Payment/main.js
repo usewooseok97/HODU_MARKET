@@ -216,6 +216,12 @@ document.addEventListener('DOMContentLoaded', () => {
   paymentSuccessModalEl?.addEventListener('modal-cancel', () => {
     window.location.href = '/'
   })
+  paymentSuccessModalEl?.addEventListener('click', (event) => {
+    const target = event.target
+    if (target instanceof Element && target.closest('.modal-close')) {
+      window.location.href = '/'
+    }
+  })
 })
 
 // 결제하기 버튼 클릭 이벤트
