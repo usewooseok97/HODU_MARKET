@@ -1,3 +1,4 @@
+import './style.css'
 import '@component/modal/check.js'
 import '@component/button/small.js'
 import '@component/logo/delete.js'

@@ -1,3 +1,5 @@
+import './style.css'
+
 // 웹 컴포넌트 명시적 import
 import '@/component/shoppingcart/item.js'
 import {

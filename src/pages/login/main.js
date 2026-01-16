@@ -1,3 +1,5 @@
+import './style.css'
+
 // ✅ 상대 경로로 수정 (폴더 구조에 맞게)
 import { login, showValidation } from '@/js/auth/login'
 
