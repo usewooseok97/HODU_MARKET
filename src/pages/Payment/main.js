@@ -1,5 +1,12 @@
 // 웹 컴포넌트는 vite-plugin-auto-components에서 자동으로 import됩니다
 
+import { requireAuth } from '@/js/auth/routeGuard.js'
+
+// 로그인 확인 (Route Guard)
+if (!requireAuth({ message: '결제 페이지는 로그인이 필요합니다.' })) {
+  throw new Error('Unauthorized')
+}
+
 // sessionStorage에서 바로 구매 상품 데이터 로드
 function loadOrderProduct() {
   const orderProductListEl = document.getElementById('orderProductList')
