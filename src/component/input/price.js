@@ -1,6 +1,6 @@
 class PriceInput extends HTMLElement {
   static get observedAttributes() {
-    return ['variant']
+    return ['variant', 'unit']
   }
 
   connectedCallback() {
@@ -12,6 +12,7 @@ class PriceInput extends HTMLElement {
     const labelText = this.getAttribute('text') || '판매가'
     const name = this.getAttribute('name') || ''
     const variant = this.getAttribute('variant') || 'default'
+    const unitText = this.getAttribute('unit') || '원'
 
     let inputClass = 'price-input'
     if (variant === 'error') {
@@ -28,7 +29,7 @@ class PriceInput extends HTMLElement {
         <div class="input-group">
           <input type="text" id="price" class="price-input" value="0" />
           ${name ? `<input type="hidden" name="${name}" value="0" />` : ''}
-          <button class="unit-button" type="button">원</button>
+          <button class="unit-button" type="button">${unitText}</button>
         </div>
       </div>
     `
@@ -49,6 +50,11 @@ class PriceInput extends HTMLElement {
         } else if (newValue === 'dark') {
           input.classList.add('price-input--dark')
         }
+      }
+    } else if (name === 'unit' && oldValue !== newValue) {
+      const unit = this.querySelector('.unit-button')
+      if (unit) {
+        unit.textContent = newValue || '원'
       }
     }
   }

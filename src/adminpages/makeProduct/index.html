@@ -57,6 +57,7 @@
               <div class="image-upload-area">
                 <logo-imgicon isclick name="image"></logo-imgicon>
               </div>
+              <p class="field-error" id="imageError" role="alert"></p>
             </fieldset>
 
             <!-- 상품 정보 입력 -->
@@ -64,6 +65,7 @@
               <h2 class="sr-only">상품 정보 입력</h2>
               <div class="form-group">
                 <input-itemname name="name"></input-itemname>
+                <p class="field-error" id="nameError" role="alert"></p>
                 <div class="input-price-wrapper">
                   <input-price text="판매가" name="price"></input-price>
                 </div>
@@ -90,7 +92,7 @@
                   ></input-price>
                 </div>
                 <div class="input-price-wrapper">
-                  <input-price text="재고" name="stock"></input-price>
+                  <input-price text="재고" name="stock" unit ="개"></input-price>
                 </div>
               </div>
             </div>
@@ -104,6 +106,7 @@
               name="info"
               placeholder="상품 상세 정보를 입력하세요"
             ></textarea>
+            <p class="field-error" id="infoError" role="alert"></p>
           </fieldset>
 
           <!-- 버튼 영역 -->
