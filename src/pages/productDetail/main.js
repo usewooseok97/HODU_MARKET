@@ -5,6 +5,7 @@ import '@component/logo/delete.js'
 import { getDetailProduct } from '/src/js/product/getdetailproduct.js'
 import { getAccessToken } from '/src/js/auth/token.js'
 import { addToCart } from '/src/js/cart/addToCart.js'
+import { getCart } from '/src/js/cart/getCart.js'
 
 // 현재 상품 데이터 저장
 let currentProduct = null
@@ -202,6 +203,17 @@ if (loginModal) {
   })
 }
 
+// 장바구니 중복 모달
+const cartDuplicateModal = document.getElementById('cartDuplicateModal')
+if (cartDuplicateModal) {
+  cartDuplicateModal.addEventListener('modal-confirm', () => {
+    window.location.href = '/src/pages/cart/index.html'
+  })
+}
+
+// 재고 수량 초과 모달
+const stockExceededModal = document.getElementById('stockExceededModal')
+
 // 바로 구매 버튼
 const buyNowBtn = document.getElementById('buyNowBtn')
 if (buyNowBtn) {
@@ -234,12 +246,38 @@ if (addToCartBtn) {
     }
     if (!currentProduct) return
 
+    const quantity = getQuantity()
+
+    // 현재 장바구니에서 해당 상품의 수량 확인
     try {
-      await addToCart(currentProduct.id, getQuantity())
+      const cartItems = await getCart()
+      const existingItem = cartItems.find((item) => {
+        const cartProductId = item.product_id || item.product
+        return Number(cartProductId) === Number(currentProduct.id)
+      })
+      const existingQuantity = existingItem?.quantity || 0
+
+      // 기존 수량 + 새 수량이 재고 초과인지 확인
+      if (existingQuantity + quantity > currentProduct.stock) {
+        stockExceededModal?.setAttribute('open', '')
+        return
+      }
+    } catch (error) {
+      console.error('장바구니 조회 실패:', error)
+    }
+
+    try {
+      await addToCart(currentProduct.id, quantity)
       alert('장바구니에 상품이 담겼습니다.')
     } catch (error) {
       console.error('장바구니 추가 실패:', error)
-      alert('장바구니 추가에 실패했습니다.')
+      if (error.isDuplicate) {
+        cartDuplicateModal?.setAttribute('open', '')
+      } else if (error.isStockExceeded) {
+        stockExceededModal?.setAttribute('open', '')
+      } else {
+        alert('장바구니 추가에 실패했습니다.')
+      }
     }
   })
 }
