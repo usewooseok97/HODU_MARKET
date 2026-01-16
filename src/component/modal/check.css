@@ -15,14 +15,15 @@
 /* 모달 컨테이너 */
 .modal-container {
   width: 360px;
-  height: 200px;
+  min-height: 200px;
   background: white;
   border: 1px solid #C4C4C4;
   border-radius: 0;
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 32px 30px 30px;
+  box-sizing: border-box;
 }
 
 /* X 닫기 버튼 */
@@ -54,15 +55,10 @@
 
 /* 컨텐츠 영역 - 버튼 제외한 공간의 중앙 */
 .modal-content {
-  position: absolute;
-  top: 35px;       /* X버튼 아래 간격 */
-  left: 0;
-  right: 0;
-  height: 70px;    /* 1~2줄 대응 */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 30px;
+  padding: 16px 0 0;
   text-align: center;
 }
 
@@ -80,14 +76,11 @@
 
 /* 버튼 영역 */
 .modal-buttons {
-  position: absolute;
-  bottom: 40px;
-  left: 0;
-  right: 0;
   display: flex;
   justify-content: center;
   gap: 10px;
   height: 40px;
+  margin-top: 24px;
 }
 
 .modal-cancel-btn,
