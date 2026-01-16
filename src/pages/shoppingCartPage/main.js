@@ -190,13 +190,31 @@ function setupCartItemEvents(cartItem, item) {
     })
   }
 
-  // 주문하기 버튼 이벤트 (개별)
+  // [수정] 주문하기 버튼 이벤트 (개별 아이템 주문)
   const orderBtn = cartItem.querySelector('.order-btn')
   if (orderBtn) {
     orderBtn.addEventListener('click', () => {
       console.log(`상품 ${item.id} 개별 주문`)
-      // TODO: 주문 페이지로 이동
-      alert('주문/결제 페이지는 아직 구현되지 않았습니다.')
+
+      // 해당 상품 하나만 배열에 담아 세션에 저장
+      sessionStorage.setItem(
+        'orderItems',
+        JSON.stringify([
+          {
+            productId: item.productId,
+            image: item.image,
+            productName: item.productName,
+            seller: item.seller,
+            price: item.price,
+            quantity: item.quantity,
+            shipping: item.shipping,
+            shippingMethod: item.shippingMethod,
+          },
+        ])
+      )
+
+      // 결제 페이지로 이동
+      window.location.href = '/src/pages/Payment/index.html'
     })
   }
 }
@@ -271,22 +289,33 @@ function calculateTotalPrice() {
   console.log('총 금액:', totalPrice)
 }
 
-// ===== 전체 주문하기 버튼 =====
+// [수정] 전체 주문하기 버튼 (선택된 상품들 주문)
 if (orderButton) {
   orderButton.addEventListener('button-click', () => {
-    const checkedItems = cartItemsListEl.querySelectorAll(
-      '.cart-checkbox-input:checked'
+    const checkedCheckboxes = Array.from(
+      cartItemsListEl.querySelectorAll('.cart-checkbox-input:checked')
     )
 
-    if (checkedItems.length === 0) {
+    if (checkedCheckboxes.length === 0) {
       alert('주문할 상품을 선택해주세요.')
       return
     }
 
-    console.log('전체 주문하기 클릭, 선택된 상품 수:', checkedItems.length)
+    console.log('전체 주문하기 클릭, 선택된 상품 수:', checkedCheckboxes.length)
 
-    // TODO: 주문 페이지로 이동
-    alert('주문/결제 페이지는 아직 구현되지 않았습니다.')
+    // 선택된 상품 데이터 추출
+    const selectedItems = checkedCheckboxes.map((checkbox) => {
+      const cartItemEl = checkbox.closest('shoppingcart-item')
+      const itemId = cartItemEl.dataset.itemId
+      // 로컬 cartItems 배열에서 매칭되는 데이터 찾기
+      return cartItems.find((item) => String(item.id) === String(itemId))
+    })
+
+    // 세션 스토리지에 주문 데이터 저장 (주문서 페이지에서 사용)
+    sessionStorage.setItem('orderItems', JSON.stringify(selectedItems))
+
+    // 결제 페이지로 이동
+    window.location.href = '/src/pages/Payment/index.html'
   })
 }
 
