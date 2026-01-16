@@ -109,6 +109,13 @@ function renderProductDetail(product) {
 
   quantityCounter?.setAttribute('max', product.stock)
 
+  // 초기 총 금액 설정
+  const initialQuantity = getQuantity()
+  document.getElementById('totalQuantity').textContent = initialQuantity
+  document.getElementById('totalPrice').textContent = formatPrice(
+    product.price * initialQuantity
+  )
+
   // ✅ 판매자 계정이면 바로 비활성화
   if (isSellerUser()) {
     disablePurchaseUIForSeller()
