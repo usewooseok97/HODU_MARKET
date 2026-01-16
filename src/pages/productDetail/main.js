@@ -1,9 +1,8 @@
-// 웹 컴포넌트는 vite-plugin-auto-components에서 자동으로 import됩니다
 import '@component/modal/check.js'
 import '@component/button/small.js'
 import '@component/logo/delete.js'
 import { getDetailProduct } from '/src/js/product/getdetailproduct.js'
-import { getAccessToken } from '/src/js/auth/token.js'
+import { getAccessToken, getUserType } from '/src/js/auth/token.js'
 import { addToCart } from '/src/js/cart/addToCart.js'
 import { getCart } from '/src/js/cart/getCart.js'
 
@@ -22,6 +21,7 @@ const cartDuplicateModal = document.getElementById('cartDuplicateModal')
 const stockExceededModal = document.getElementById('stockExceededModal')
 const buyNowBtn = document.getElementById('buyNowBtn')
 const addToCartBtn = document.getElementById('addToCartBtn')
+const quantityCounter = document.getElementById('productQuantity')
 
 // =========================
 // 유틸
@@ -34,59 +34,52 @@ function isAuthenticated() {
   return !!getAccessToken()
 }
 
+// ✅ 로컬스토리지에서 판매자 여부 판단
+function isSellerUser() {
+  const userType = getUserType()
+  return userType === 'SELLER'
+}
+
 function getQuantity() {
-  const counter = document.getElementById('productQuantity')
-  return counter?.getValue?.() || Number(counter?.getAttribute('value') || 1)
+  return (
+    quantityCounter?.getValue?.() ||
+    Number(quantityCounter?.getAttribute('value') || 1)
+  )
+}
+
+// =========================
+// 판매자일 경우 구매 UI 비활성화 (⭐ 핵심)
+// =========================
+function disablePurchaseUIForSeller() {
+  // quantityCounter?.setAttribute('disabled', '')
+  buyNowBtn?.setAttribute('disabled', '')
+  addToCartBtn?.setAttribute('disabled', '')
+
+  console.log(buyNowBtn)
+  console.log(addToCart)
+
+  buyNowBtn?.setAttribute('text', '판매자 계정')
+  addToCartBtn?.setAttribute('text', '판매자 계정')
 }
 
 // =========================
 // 판매자 모달
 // =========================
-function buildSellerInfoHtml({
-  name,
-  phone_number,
-  company_registration_number,
-  store_name,
-}) {
-  return `
-    <div class="seller-modal">
-      <h3 class="seller-modal-title">판매자 정보</h3>
-      <div class="seller-modal-row">
-        <span class="seller-modal-label">이름</span>
-        <span class="seller-modal-value">${name ?? '-'}</span>
-      </div>
-      <div class="seller-modal-row">
-        <span class="seller-modal-label">연락처</span>
-        <span class="seller-modal-value">${phone_number ?? '-'}</span>
-      </div>
-      <div class="seller-modal-row">
-        <span class="seller-modal-label">사업자번호</span>
-        <span class="seller-modal-value">${company_registration_number ?? '-'}</span>
-      </div>
-      <div class="seller-modal-row">
-        <span class="seller-modal-label">스토어명</span>
-        <span class="seller-modal-value">${store_name ?? '-'}</span>
-      </div>
-    </div>
-  `
-}
-
 function openSellerModal() {
   if (!sellerModal || !currentProduct?.seller) return
   sellerModal.setAttribute(
     'message',
-    buildSellerInfoHtml(currentProduct.seller)
+    `
+    <div>
+      <p>스토어명: ${currentProduct.seller.store_name}</p>
+      <p>이름: ${currentProduct.seller.name}</p>
+    </div>
+    `
   )
   sellerModal.setAttribute('open', '')
 }
 
 sellerNameEl?.addEventListener('click', openSellerModal)
-sellerNameEl?.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault()
-    openSellerModal()
-  }
-})
 
 // =========================
 // 상품 렌더링
@@ -98,69 +91,17 @@ function renderProductDetail(product) {
   document.querySelector('.price-section .price').textContent = formatPrice(
     product.price
   )
+  console.log('???')
 
-  // 판매자명
-  if (sellerNameEl) {
-    sellerNameEl.textContent = product.seller?.store_name || ''
-  }
+  quantityCounter?.setAttribute('max', product.stock)
+  console.log(isSellerUser())
 
-  // 상품명
-  const productName = document.querySelector('.product-name')
-  if (productName) {
-    productName.textContent = product.name || ''
-  }
-
-  // 상세 설명
-  const detailInfo = document.getElementById('detailInfo')
-  if (detailInfo) {
-    detailInfo.textContent = product.info || ''
-  }
-
-  // 가격
-  const priceEl = document.querySelector('.price-section .price')
-  if (priceEl) {
-    priceEl.textContent = formatPrice(product.price)
-  }
-
-  // 배송 정보
-  const shippingLabel = document.querySelector('.shipping-label')
-  const shippingFree = document.querySelector('.shipping-free')
-  if (shippingLabel) {
-    shippingLabel.textContent =
-      product.shipping_method === 'PARCEL' ? '택배배송 / ' : '직접배송 / '
-  }
-  if (shippingFree) {
-    shippingFree.textContent =
-      product.shipping_fee === 0
-        ? '무료배송'
-        : `배송비 ${formatPrice(product.shipping_fee)}원`
-  }
-
-  // 수량 카운터 max 값 설정
-  const quantityCounter = document.getElementById('productQuantity')
-  if (quantityCounter) {
-    quantityCounter.setAttribute('max', product.stock)
-  }
-
-  // 총 금액 초기화
-  const totalPrice = document.getElementById('totalPrice')
-  if (totalPrice) {
-    totalPrice.textContent = formatPrice(product.price)
-  }
-
-  // 재고에 따른 버튼 상태 업데이트
-  updateButtonsByStock(product.stock)
-}
-
-function updateButtonsByStock(stock) {
-  if (stock <= 0) {
-    buyNowBtn?.setAttribute('disabled', '')
-    addToCartBtn?.setAttribute('disabled', '')
-    buyNowBtn?.setAttribute('text', '품절')
-    addToCartBtn?.setAttribute('text', '품절')
+  // ✅ 판매자 계정이면 바로 비활성화
+  if (isSellerUser()) {
+    console.log('isSeller')
+    disablePurchaseUIForSeller()
   } else {
-    buyNowBtn?.removeAttribute('disabled')
-    addToCartBtn?.removeAttribute('disabled')
+    console.log('!!!')
   }
 }
 
@@ -185,7 +126,6 @@ loadProductDetail()
 // =========================
 // 수량 변경
 // =========================
-const quantityCounter = document.getElementById('productQuantity')
 quantityCounter?.addEventListener('amountchange', (e) => {
   const quantity = e.detail.value
   document.getElementById('totalQuantity').textContent = quantity
@@ -202,7 +142,7 @@ loginModal?.addEventListener('modal-confirm', () => {
 })
 
 cartDuplicateModal?.addEventListener('modal-confirm', () => {
-  location.href = '/src/pages/shoppingCartPage/index.html'
+  location.href = '/src/pages/cart/index.html'
 })
 
 // =========================
@@ -214,7 +154,8 @@ buyNowBtn?.addEventListener('button-click', () => {
     return
   }
 
-  sessionStorage.removeItem('orderItems')
+  if (isSellerUser()) return
+
   sessionStorage.setItem(
     'orderProduct',
     JSON.stringify({
@@ -227,47 +168,38 @@ buyNowBtn?.addEventListener('button-click', () => {
 })
 
 // =========================
-// 장바구니 버튼 (⭐ 핵심 수정 부분)
+// 장바구니
 // =========================
 addToCartBtn?.addEventListener('button-click', async () => {
   if (!isAuthenticated()) {
     loginModal?.setAttribute('open', '')
     return
   }
-  if (!currentProduct) return
 
-  const quantity = getQuantity()
+  if (isSellerUser()) return
 
   try {
     const cartItems = await getCart()
 
-    console.log('cartItems:', cartItems) // 디버깅용
+    const existingItem = cartItems.find(
+      (item) => item.product?.id === currentProduct.id
+    )
 
-    const existingItem = cartItems.find((item) => {
-      const cartProductId =
-        item.product_id ||
-        item.product?.id || // ⭐ 핵심
-        item.product
-
-      return Number(cartProductId) === Number(currentProduct.id)
-    })
-
-    // ✅ 중복이면 바로 모달
     if (existingItem) {
       cartDuplicateModal?.setAttribute('open', '')
       return
     }
 
-    await addToCart(currentProduct.id, quantity)
+    await addToCart(currentProduct.id, getQuantity())
     alert('장바구니에 상품이 담겼습니다.')
-  } catch (error) {
-    console.error('장바구니 처리 실패:', error)
+  } catch (e) {
+    console.error(e)
     alert('장바구니 추가 실패')
   }
 })
 
 // =========================
-// 탭 토글
+// 탭
 // =========================
 document.querySelectorAll('.tabs-header button-tab').forEach((tab) => {
   tab.addEventListener('tab-click', () => {

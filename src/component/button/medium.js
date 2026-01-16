@@ -45,6 +45,7 @@ class MButton extends HTMLElement {
     if (!button) return
 
     button.addEventListener('click', (e) => {
+      if (this.hasAttribute('disabled')) return
       this.dispatchEvent(
         new CustomEvent('button-click', {
           bubbles: true,
