@@ -99,7 +99,6 @@ function renderProductDetail(product) {
     product.price
   )
 
-<<<<<<< HEAD
   // 판매자명
   if (sellerNameEl) {
     sellerNameEl.textContent = product.seller?.store_name || ''
@@ -150,9 +149,6 @@ function renderProductDetail(product) {
   }
 
   // 재고에 따른 버튼 상태 업데이트
-=======
-  document.getElementById('productQuantity')?.setAttribute('max', product.stock)
->>>>>>> origin/main
   updateButtonsByStock(product.stock)
 }
 
