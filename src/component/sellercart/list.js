@@ -1,3 +1,4 @@
+import './styles.css'
 import { getSellerProducts } from '../../js/seller/getSellerProducts.js'
 import { deleteSellerProduct } from '../../js/seller/deleteSellerProduct.js'
 import { updateSellerProduct } from '../../js/seller/updateSellerProduct.js'
@@ -34,17 +35,6 @@ class SellerCartList extends HTMLElement {
         </div>
       </div>
     `
-
-    this.loadStyles()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="sellercart/styles.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/sellercart/styles.css'
-      document.head.appendChild(link)
-    }
   }
 
   // 가격 포맷팅 함수 (천 단위 콤마)

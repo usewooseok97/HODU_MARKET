@@ -1,5 +1,5 @@
+import './seller.css'
 import '@component/logo/cart.js'
-
 
 // src/component/header/seller.js
 
@@ -25,16 +25,6 @@ class HeaderSeller extends HTMLElement {
         </div>
       </header>
     `
-    this.loadStyles()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="header/seller.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/header/seller.css'
-      document.head.appendChild(link)
-    }
   }
 }
 

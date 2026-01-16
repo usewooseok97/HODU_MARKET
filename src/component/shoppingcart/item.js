@@ -102,17 +102,7 @@ class CartListItem extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
     this.initEventListeners()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="cart.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/shoppingcart/cart.css'
-      document.head.appendChild(link)
-    }
   }
 
   initEventListeners() {
