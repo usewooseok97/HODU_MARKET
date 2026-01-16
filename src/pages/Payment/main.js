@@ -2,7 +2,12 @@
 
 import { requireAuth } from '@/js/auth/routeGuard.js'
 import { postAuthRequest } from '@/js/api.js'
-import { getAccessToken } from '@/js/auth/token.js'
+import {
+  getAccessToken,
+  refreshAccessToken,
+  isTokenExpired,
+  removeTokens,
+} from '@/js/auth/token.js'
 
 // 로그인 확인 (Route Guard)
 if (!requireAuth({ message: '결제 페이지는 로그인이 필요합니다.' })) {
@@ -351,7 +356,7 @@ function getCartOrderItemsFromSession() {
 }
 
 async function submitOrders() {
-  const token = getAccessToken()
+  const token = await getValidAccessToken()
   if (!token) {
     throw new Error('로그인 토큰이 없습니다.')
   }
@@ -382,7 +387,7 @@ async function submitOrders() {
   const cartOrderItems = getCartOrderItemsFromSession()
   if (cartOrderItems.length > 0) {
     const cartItemIds = cartOrderItems
-      .map((item) => Number(item.id))
+      .map((item) => Number(item.productId || item.product?.id || item.product))
       .filter((id) => Number.isFinite(id))
 
     if (cartItemIds.length === 0) {
@@ -463,4 +468,21 @@ function getOrderErrorMessage(error) {
   if (error?.message) return error.message
 
   return '주문에 실패했습니다. 잠시 후 다시 시도해주세요.'
+}
+
+async function getValidAccessToken() {
+  const token = getAccessToken()
+  if (!token) return null
+
+  if (!isTokenExpired(token)) return token
+
+  try {
+    return await refreshAccessToken()
+  } catch (error) {
+    console.error('토큰 갱신 실패:', error)
+    removeTokens()
+    alert('로그인이 만료되었습니다. 다시 로그인해주세요.')
+    window.location.href = '/src/pages/login/index.html'
+    return null
+  }
 }
