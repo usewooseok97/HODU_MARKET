@@ -37,16 +37,39 @@ export function autoComponentsPlugin(options = {}) {
           )
         }
 
-        // Create virtual module ID
-        const virtualId = `virtual:auto-components-${htmlPath}`
+        // Check if this is build mode (ctx.server is only available in dev mode)
+        const isBuild = !ctx.server
 
-        // Inject virtual module import before <script type="module">
-        const injectedHtml = html.replace(
-          /(<script[^>]+type=["']module["'][^>]*>)/,
-          `<script type="module">import '${virtualId}';</script>\n    $1`
-        )
+        if (isBuild) {
+          // Build mode: generate actual import statements
+          const projectRoot = process.cwd()
+          const importStatements = generateImports(
+            htmlPath,
+            projectRoot,
+            componentDir,
+            prefix,
+            debug
+          )
 
-        return injectedHtml
+          // Inject import statements as inline script
+          const injectedHtml = html.replace(
+            /(<script[^>]+type=["']module["'][^>]*>)/,
+            `<script type="module">\n${importStatements}</script>\n    $1`
+          )
+
+          return injectedHtml
+        } else {
+          // Dev mode: use virtual module
+          const virtualId = `virtual:auto-components-${htmlPath}`
+
+          // Inject virtual module import before <script type="module">
+          const injectedHtml = html.replace(
+            /(<script[^>]+type=["']module["'][^>]*>)/,
+            `<script type="module">import '${virtualId}';</script>\n    $1`
+          )
+
+          return injectedHtml
+        }
       },
     },
 
