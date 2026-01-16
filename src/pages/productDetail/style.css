@@ -44,14 +44,6 @@
   position: relative;
 }
 
-.main-image-wrapper::before {
-  content: '이미지 영역 (API 연동 예정)';
-  position: absolute;
-  color: #999;
-  font-size: 20px;
-  font-weight: 500;
-  z-index: 1;
-}
 
 .main-image {
   width: 100%;
@@ -260,13 +252,6 @@
 /* 상세정보 컨텐츠 */
 .detail-content {
   max-width: 100%;
-}
-
-.detail-content img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin-bottom: 20px;
 }
 
 .detail-content p {

@@ -85,6 +85,12 @@ function renderProductDetail(product) {
     productName.textContent = product.name || ''
   }
 
+  // 상세 설명
+  const detailInfo = document.getElementById('detailInfo')
+  if (detailInfo) {
+    detailInfo.textContent = product.info || ''
+  }
+
   // 가격
   const priceEl = document.querySelector('.price-section .price')
   if (priceEl) {
