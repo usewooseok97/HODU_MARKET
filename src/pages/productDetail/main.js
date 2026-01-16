@@ -94,17 +94,24 @@ function renderProductDetail(product) {
   document.querySelector('.price-section .price').textContent = formatPrice(
     product.price
   )
-  console.log('???')
+
+  // 배송 정보 렌더링
+  const shippingMethod =
+    product.shipping_method === 'PARCEL' ? '택배배송' : '직접배송'
+  const shippingFee = product.shipping_fee || 0
+  const shippingText =
+    shippingFee === 0 ? '무료배송' : `${formatPrice(shippingFee)}원`
+
+  const shippingLabelEl = document.querySelector('.shipping-label')
+  const shippingFreeEl = document.querySelector('.shipping-free')
+  if (shippingLabelEl) shippingLabelEl.textContent = `${shippingMethod} / `
+  if (shippingFreeEl) shippingFreeEl.textContent = shippingText
 
   quantityCounter?.setAttribute('max', product.stock)
-  console.log(isSellerUser())
 
   // ✅ 판매자 계정이면 바로 비활성화
   if (isSellerUser()) {
-    console.log('isSeller')
     disablePurchaseUIForSeller()
-  } else {
-    console.log('!!!')
   }
 }
 

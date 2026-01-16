@@ -1,6 +1,7 @@
 import './product.css'
 import { addToCart } from '/src/js/cart/addToCart.js'
 import { getAccessToken } from '/src/js/auth/token.js'
+import '/src/component/modal/check.js'
 
 class ProductItems extends HTMLElement {
   constructor() {
@@ -58,8 +59,10 @@ class ProductItems extends HTMLElement {
 
       // 로그인 확인
       if (!getAccessToken()) {
-        alert('로그인이 필요합니다.')
-        window.location.href = '/src/pages/login/index.html'
+        const loginModal = document.querySelector('#loginModal')
+        if (loginModal) {
+          loginModal.setAttribute('open', '')
+        }
         return
       }
 
