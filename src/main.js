@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   loginModal?.addEventListener('modal-confirm', () => {
     location.href = '/src/pages/login/index.html'
   })
+
+  // 장바구니 추가 성공 모달 이벤트 리스너
+  const addToCartSuccessModal = document.querySelector('#addToCartSuccessModal')
+  addToCartSuccessModal?.addEventListener('modal-confirm', () => {
+    location.href = '/src/pages/shoppingCartPage/index.html'
+  })
   // ===== API에서 상품 데이터 가져오기 =====
   let products = []
   let hasApiData = false

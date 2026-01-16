@@ -1,6 +1,6 @@
 import './product.css'
 import { addToCart } from '/src/js/cart/addToCart.js'
-import { getAccessToken } from '/src/js/auth/token.js'
+import { getAccessToken, getUserType } from '/src/js/auth/token.js'
 import '/src/component/modal/check.js'
 
 class ProductItems extends HTMLElement {
@@ -57,7 +57,7 @@ class ProductItems extends HTMLElement {
     cartBtn.addEventListener('click', async (e) => {
       e.stopPropagation() // 카드 클릭 이벤트 전파 방지
 
-      // 로그인 확인
+      // 비로그인 확인
       if (!getAccessToken()) {
         const loginModal = document.querySelector('#loginModal')
         if (loginModal) {
@@ -66,12 +66,28 @@ class ProductItems extends HTMLElement {
         return
       }
 
+      // 판매자 계정 확인
+      if (getUserType() === 'SELLER') {
+        const sellerModal = document.querySelector('#sellerModal')
+        if (sellerModal) {
+          sellerModal.setAttribute('open', '')
+        }
+        return
+      }
+
+      // 구매자 - 장바구니 추가
       try {
         await addToCart(product.id, 1)
-        alert('장바구니에 상품이 담겼습니다.')
+        const successModal = document.querySelector('#addToCartSuccessModal')
+        if (successModal) {
+          successModal.setAttribute('open', '')
+        }
       } catch (error) {
         console.error('장바구니 추가 실패:', error)
-        alert('장바구니 추가에 실패했습니다.')
+        const errorModal = document.querySelector('#addToCartErrorModal')
+        if (errorModal) {
+          errorModal.setAttribute('open', '')
+        }
       }
     })
 
