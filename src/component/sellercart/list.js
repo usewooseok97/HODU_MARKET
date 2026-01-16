@@ -1,5 +1,6 @@
 import { getSellerProducts } from '../../js/seller/getSellerProducts.js'
 import { deleteSellerProduct } from '../../js/seller/deleteSellerProduct.js'
+import { updateSellerProduct } from '../../js/seller/updateSellerProduct.js'
 import '@component/button/small.js'
 
 class SellerCartList extends HTMLElement {
@@ -102,12 +103,7 @@ class SellerCartList extends HTMLElement {
 
     if (editBtn) {
       editBtn.addEventListener('button-click', () => {
-        this.dispatchEvent(
-          new CustomEvent('edit-click', {
-            bubbles: true,
-            detail: product,
-          })
-        )
+        this.handleEdit(product)
       })
     }
 
@@ -128,6 +124,56 @@ class SellerCartList extends HTMLElement {
     } catch (error) {
       console.error('삭제 처리 실패:', error)
       alert('상품 삭제에 실패했습니다.')
+    }
+  }
+
+  async handleEdit(product) {
+    const nameInput = window.prompt('상품명을 수정하세요.', product.name || '')
+    if (nameInput === null) return
+
+    const priceInput = window.prompt(
+      '판매가를 수정하세요. (빈 값이면 유지)',
+      String(product.price ?? '')
+    )
+    if (priceInput === null) return
+
+    const stockInput = window.prompt(
+      '재고를 수정하세요. (빈 값이면 유지)',
+      String(product.stock ?? '')
+    )
+    if (stockInput === null) return
+
+    const updates = {}
+    if (nameInput.trim() !== '') updates.name = nameInput.trim()
+
+    if (priceInput.trim() !== '') {
+      const price = Number.parseInt(priceInput, 10)
+      if (Number.isNaN(price)) {
+        alert('판매가는 숫자여야 합니다.')
+        return
+      }
+      updates.price = price
+    }
+
+    if (stockInput.trim() !== '') {
+      const stock = Number.parseInt(stockInput, 10)
+      if (Number.isNaN(stock)) {
+        alert('재고는 숫자여야 합니다.')
+        return
+      }
+      updates.stock = stock
+    }
+
+    if (Object.keys(updates).length === 0) {
+      return
+    }
+
+    try {
+      await updateSellerProduct(product.id, updates)
+      this.loadProducts()
+    } catch (error) {
+      console.error('수정 처리 실패:', error)
+      alert('상품 수정에 실패했습니다.')
     }
   }
 
