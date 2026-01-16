@@ -1,7 +1,8 @@
+import './styles.css'
+
 class LogoComponent extends HTMLElement {
   connectedCallback() {
     this.render()
-    this.loadStyles()
   }
 
   render() {
@@ -31,15 +32,6 @@ class LogoComponent extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
       this.render()
-    }
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="logo/styles.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/logo/styles.css'
-      document.head.appendChild(link)
     }
   }
 }
