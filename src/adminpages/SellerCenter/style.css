@@ -56,3 +56,9 @@
   border: 1px solid var(--disabled-color);
   overflow: hidden;
 }
+
+.dashboard-empty {
+  padding: 3.2rem;
+  color: var(--text-color);
+  font-size: 1.6rem;
+}

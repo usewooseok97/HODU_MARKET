@@ -158,13 +158,24 @@ class SellerCartList extends HTMLElement {
 
       this._products = products
       this.renderProducts(products)
+      this.updateActiveCount(Array.isArray(data) ? products.length : data?.count)
     } catch (error) {
       console.error('판매자 상품 로드 실패:', error)
       if (productList) {
         productList.innerHTML =
           '<p class="empty-message">상품을 불러오지 못했습니다.</p>'
       }
+      this.updateActiveCount(0)
     }
+  }
+
+  updateActiveCount(count) {
+    const value = Number.isFinite(count) ? count : this._products.length
+    const menus = document.querySelectorAll('button-tebmenu')
+    const target = menus[0]
+    if (!target) return
+    target.setCount?.(value)
+    target.setAttribute('count', String(value))
   }
 
   // 외부에서 상품 목록 새로고침

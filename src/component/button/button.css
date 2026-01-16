@@ -509,11 +509,20 @@
 
   font-size: 1.2rem;
   font-weight: 500;
+  line-height: 20px;
   color: #ffffff;
 }
 
 /* hover (off 상태에서만) */
 .teb-menu:not(.teb-menu--active):hover {
+  background: #effff3; /* hover */
+}
+
+button-tebmenu:not([active]):hover .teb-menu {
+  background: #effff3; /* hover */
+}
+
+button-tebmenu:not([active]) .teb-menu:hover {
   background: #effff3; /* hover */
 }
 
