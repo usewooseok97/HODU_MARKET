@@ -1,5 +1,6 @@
 // Payment/main.js
 
+import '@component/modal/check.js'
 import { requireAuth } from '@/js/auth/routeGuard.js'
 import { postAuthRequest } from '@/js/api.js'
 import {
@@ -22,6 +23,7 @@ const paymentBtnEl = document.getElementById('paymentBtn')
 const shippingFormEl = document.getElementById('shippingForm')
 const postalSearchBtnEl = document.getElementById('postalSearchBtn')
 const ordererEmailEl = document.getElementById('ordererEmail')
+const paymentSuccessModalEl = document.getElementById('paymentSuccessModal')
 const receiverNameEl = document.getElementById('receiverName')
 const deliveryMessageEl = document.getElementById('deliveryMessage')
 const postalCodeEl = document.getElementById('postalCode')
@@ -207,6 +209,19 @@ document.addEventListener('DOMContentLoaded', () => {
   setupAgreementCheck()
   setupValidationMessages()
   setupPostalSearchButton()
+
+  paymentSuccessModalEl?.addEventListener('modal-confirm', () => {
+    window.location.href = '/'
+  })
+  paymentSuccessModalEl?.addEventListener('modal-cancel', () => {
+    window.location.href = '/'
+  })
+  paymentSuccessModalEl?.addEventListener('click', (event) => {
+    const target = event.target
+    if (target instanceof Element && target.closest('.modal-close')) {
+      window.location.href = '/'
+    }
+  })
 })
 
 // 결제하기 버튼 클릭 이벤트
@@ -227,7 +242,7 @@ if (shippingFormEl) {
 
       const orders = await submitOrders()
       if (orders.length > 0) {
-        alert('결제가 완료되었습니다!')
+        paymentSuccessModalEl?.setAttribute('open', '')
       }
     } catch (error) {
       console.error('주문 생성 실패:', error)
