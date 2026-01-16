@@ -48,6 +48,8 @@ export default defineConfig({
               '/src/pages/shoppingCartPage/',
               '/src/pages/Payment/index.html',
               '/src/pages/Payment/',
+              '/src/pages/mypage/index.html',
+              '/src/pages/mypage/',
               '/src/adminpages/SellerCenter/index.html',
               '/src/adminpages/SellerCenter/',
               '/src/adminpages/makeProduct/index.html',
@@ -106,6 +108,7 @@ export default defineConfig({
           'src/pages/shoppingCartPage/index.html'
         ),
         payment: resolve(__dirname, 'src/pages/Payment/index.html'),
+        mypage: resolve(__dirname, 'src/pages/mypage/index.html'),
         sellerCenter: resolve(
           __dirname,
           'src/adminpages/SellerCenter/index.html'
