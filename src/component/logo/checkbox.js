@@ -1,4 +1,6 @@
 import './styles.css'
+import checkBox from '@/assets/images/check-box.png'
+import checkFillBox from '@/assets/images/check-fill-box.png'
 
 // checkbox.js
 class CheckboxComponent extends HTMLElement {
@@ -14,7 +16,7 @@ class CheckboxComponent extends HTMLElement {
       <div class="checkbox-wrapper">
         <input type="checkbox" id="${id}" class="hidden-checkbox" style="display: none;" />
         <label for="${id}" class="checkbox-label">
-          <img src="./src/assets/images/check-box.png" alt="unchecked" class="checkbox-img" />
+          <img src="${checkBox}" alt="unchecked" class="checkbox-img" data-unchecked="${checkBox}" data-checked="${checkFillBox}" />
         </label>
       </div>
     `
@@ -28,10 +30,10 @@ class CheckboxComponent extends HTMLElement {
       checkbox.addEventListener('change', function () {
         // 체크 상태에 따라 이미지 변경
         if (this.checked) {
-          checkboxImg.src = './src/assets/images/check-fill-box.png'
+          checkboxImg.src = checkboxImg.dataset.checked
           checkboxImg.alt = 'checked'
         } else {
-          checkboxImg.src = './src/assets/images/check-box.png'
+          checkboxImg.src = checkboxImg.dataset.unchecked
           checkboxImg.alt = 'unchecked'
         }
       })

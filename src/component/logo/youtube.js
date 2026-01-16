@@ -1,4 +1,5 @@
 import './styles.css'
+import iconYt from '@/assets/images/icon-yt.png'
 
 class YoutubeComponent extends HTMLElement {
   connectedCallback() {
@@ -7,7 +8,7 @@ class YoutubeComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <img src="/src/assets/images/icon-yt.png" alt="Youtube" class="youtube" />
+      <img src="${iconYt}" alt="Youtube" class="youtube" />
     `
   }
 }

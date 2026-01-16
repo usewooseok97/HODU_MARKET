@@ -1,4 +1,5 @@
 import './styles.css'
+import iconFb from '@/assets/images/icon-fb.png'
 
 class FaceComponent extends HTMLElement {
   connectedCallback() {
@@ -7,7 +8,7 @@ class FaceComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <img src="/src/assets/images/icon-fb.png" alt="facebook" class="face" />
+      <img src="${iconFb}" alt="facebook" class="face" />
     `
   }
 }

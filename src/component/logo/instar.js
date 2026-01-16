@@ -1,4 +1,5 @@
 import './styles.css'
+import iconInsta from '@/assets/images/icon-insta.png'
 
 class InstaComponent extends HTMLElement {
   connectedCallback() {
@@ -7,7 +8,7 @@ class InstaComponent extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <img src="/src/assets/images/icon-insta.png" alt="instagram" class="instar" />
+      <img src="${iconInsta}" alt="instagram" class="instar" />
     `
   }
 }
