@@ -101,7 +101,7 @@
   gap: 26px; /* 장바구니와 마이페이지 사이 26px */
 }
 
-.nav-item[data-nav="mypage"] {
+.nav-item {
   position: relative;
   display: flex;
   flex-direction: column;
