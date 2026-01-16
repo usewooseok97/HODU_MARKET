@@ -142,7 +142,7 @@ loginModal?.addEventListener('modal-confirm', () => {
 })
 
 cartDuplicateModal?.addEventListener('modal-confirm', () => {
-  location.href = '/src/pages/cart/index.html'
+  location.href = '/src/pages/shoppingCartPage/index.html'
 })
 
 // =========================
