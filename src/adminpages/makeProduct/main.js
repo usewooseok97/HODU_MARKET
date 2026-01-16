@@ -157,9 +157,10 @@ const initFormSubmit = () => {
       showProductValidation('상품이 등록되었습니다!', false)
       console.log('상품 등록 성공:', result)
 
-      // 상품 상세 페이지로 이동
+      // 상품 상세 페이지로 이동 (API 응답에 따라 product_id 또는 id 사용)
+      const productId = result.product_id || result.id
       setTimeout(() => {
-        window.location.href = `/src/pages/productDetail/?id=${result.id}`
+        window.location.href = `/src/pages/productDetail/?product_id=${productId}`
       }, 1000)
     } catch (error) {
       let errorMessage = '상품 등록에 실패했습니다.'
