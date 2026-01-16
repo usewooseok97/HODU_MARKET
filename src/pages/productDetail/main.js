@@ -51,12 +51,11 @@ function getQuantity() {
 // 판매자일 경우 구매 UI 비활성화 (⭐ 핵심)
 // =========================
 function disablePurchaseUIForSeller() {
-  // quantityCounter?.setAttribute('disabled', '')
+  // 수량카운터 비활성화
+  quantityCounter?.setAttribute('disabled', '')
+  // 바로구매, 장바구니 버튼 비활성화
   buyNowBtn?.setAttribute('disabled', '')
   addToCartBtn?.setAttribute('disabled', '')
-
-  console.log(buyNowBtn)
-  console.log(addToCart)
 
   buyNowBtn?.setAttribute('text', '판매자 계정')
   addToCartBtn?.setAttribute('text', '판매자 계정')

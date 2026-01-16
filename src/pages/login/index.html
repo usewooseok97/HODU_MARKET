@@ -13,10 +13,6 @@
       </div>
 
       <!-- 로그인 유형 선택 탭 -->
-      <div class="login-tabs">
-        <button-tab class="login-tab" text="구매회원 로그인" id="buyerTab" active></button-tab>
-        <button-tab class="login-tab" text="판매회원 로그인" id="sellerTab"></button-tab>
-      </div>
 
       <div class="login-box">
         <h1 class="title">로그인</h1>
@@ -27,7 +23,11 @@
           <input-id placeholder="아이디"></input-id>
 
           <!-- ✅ name 속성 추가 -->
-          <input-id name="password" type="password" placeholder="비밀번호"></input-id>
+          <input-id
+            name="password"
+            type="password"
+            placeholder="비밀번호"
+          ></input-id>
 
           <!-- ✅ 에러 메시지 표시 영역 추가 -->
           <div class="validation-message" style="display: none"></div>
