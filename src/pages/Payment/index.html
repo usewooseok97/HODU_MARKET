@@ -67,7 +67,9 @@
             <div class="info-group">
               <h3 class="group-title">주문자 정보</h3>
               <div class="info-row">
-                <label class="info-label" for="ordererName">이름</label>
+                <label class="info-label" for="ordererName">
+                  이름 <span class="required-text">*필수</span>
+                </label>
                 <input
                   type="text"
                   class="info-input"
@@ -77,35 +79,45 @@
                 />
               </div>
               <div class="info-row">
-                <label class="info-label">휴대폰</label>
+                <label class="info-label">
+                  휴대폰 <span class="required-text">*필수</span>
+                </label>
                 <div class="phone-input-group">
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="ordererPhone1"
                     maxlength="3"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                   <span class="phone-divider">-</span>
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="ordererPhone2"
                     maxlength="4"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                   <span class="phone-divider">-</span>
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="ordererPhone3"
                     maxlength="4"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                 </div>
               </div>
               <div class="info-row">
-                <label class="info-label" for="ordererEmail">이메일</label>
+                <label class="info-label" for="ordererEmail">
+                  이메일 <span class="required-text">*필수</span>
+                </label>
                 <input
                   type="email"
                   class="info-input"
@@ -120,7 +132,9 @@
             <div class="info-group">
               <h3 class="group-title">배송지 정보</h3>
               <div class="info-row">
-                <label class="info-label" for="receiverName">수령인</label>
+                <label class="info-label" for="receiverName">
+                  수령인 <span class="required-text">*필수</span>
+                </label>
                 <input
                   type="text"
                   class="info-input"
@@ -130,29 +144,37 @@
                 />
               </div>
               <div class="info-row">
-                <label class="info-label">휴대폰</label>
+                <label class="info-label">
+                  휴대폰 <span class="required-text">*필수</span>
+                </label>
                 <div class="phone-input-group">
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="receiverPhone1"
                     maxlength="3"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                   <span class="phone-divider">-</span>
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="receiverPhone2"
                     maxlength="4"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                   <span class="phone-divider">-</span>
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="receiverPhone3"
                     maxlength="4"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                 </div>
@@ -322,9 +344,10 @@
                 </div>
 
                 <button
-                  type="button"
+                  type="submit"
                   class="payment-submit-btn"
                   id="paymentBtn"
+                  form="shippingForm"
                   disabled
                 >
                   결제하기

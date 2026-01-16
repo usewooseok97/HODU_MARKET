@@ -12,6 +12,17 @@ const orderProductListEl = document.getElementById('orderProductList')
 const totalOrderAmountEl = document.getElementById('totalOrderAmount')
 const agreementCheckEl = document.getElementById('agreementCheck')
 const paymentBtnEl = document.getElementById('paymentBtn')
+const shippingFormEl = document.getElementById('shippingForm')
+const postalSearchBtnEl = document.getElementById('postalSearchBtn')
+const ordererEmailEl = document.getElementById('ordererEmail')
+
+const phoneInputEls = Array.from(
+  document.querySelectorAll(
+    'input[name^="ordererPhone"], input[name^="receiverPhone"]'
+  )
+)
+
+let hasPostalSearch = false
 
 /**
  * 1. sessionStorage에서 주문 데이터를 가져와서 화면에 렌더링
@@ -161,7 +172,7 @@ function setupAgreementCheck() {
 
   // etc-checkbox 커스텀 이벤트 또는 기본 change 이벤트 대응
   agreementCheckEl.addEventListener('etc-change', (e) => {
-    paymentBtnEl.disabled = !e.detail?.checked
+    updatePaymentButtonState(Boolean(e.detail?.checked))
   })
 }
 
@@ -170,22 +181,63 @@ function isAgreementChecked() {
   return Boolean(input?.checked)
 }
 
+function updatePaymentButtonState(agreementChecked = isAgreementChecked()) {
+  if (!paymentBtnEl) return
+  paymentBtnEl.disabled = !(agreementChecked && hasPostalSearch)
+}
+
 /**
  * 초기 실행
  */
 document.addEventListener('DOMContentLoaded', () => {
   loadOrderData() // 상품 먼저 불러오기
   setupAgreementCheck()
+  setupValidationMessages()
+  setupPostalSearchButton()
 })
 
 // 결제하기 버튼 클릭 이벤트
-if (paymentBtnEl) {
-  paymentBtnEl.addEventListener('click', () => {
+if (shippingFormEl) {
+  shippingFormEl.addEventListener('submit', (event) => {
+    event.preventDefault()
+
     if (!isAgreementChecked()) {
       alert('주문 내용 확인 및 정보 제공에 동의해주세요.')
       return
     }
+
     alert('결제가 완료되었습니다!')
     // 실제 결제 API 호출 로직 추가 위치
+  })
+}
+
+function setupValidationMessages() {
+  phoneInputEls.forEach((inputEl) => {
+    inputEl.addEventListener('input', () => {
+      inputEl.setCustomValidity('')
+    })
+
+    inputEl.addEventListener('invalid', () => {
+      inputEl.setCustomValidity('숫자만 입력하세요.')
+    })
+  })
+
+  if (ordererEmailEl) {
+    ordererEmailEl.addEventListener('input', () => {
+      ordererEmailEl.setCustomValidity('')
+    })
+
+    ordererEmailEl.addEventListener('invalid', () => {
+      ordererEmailEl.setCustomValidity('이메일 형식으로 입력하세요.')
+    })
+  }
+}
+
+function setupPostalSearchButton() {
+  if (!postalSearchBtnEl) return
+
+  postalSearchBtnEl.addEventListener('button-click', () => {
+    hasPostalSearch = true
+    updatePaymentButtonState()
   })
 }

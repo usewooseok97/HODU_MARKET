@@ -128,6 +128,12 @@ payment-header {
   flex-shrink: 0;
 }
 
+.required-text {
+  font-size: 1.2rem;
+  color: #e60023;
+  margin-left: 6px;
+}
+
 .info-input {
   width: 334px;
   height: 40px;
