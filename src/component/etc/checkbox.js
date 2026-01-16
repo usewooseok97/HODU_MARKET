@@ -1,3 +1,5 @@
+import './etc.css'
+
 class EtcCheckbox extends HTMLElement {
   static get observedAttributes() {
     return ['text', 'checked', 'disabled', 'name', 'value', 'variant']
@@ -12,8 +14,6 @@ class EtcCheckbox extends HTMLElement {
     this._onSlotChange = this._onSlotChange.bind(this)
     this._onLabelClick = this._onLabelClick.bind(this)
     this._onLabelKeydown = this._onLabelKeydown.bind(this)
-
-    this._loadStyleOnce()
   }
 
   connectedCallback() {
@@ -166,15 +166,6 @@ class EtcCheckbox extends HTMLElement {
     })
 
     this.$fallback.style.display = nodes.length > 0 ? 'none' : 'inline'
-  }
-
-  _loadStyleOnce() {
-    const href = '/src/component/etc/etc.css'
-    if (document.querySelector(`link[rel="stylesheet"][href="${href}"]`)) return
-    const link = document.createElement('link')
-    link.rel = 'stylesheet'
-    link.href = href
-    document.head.appendChild(link)
   }
 }
 

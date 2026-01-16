@@ -1,22 +1,15 @@
+import './styles.css'
+import iconFb from '@/assets/images/icon-fb.png'
+
 class FaceComponent extends HTMLElement {
   connectedCallback() {
     this.render()
-    this.loadStyles()
   }
 
   render() {
     this.innerHTML = `
-      <img src="/src/assets/images/icon-fb.png" alt="facebook" class="face" />
+      <img src="${iconFb}" alt="facebook" class="face" />
     `
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="logo/styles.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/logo/styles.css'
-      document.head.appendChild(link)
-    }
   }
 }
 

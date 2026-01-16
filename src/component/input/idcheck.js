@@ -1,3 +1,5 @@
+import './styles.css'
+
 class IdCheckInput extends HTMLElement {
   static get observedAttributes() {
     return ['variant']
@@ -22,7 +24,6 @@ class IdCheckInput extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -39,17 +40,6 @@ class IdCheckInput extends HTMLElement {
           input.classList.add('check-input--dark')
         }
       }
-    }
-  }
-
-  loadStyles() {
-    if (
-      !document.querySelector('link[href*="/src/component/input/styles.css"]')
-    ) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/input/styles.css'
-      document.head.appendChild(link)
     }
   }
 

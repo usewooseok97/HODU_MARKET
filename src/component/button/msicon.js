@@ -1,3 +1,6 @@
+import './button.css'
+import iconPlus from '@assets/images/icon-plus.png'
+
 class MSIconButton extends HTMLElement {
   constructor() {
     super()
@@ -19,6 +22,7 @@ class MSIconButton extends HTMLElement {
     const disabled = this.hasAttribute('disabled')
     const type = this.getAttribute('type') || 'button'
     const icon = this.getAttribute('icon') || 'icon-plus.png'
+    const iconSrc = this.resolveIcon(icon)
 
     this.innerHTML = `
       <button 
@@ -26,12 +30,11 @@ class MSIconButton extends HTMLElement {
         type="${type}"
         ${disabled ? 'disabled' : ''}
       >
-        <img src="/src/assets/images/${icon}" alt="icon" class="ms-icon-button__icon">
+        <img src="${iconSrc}" alt="icon" class="ms-icon-button__icon">
         <span class="ms-icon-button__text">${text}</span>
       </button>
     `
 
-    this.loadStyles()
   }
 
   attachEventListeners() {
@@ -46,15 +49,6 @@ class MSIconButton extends HTMLElement {
         })
       )
     })
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="button.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/button/button.css'
-      document.head.appendChild(link)
-    }
   }
 
   // ⭐ width까지 observe
@@ -77,7 +71,7 @@ class MSIconButton extends HTMLElement {
 
     if (name === 'icon') {
       const iconEl = this.querySelector('.ms-icon-button__icon')
-      if (iconEl) iconEl.src = `/src/assets/images/${newValue}`
+      if (iconEl) iconEl.src = this.resolveIcon(newValue)
     }
 
     if (name === 'width') {
@@ -117,6 +111,11 @@ class MSIconButton extends HTMLElement {
 
   setIcon(icon) {
     this.setAttribute('icon', icon)
+  }
+
+  resolveIcon(icon) {
+    if (!icon || icon === 'icon-plus.png') return iconPlus
+    return iconPlus
   }
 }
 

@@ -1,3 +1,5 @@
+import './payment.css'
+
 class PaymentItem extends HTMLElement {
   // 기본 속성 정의
   static get observedAttributes() {
@@ -168,16 +170,6 @@ class PaymentItem extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="payment.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/payment/payment.css'
-      document.head.appendChild(link)
-    }
   }
 }
 

@@ -1,7 +1,8 @@
+import './styles.css'
+
 class SellerCartHeader extends HTMLElement {
   connectedCallback() {
     this.render()
-    this.loadStyles()
   }
 
   render() {
@@ -13,15 +14,6 @@ class SellerCartHeader extends HTMLElement {
         <p>삭제</p>
       </div>
     `
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="sellercart/styles.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/sellercart/styles.css'
-      document.head.appendChild(link)
-    }
   }
 }
 

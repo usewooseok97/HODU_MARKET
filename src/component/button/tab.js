@@ -1,3 +1,5 @@
+import './button.css'
+
 class TabButton extends HTMLElement {
   connectedCallback() {
     this.render()
@@ -15,17 +17,14 @@ class TabButton extends HTMLElement {
 
     // 버튼 생성
     this.innerHTML = `
-      <button 
-        class="${buttonClass}" 
+      <button
+        class="${buttonClass}"
         type="${type}"
       >
         <span class="tab-button__text">${text}</span>
         <span class="tab-button__indicator"></span>
       </button>
     `
-
-    // 스타일 로드
-    this.loadStyles()
   }
 
   attachEventListeners() {
@@ -46,16 +45,6 @@ class TabButton extends HTMLElement {
         })
       )
     })
-  }
-
-  loadStyles() {
-    // button.css가 이미 로드되어 있는지 확인
-    if (!document.querySelector('link[href*="button.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/button/button.css'
-      document.head.appendChild(link)
-    }
   }
 
   // 동적으로 속성 변경 가능

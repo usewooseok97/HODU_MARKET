@@ -1,3 +1,5 @@
+import './styles.css'
+
 class PriceInput extends HTMLElement {
   static get observedAttributes() {
     return ['variant', 'unit']
@@ -34,7 +36,6 @@ class PriceInput extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -56,17 +57,6 @@ class PriceInput extends HTMLElement {
       if (unit) {
         unit.textContent = newValue || '원'
       }
-    }
-  }
-
-  loadStyles() {
-    if (
-      !document.querySelector('link[href*="/src/component/input/styles.css"]')
-    ) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/input/styles.css'
-      document.head.appendChild(link)
     }
   }
 

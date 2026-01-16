@@ -2,6 +2,7 @@ import './style.css'
 import '@component/modal/check.js'
 import '@component/button/small.js'
 import '@component/logo/delete.js'
+import '@component/etc/amountCounter.js'
 import { getDetailProduct } from '/src/js/product/getdetailproduct.js'
 import { getAccessToken, getUserType } from '/src/js/auth/token.js'
 import { addToCart } from '/src/js/cart/addToCart.js'
@@ -20,6 +21,8 @@ const sellerModal = document.getElementById('sellerModal')
 const loginModal = document.getElementById('loginModal')
 const cartDuplicateModal = document.getElementById('cartDuplicateModal')
 const stockExceededModal = document.getElementById('stockExceededModal')
+const addToCartSuccessModal = document.getElementById('addToCartSuccessModal')
+const addToCartErrorModal = document.getElementById('addToCartErrorModal')
 const buyNowBtn = document.getElementById('buyNowBtn')
 const addToCartBtn = document.getElementById('addToCartBtn')
 const quantityCounter = document.getElementById('productQuantity')
@@ -91,17 +94,31 @@ function renderProductDetail(product) {
   document.querySelector('.price-section .price').textContent = formatPrice(
     product.price
   )
-  console.log('???')
+
+  // 배송 정보 렌더링
+  const shippingMethod =
+    product.shipping_method === 'PARCEL' ? '택배배송' : '직접배송'
+  const shippingFee = product.shipping_fee || 0
+  const shippingText =
+    shippingFee === 0 ? '무료배송' : `${formatPrice(shippingFee)}원`
+
+  const shippingLabelEl = document.querySelector('.shipping-label')
+  const shippingFreeEl = document.querySelector('.shipping-free')
+  if (shippingLabelEl) shippingLabelEl.textContent = `${shippingMethod} / `
+  if (shippingFreeEl) shippingFreeEl.textContent = shippingText
 
   quantityCounter?.setAttribute('max', product.stock)
-  console.log(isSellerUser())
+
+  // 초기 총 금액 설정
+  const initialQuantity = getQuantity()
+  document.getElementById('totalQuantity').textContent = initialQuantity
+  document.getElementById('totalPrice').textContent = formatPrice(
+    product.price * initialQuantity
+  )
 
   // ✅ 판매자 계정이면 바로 비활성화
   if (isSellerUser()) {
-    console.log('isSeller')
     disablePurchaseUIForSeller()
-  } else {
-    console.log('!!!')
   }
 }
 
@@ -142,6 +159,10 @@ loginModal?.addEventListener('modal-confirm', () => {
 })
 
 cartDuplicateModal?.addEventListener('modal-confirm', () => {
+  location.href = '/src/pages/shoppingCartPage/index.html'
+})
+
+addToCartSuccessModal?.addEventListener('modal-confirm', () => {
   location.href = '/src/pages/shoppingCartPage/index.html'
 })
 
@@ -191,10 +212,10 @@ addToCartBtn?.addEventListener('button-click', async () => {
     }
 
     await addToCart(currentProduct.id, getQuantity())
-    alert('장바구니에 상품이 담겼습니다.')
+    addToCartSuccessModal?.setAttribute('open', '')
   } catch (e) {
     console.error(e)
-    alert('장바구니 추가 실패')
+    addToCartErrorModal?.setAttribute('open', '')
   }
 })
 

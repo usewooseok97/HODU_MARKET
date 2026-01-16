@@ -1,3 +1,5 @@
+import './button.css'
+
 class LButton extends HTMLElement {
   constructor() {
     super()
@@ -31,8 +33,6 @@ class LButton extends HTMLElement {
       </button>
     `
 
-    // 스타일 로드
-    this.loadStyles()
   }
 
   attachEventListeners() {
@@ -49,15 +49,6 @@ class LButton extends HTMLElement {
         })
       )
     })
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="button.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/button/button.css'
-      document.head.appendChild(link)
-    }
   }
 
   // ✅ width 속성까지 감지하도록 확장

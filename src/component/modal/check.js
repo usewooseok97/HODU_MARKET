@@ -1,3 +1,5 @@
+import './check.css'
+
 // src/component/modal/check.js
 class Modal extends HTMLElement {
   constructor() {
@@ -75,7 +77,6 @@ class Modal extends HTMLElement {
       </div>
     </div>
   `
-    this.loadStyles()
   }
 
   setupEventListeners() {
@@ -185,15 +186,6 @@ class Modal extends HTMLElement {
 
   disconnectedCallback() {
     this.removeEventListeners()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="modal/check.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/modal/check.css'
-      document.head.appendChild(link)
-    }
   }
 }
 

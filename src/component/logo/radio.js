@@ -1,7 +1,8 @@
+import './styles.css'
+
 class RadioComponent extends HTMLElement {
   connectedCallback() {
     this.render()
-    this.loadStyles()
   }
 
   render() {
@@ -20,15 +21,6 @@ class RadioComponent extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'checked') {
       this.render()
-    }
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="radio/styles.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/radio/styles.css'
-      document.head.appendChild(link)
     }
   }
 }

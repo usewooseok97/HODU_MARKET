@@ -1,3 +1,5 @@
+import './cart.css'
+
 class CartListHeader extends HTMLElement {
   connectedCallback() {
     this.render()
@@ -18,17 +20,6 @@ class CartListHeader extends HTMLElement {
         <div class="cart-col-price">상품금액</div>
       </div>
     `
-
-    this.loadStyles()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="cart.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/shoppingcart/cart.css'
-      document.head.appendChild(link)
-    }
   }
 }
 
