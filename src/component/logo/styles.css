@@ -14,7 +14,7 @@ a {
 .shop {
   width: 100%;
   height: 100%;
-  background: url('@/assets/images/icon-shopping-cart.png') no-repeat center
+  background: url('../../assets/images/icon-shopping-cart.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -22,7 +22,7 @@ a {
 .shop-gr {
   width: 100%;
   height: 100%;
-  background: url('@/assets/images/icon-shopping-cart-2.png') no-repeat
+  background: url('../../assets/images/icon-shopping-cart-2.png') no-repeat
     center center / contain;
   display: block;
 }
@@ -30,7 +30,7 @@ a {
 .user {
   width: 100%;
   height: 100%;
-  background: url('@/assets/images/icon-user.png') no-repeat center center /
+  background: url('../../assets/images/icon-user.png') no-repeat center center /
     contain;
   display: block;
 }
@@ -38,7 +38,7 @@ a {
 .user-gr {
   width: 100%;
   height: 100%;
-  background: url('@/assets/images/icon-user-2.png') no-repeat center
+  background: url('../../assets/images/icon-user-2.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -65,13 +65,13 @@ a {
 }
 
 .cart-icon__default {
-  background: url('@/assets/images/icon-shopping-cart.png') no-repeat center
+  background: url('../../assets/images/icon-shopping-cart.png') no-repeat center
     center / contain;
   opacity: 1;
 }
 
 .cart-icon__active {
-  background: url('@/assets/images/icon-shopping-cart-2.png') no-repeat
+  background: url('../../assets/images/icon-shopping-cart-2.png') no-repeat
     center center / contain;
   opacity: 0;
 }
@@ -98,13 +98,13 @@ a {
 }
 
 .account-icon__default {
-  background: url('@/assets/images/icon-user.png') no-repeat center center /
+  background: url('../../assets/images/icon-user.png') no-repeat center center /
     contain;
   opacity: 1;
 }
 
 .account-icon__active {
-  background: url('@/assets/images/icon-user-2.png') no-repeat center
+  background: url('../../assets/images/icon-user-2.png') no-repeat center
     center / contain;
   opacity: 0;
 }
@@ -115,7 +115,7 @@ a {
 .bag {
   width: 32px;
   height: 32px;
-  background: url('@/assets/images/icon-shopping-bag.png') no-repeat center
+  background: url('../../assets/images/icon-shopping-bag.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -123,7 +123,7 @@ a {
 .plus {
   width: 32px;
   height: 32px;
-  background: url('@/assets/images/icon-plus.png') no-repeat center center /
+  background: url('../../assets/images/icon-plus.png') no-repeat center center /
     contain;
   display: block;
 }
@@ -131,7 +131,7 @@ a {
 .down-arrow {
   width: 22px;
   height: 22px;
-  background: url('@/assets/images/icon-down-arrow.png') no-repeat center
+  background: url('../../assets/images/icon-down-arrow.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -139,7 +139,7 @@ a {
 .right-arrow {
   width: 22px;
   height: 22px;
-  background: url('@/assets/images/icon-rhigt-arrow.png') no-repeat center
+  background: url('../../assets/images/icon-rhigt-arrow.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -147,7 +147,7 @@ a {
 .up-arrow {
   width: 22px;
   height: 22px;
-  background: url('@/assets/images/icon-up-arrow.png') no-repeat center
+  background: url('../../assets/images/icon-up-arrow.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -155,7 +155,7 @@ a {
 .minus {
   width: 20px;
   height: 20px;
-  background: url('@/assets/images/icon-minus-line.png') no-repeat center
+  background: url('../../assets/images/icon-minus-line.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -163,7 +163,7 @@ a {
 .plus-icon {
   width: 20px;
   height: 20px;
-  background: url('@/assets/images/icon-plus-line.png') no-repeat center
+  background: url('../../assets/images/icon-plus-line.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -171,7 +171,7 @@ a {
 .delect {
   width: 22px;
   height: 22px;
-  background: url('@/assets/images/icon-delete.png') no-repeat center
+  background: url('../../assets/images/icon-delete.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -179,7 +179,7 @@ a {
 .swiper-l {
   width: 60px;
   height: 124px;
-  background: url('@/assets/images/icon-swiper-1.png') no-repeat center
+  background: url('../../assets/images/icon-swiper-1.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -187,7 +187,7 @@ a {
 .swiper-r {
   width: 60px;
   height: 124px;
-  background: url('@/assets/images/icon-swiper-2.png') no-repeat center
+  background: url('../../assets/images/icon-swiper-2.png') no-repeat center
     center / contain;
   display: block;
 }
@@ -195,7 +195,7 @@ a {
 .img-icon {
   width: 50px;
   height: 50px;
-  background: url('@/assets/images/icon-img.png') no-repeat center center /
+  background: url('../../assets/images/icon-img.png') no-repeat center center /
     contain;
   display: block;
 }
@@ -220,7 +220,7 @@ a {
 .img-upload__icon {
   width: 5rem;
   height: 5rem;
-  background: url('@/assets/images/icon-img.png') no-repeat center center /
+  background: url('../../assets/images/icon-img.png') no-repeat center center /
     contain;
   display: block;
 }
