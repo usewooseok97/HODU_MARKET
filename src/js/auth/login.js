@@ -8,18 +8,16 @@ import {
 } from './token.js'
 
 /**
- * 로그인 API 호출
+ * 로그인 API 호출 (API 응답의 user_type 사용)
  * @param {string} username - 사용자 아이디
  * @param {string} password - 비밀번호
- * @param {string} loginType - 'BUYER' 또는 'SELLER'
  * @returns {Promise<object>} 사용자 정보 및 토큰
  */
-export const login = async (username, password, loginType = 'BUYER') => {
+export const login = async (username, password) => {
   try {
     const data = await postRequest('accounts/login/', {
       username,
       password,
-      login_type: loginType,
     })
 
     // 토큰 저장
@@ -27,12 +25,15 @@ export const login = async (username, password, loginType = 'BUYER') => {
       saveToken(data.access, data.refresh)
     }
 
-    // user_type 저장
-    if (data.user && data.user.user_type) {
-      saveUserType(data.user.user_type)
-    }
+    // username 저장
     if (data.user && data.user.username) {
       saveUsername(data.user.username)
+    }
+
+    // API 응답의 user_type 저장
+    if (data.user && data.user.user_type) {
+      saveUserType(data.user.user_type)
+      console.log(`${data.user.user_type} 계정으로 로그인 성공`)
     }
 
     return data

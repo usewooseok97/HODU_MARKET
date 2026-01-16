@@ -1,27 +1,8 @@
 // ✅ 상대 경로로 수정 (폴더 구조에 맞게)
 import { login, showValidation } from '@/js/auth/login'
-import { saveUserType } from '@/js/auth/token'
 
 // DOM 요소 선택
 const loginForm = document.getElementById('loginForm')
-const buyerTab = document.getElementById('buyerTab')
-const sellerTab = document.getElementById('sellerTab')
-
-// 판매자 여부 상태
-let isSeller = false
-
-// 탭 전환 처리
-buyerTab?.addEventListener('click', () => {
-  buyerTab.setAttribute('active', '')
-  sellerTab?.removeAttribute('active')
-  isSeller = false
-})
-
-sellerTab?.addEventListener('click', () => {
-  sellerTab.setAttribute('active', '')
-  buyerTab?.removeAttribute('active')
-  isSeller = true
-})
 
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
@@ -58,9 +39,8 @@ if (loginForm) {
     }
 
     try {
-      const loginType = isSeller ? 'SELLER' : 'BUYER'
-      await login(username, password, loginType)
-      saveUserType(loginType)
+      // 탭 구분 없이 로그인 (판매자 여부는 API로 자동 확인)
+      await login(username, password)
       showValidation('로그인 성공!', false)
       console.log('로그인 성공')
 
