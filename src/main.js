@@ -1,9 +1,121 @@
 // ==========================================
-// 메인 슬라이드 JavaScript
+// 메인 슬라이드 및 상품 로드 JavaScript
 // ==========================================
 
+import { getproduct } from '/src/js/product/getproduct.js'
+import '/src/component/product/item.js'
+
 // DOMContentLoaded 이벤트: HTML이 모두 로드되면 실행
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+  // ===== API에서 상품 데이터 가져오기 =====
+  let products = []
+  let hasApiData = false
+
+  try {
+    const data = await getproduct()
+    products = data.results || data
+
+    if (products && products.length > 0) {
+      hasApiData = true
+      console.log('상품 데이터 로드 완료:', products.length, '개')
+
+      // 슬라이드를 API 데이터로 업데이트
+      updateSliderWithProducts(products)
+
+      // 상품 목록 렌더링
+      const productItems = document.querySelector('product-items')
+      if (productItems) {
+        productItems.setProducts(products)
+      }
+    } else {
+      console.log('상품 데이터가 없습니다. 기본 슬라이더를 사용합니다.')
+    }
+  } catch (error) {
+    console.error('상품 로드 실패:', error)
+  }
+
+  // API 데이터가 없으면 기존 정적 슬라이더 사용
+  if (!hasApiData) {
+    setupSlider()
+  }
+})
+
+/**
+ * 가격 포맷팅 함수 (천 단위 콤마)
+ */
+function formatPrice(price) {
+  return price.toLocaleString('ko-KR')
+}
+
+/**
+ * API 상품 데이터로 슬라이더 업데이트
+ * @param {Array} products - 상품 데이터 배열
+ */
+function updateSliderWithProducts(products) {
+  const sliderWrapper = document.querySelector('.slider-wrapper')
+  const sliderIndicators = document.querySelector('.slider-indicators')
+
+  if (!sliderWrapper || !sliderIndicators) {
+    console.error('슬라이더 요소를 찾을 수 없습니다.')
+    return
+  }
+
+  // 기존 슬라이드 및 인디케이터 제거
+  sliderWrapper.innerHTML = ''
+  sliderIndicators.innerHTML = ''
+
+  // 슬라이드로 표시할 상품 (최대 5개)
+  const slideProducts = products.slice(0, 5)
+
+  // 슬라이드 생성
+  slideProducts.forEach((product, index) => {
+    const slide = document.createElement('div')
+    slide.className = index === 0 ? 'slide active' : 'slide'
+    slide.style.cursor = 'pointer'
+    slide.dataset.productId = product.id
+
+    // API에서 받은 데이터를 변수에 저장
+    const productName = product.name
+    const productPrice = product.price
+
+    slide.innerHTML = `
+      <div class="slide-info">
+        <h3 class="slide-product-name">${productName}</h3>
+        <p class="slide-price">${formatPrice(productPrice)}원</p>
+      </div>
+      <div class="slide-image-wrapper">
+        <img src="${product.image}" alt="${productName}" />
+      </div>
+      <div class="slide-info">
+      </div>
+    `
+
+    // 슬라이드 클릭 시 상세 페이지로 이동
+    slide.addEventListener('click', () => {
+      window.location.href = `/src/pages/productDetail/index.html?product_id=${product.id}`
+    })
+
+    sliderWrapper.appendChild(slide)
+  })
+
+  // 인디케이터 생성
+  slideProducts.forEach((_, index) => {
+    const indicator = document.createElement('button')
+    indicator.className = index === 0 ? 'indicator active' : 'indicator'
+    indicator.dataset.slide = index
+    indicator.setAttribute('aria-label', `${index + 1}번 슬라이드로 이동`)
+
+    sliderIndicators.appendChild(indicator)
+  })
+
+  // 슬라이드 기능 초기화
+  setupSlider()
+}
+
+/**
+ * 슬라이드 기능 설정
+ */
+function setupSlider() {
   // ===== 필요한 요소들 선택 =====
 
   // 모든 슬라이드 요소들을 선택 (NodeList 배열 형태로 반환)
@@ -17,6 +129,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 다음 버튼 선택
   const nextBtn = document.querySelector('.next-btn')
+
+  if (slides.length === 0) {
+    console.log('슬라이드가 없습니다.')
+    return
+  }
 
   // ===== 변수 선언 =====
 
@@ -118,16 +235,20 @@ document.addEventListener('DOMContentLoaded', function () {
   // ===== 이벤트 리스너 등록 =====
 
   // 이전 버튼 클릭 이벤트
-  prevBtn.addEventListener('click', function () {
-    prevSlide() // 이전 슬라이드로 이동
-    resetAutoSlide() // 자동 슬라이드 재시작
-  })
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function () {
+      prevSlide() // 이전 슬라이드로 이동
+      resetAutoSlide() // 자동 슬라이드 재시작
+    })
+  }
 
   // 다음 버튼 클릭 이벤트
-  nextBtn.addEventListener('click', function () {
-    nextSlide() // 다음 슬라이드로 이동
-    resetAutoSlide() // 자동 슬라이드 재시작
-  })
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function () {
+      nextSlide() // 다음 슬라이드로 이동
+      resetAutoSlide() // 자동 슬라이드 재시작
+    })
+  }
 
   // 각 인디케이터(점)에 클릭 이벤트 등록
   indicators.forEach(function (indicator, index) {
@@ -155,14 +276,16 @@ document.addEventListener('DOMContentLoaded', function () {
   // 마우스가 슬라이드 영역에 들어오면 자동 전환 중지
   const sliderContainer = document.querySelector('.slider-container')
 
-  sliderContainer.addEventListener('mouseenter', function () {
-    stopAutoSlide() // 자동 슬라이드 중지
-  })
+  if (sliderContainer) {
+    sliderContainer.addEventListener('mouseenter', function () {
+      stopAutoSlide() // 자동 슬라이드 중지
+    })
 
-  // 마우스가 슬라이드 영역에서 나가면 자동 전환 재시작
-  sliderContainer.addEventListener('mouseleave', function () {
-    startAutoSlide() // 자동 슬라이드 시작
-  })
+    // 마우스가 슬라이드 영역에서 나가면 자동 전환 재시작
+    sliderContainer.addEventListener('mouseleave', function () {
+      startAutoSlide() // 자동 슬라이드 시작
+    })
+  }
 
   // ===== 초기 실행 =====
 
@@ -171,4 +294,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 자동 슬라이드 전환 시작
   startAutoSlide()
-})
+}
