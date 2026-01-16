@@ -5,7 +5,7 @@ class EtcAmountCounter extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['min', 'max', 'value']
+    return ['min', 'max', 'value', 'disabled']
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -33,6 +33,9 @@ class EtcAmountCounter extends HTMLElement {
       this.updateButtonStates()
     } else if (name === 'value') {
       this.setValue(numValue)
+    } else if (name === 'disabled') {
+      this._disabled = newValue !== null
+      this.updateButtonStates()
     }
   }
 
@@ -40,6 +43,7 @@ class EtcAmountCounter extends HTMLElement {
     this.min = parseInt(this.getAttribute('min') || '1')
     this.max = parseInt(this.getAttribute('max') || '99')
     this.value = parseInt(this.getAttribute('value') || '1')
+    this._disabled = this.hasAttribute('disabled')
 
     this.render()
     this.attachEventListeners()
@@ -230,6 +234,12 @@ class EtcAmountCounter extends HTMLElement {
     const plusBtn = this.shadowRoot?.querySelector('.btn-plus')
 
     if (!minusBtn || !plusBtn) return
+
+    if (this._disabled) {
+      minusBtn.disabled = true
+      plusBtn.disabled = true
+      return
+    }
 
     if (this.value <= this.min) {
       minusBtn.disabled = true
