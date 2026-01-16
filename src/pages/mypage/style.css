@@ -1,0 +1,149 @@
+@import url('/src/assets/styles/recommendReset.css');
+
+.mypage-main {
+  padding: 40px 0 120px;
+}
+
+.mypage-container {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.mypage-title {
+  font-size: 3.6rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+  color: #000000;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #000000;
+  margin: 0 0 12px;
+}
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: #c4c4c4;
+  margin-bottom: 24px;
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order-card {
+  border: 2px solid #21bf48;
+  border-radius: 12px;
+  padding: 24px;
+  background: #ffffff;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.order-number {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+.order-status {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #21bf48;
+}
+
+.order-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  font-size: 1.4rem;
+  color: #555555;
+  margin-bottom: 16px;
+}
+
+.order-meta span strong {
+  color: #000000;
+}
+
+.order-items {
+  border-top: 1px solid #c4c4c4;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 1.4rem;
+  color: #555555;
+}
+
+.order-item-name {
+  font-weight: 500;
+  color: #000000;
+}
+
+.order-item-details {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.order-total {
+  margin-top: 18px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+.empty-message {
+  font-size: 1.6rem;
+  color: #767676;
+  text-align: center;
+  padding: 40px 0;
+}
+
+@media (max-width: 1280px) {
+  .mypage-container {
+    width: min(100%, 960px);
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mypage-main {
+    padding: 32px 0 80px;
+  }
+
+  .mypage-title {
+    font-size: 2.8rem;
+  }
+
+  .order-card {
+    padding: 18px;
+  }
+
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

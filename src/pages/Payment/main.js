@@ -1,10 +1,36 @@
 // Payment/main.js
 
+import { requireAuth } from '@/js/auth/routeGuard.js'
+import { postAuthRequest } from '@/js/api.js'
+import { getAccessToken } from '@/js/auth/token.js'
+
+// 로그인 확인 (Route Guard)
+if (!requireAuth({ message: '결제 페이지는 로그인이 필요합니다.' })) {
+  throw new Error('Unauthorized')
+}
+
 // DOM 요소 선택
 const orderProductListEl = document.getElementById('orderProductList')
 const totalOrderAmountEl = document.getElementById('totalOrderAmount')
 const agreementCheckEl = document.getElementById('agreementCheck')
 const paymentBtnEl = document.getElementById('paymentBtn')
+const shippingFormEl = document.getElementById('shippingForm')
+const postalSearchBtnEl = document.getElementById('postalSearchBtn')
+const ordererEmailEl = document.getElementById('ordererEmail')
+const receiverNameEl = document.getElementById('receiverName')
+const deliveryMessageEl = document.getElementById('deliveryMessage')
+const postalCodeEl = document.getElementById('postalCode')
+const addressEl = document.getElementById('address')
+const addressDetailEl = document.getElementById('addressDetail')
+
+const phoneInputEls = Array.from(
+  document.querySelectorAll(
+    'input[name^="ordererPhone"], input[name^="receiverPhone"]'
+  )
+)
+
+let hasPostalSearch = false
+let isSubmittingOrder = false
 
 /**
  * 1. sessionStorage에서 주문 데이터를 가져와서 화면에 렌더링
@@ -154,7 +180,7 @@ function setupAgreementCheck() {
 
   // etc-checkbox 커스텀 이벤트 또는 기본 change 이벤트 대응
   agreementCheckEl.addEventListener('etc-change', (e) => {
-    paymentBtnEl.disabled = !e.detail?.checked
+    updatePaymentButtonState(Boolean(e.detail?.checked))
   })
 }
 
@@ -163,22 +189,278 @@ function isAgreementChecked() {
   return Boolean(input?.checked)
 }
 
+function updatePaymentButtonState(agreementChecked = isAgreementChecked()) {
+  if (!paymentBtnEl) return
+  paymentBtnEl.disabled = !(agreementChecked && hasPostalSearch)
+}
+
 /**
  * 초기 실행
  */
 document.addEventListener('DOMContentLoaded', () => {
   loadOrderData() // 상품 먼저 불러오기
   setupAgreementCheck()
+  setupValidationMessages()
+  setupPostalSearchButton()
 })
 
 // 결제하기 버튼 클릭 이벤트
-if (paymentBtnEl) {
-  paymentBtnEl.addEventListener('click', () => {
+if (shippingFormEl) {
+  shippingFormEl.addEventListener('submit', async (event) => {
+    event.preventDefault()
+
     if (!isAgreementChecked()) {
       alert('주문 내용 확인 및 정보 제공에 동의해주세요.')
       return
     }
-    alert('결제가 완료되었습니다!')
-    // 실제 결제 API 호출 로직 추가 위치
+
+    if (isSubmittingOrder) return
+
+    try {
+      isSubmittingOrder = true
+      setPaymentButtonLoading(true)
+
+      const orders = await submitOrders()
+      if (orders.length > 0) {
+        alert('결제가 완료되었습니다!')
+      }
+    } catch (error) {
+      console.error('주문 생성 실패:', error)
+      if (error?.data) {
+        console.error('주문 생성 실패 상세:', error.data)
+      }
+      alert(getOrderErrorMessage(error))
+    } finally {
+      isSubmittingOrder = false
+      setPaymentButtonLoading(false)
+    }
   })
+}
+
+function setupValidationMessages() {
+  phoneInputEls.forEach((inputEl) => {
+    inputEl.addEventListener('input', () => {
+      inputEl.setCustomValidity('')
+    })
+
+    inputEl.addEventListener('invalid', () => {
+      inputEl.setCustomValidity('숫자만 입력하세요.')
+    })
+  })
+
+  if (ordererEmailEl) {
+    ordererEmailEl.addEventListener('input', () => {
+      ordererEmailEl.setCustomValidity('')
+    })
+
+    ordererEmailEl.addEventListener('invalid', () => {
+      ordererEmailEl.setCustomValidity('이메일 형식으로 입력하세요.')
+    })
+  }
+}
+
+function setupPostalSearchButton() {
+  if (!postalSearchBtnEl) return
+
+  postalSearchBtnEl.addEventListener('button-click', () => {
+    if (!window.daum?.Postcode) {
+      alert('우편번호 서비스를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')
+      return
+    }
+
+    new window.daum.Postcode({
+      oncomplete: (data) => {
+        if (postalCodeEl) postalCodeEl.value = data.zonecode || ''
+        if (addressEl) addressEl.value = data.roadAddress || data.address || ''
+        if (addressDetailEl) addressDetailEl.focus()
+
+        hasPostalSearch = true
+        updatePaymentButtonState()
+      },
+    }).open()
+  })
+}
+
+function setPaymentButtonLoading(isLoading) {
+  if (!paymentBtnEl) return
+  paymentBtnEl.disabled = isLoading || paymentBtnEl.disabled
+  if (isLoading) {
+    paymentBtnEl.dataset.prevText = paymentBtnEl.textContent
+    paymentBtnEl.textContent = '결제 처리 중...'
+  } else {
+    paymentBtnEl.textContent = paymentBtnEl.dataset.prevText || '결제하기'
+    delete paymentBtnEl.dataset.prevText
+    updatePaymentButtonState()
+  }
+}
+
+function getSelectedPaymentMethod() {
+  const selected = document.querySelector('input[name="paymentMethod"]:checked')
+  if (!selected) return null
+
+  if (selected.value === 'transfer') return 'deposit'
+  return selected.value
+}
+
+function getReceiverPhoneNumber() {
+  const parts = Array.from(
+    document.querySelectorAll(
+      'input[name="receiverPhone1"], input[name="receiverPhone2"], input[name="receiverPhone3"]'
+    )
+  )
+    .map((input) => input.value.trim())
+    .filter(Boolean)
+  return parts.join('').replace(/\D/g, '')
+}
+
+function getShippingAddress() {
+  const parts = [
+    postalCodeEl?.value?.trim(),
+    addressEl?.value?.trim(),
+    addressDetailEl?.value?.trim(),
+  ].filter(Boolean)
+  return parts.join(' ')
+}
+
+function getOrderItemsFromDom() {
+  if (!orderProductListEl) return []
+  const items = Array.from(orderProductListEl.querySelectorAll('payment-item'))
+
+  return items
+    .map((itemEl) => ({
+      product: Number(itemEl.getAttribute('product-id')),
+      quantity: getNumber(itemEl.getAttribute('quantity')) || 1,
+      price: getNumber(itemEl.getAttribute('price')),
+      shipping: getNumber(itemEl.getAttribute('shipping')),
+    }))
+    .filter((item) => Number.isFinite(item.product))
+}
+
+function getCartOrderItemsFromSession() {
+  const cartItemsData = sessionStorage.getItem('orderItems')
+  if (!cartItemsData) return []
+
+  try {
+    const items = JSON.parse(cartItemsData)
+    if (!Array.isArray(items)) return []
+    return items.filter(Boolean)
+  } catch (error) {
+    console.error('cart_order 데이터 파싱 실패:', error)
+    return []
+  }
+}
+
+async function submitOrders() {
+  const token = getAccessToken()
+  if (!token) {
+    throw new Error('로그인 토큰이 없습니다.')
+  }
+
+  const paymentMethod = getSelectedPaymentMethod()
+  if (!paymentMethod) {
+    throw new Error('결제수단을 선택해주세요.')
+  }
+
+  const receiver = receiverNameEl?.value?.trim()
+  const receiverPhoneNumber = getReceiverPhoneNumber()
+  const address = getShippingAddress()
+  const addressMessage = deliveryMessageEl?.value?.trim() || null
+
+  if (!receiver) {
+    throw new Error('수령인을 입력해주세요.')
+  }
+  if (!receiverPhoneNumber) {
+    throw new Error('수령인 휴대폰 번호를 입력해주세요.')
+  }
+  if (receiverPhoneNumber.length < 10 || receiverPhoneNumber.length > 11) {
+    throw new Error('휴대폰 번호는 숫자 10~11자리로 입력해주세요.')
+  }
+  if (!address) {
+    throw new Error('배송주소를 입력해주세요.')
+  }
+
+  const cartOrderItems = getCartOrderItemsFromSession()
+  if (cartOrderItems.length > 0) {
+    const cartItemIds = cartOrderItems
+      .map((item) => Number(item.id))
+      .filter((id) => Number.isFinite(id))
+
+    if (cartItemIds.length === 0) {
+      throw new Error('카트 아이템 정보가 없습니다.')
+    }
+
+    const totalPrice = cartOrderItems.reduce(
+      (sum, item) => sum + item.price * item.quantity + item.shipping,
+      0
+    )
+
+    const payload = {
+      order_type: 'cart_order',
+      cart_items: cartItemIds,
+      total_price: totalPrice,
+      receiver,
+      receiver_phone_number: receiverPhoneNumber,
+      address,
+      address_message: addressMessage,
+      payment_method: paymentMethod,
+    }
+
+    const order = await postAuthRequest('order/', payload, token)
+    return [order]
+  }
+
+  const items = getOrderItemsFromDom()
+  if (items.length === 0) {
+    throw new Error('주문할 상품이 없습니다.')
+  }
+
+  const orders = []
+
+  for (const item of items) {
+    const totalPrice = item.price * item.quantity + item.shipping
+
+    const payload = {
+      order_type: 'direct_order',
+      product: item.product,
+      quantity: item.quantity,
+      total_price: totalPrice,
+      receiver,
+      receiver_phone_number: receiverPhoneNumber,
+      address,
+      address_message: addressMessage,
+      payment_method: paymentMethod,
+    }
+
+    const order = await postAuthRequest('order/', payload, token)
+    orders.push(order)
+  }
+
+  return orders
+}
+
+function getOrderErrorMessage(error) {
+  const data = error?.data
+  if (data) {
+    const messages = [
+      data.receiver,
+      data.receiver_phone_number,
+      data.address,
+      data.address_message,
+      data.payment_method,
+      data.order_kind,
+      data.order_type,
+      data.non_field_errors,
+      data.detail,
+    ]
+      .flat()
+      .filter(Boolean)
+
+    if (messages.length > 0) {
+      return messages.join('\n')
+    }
+  }
+
+  if (error?.message) return error.message
+
+  return '주문에 실패했습니다. 잠시 후 다시 시도해주세요.'
 }

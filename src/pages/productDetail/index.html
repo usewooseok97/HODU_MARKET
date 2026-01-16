@@ -29,7 +29,6 @@
           <div class="product-details">
             <!-- 판매자 정보 -->
             <p class="seller-name" id="sellerName" role="button" tabindex="0">
-              백엔드글로벌
             </p>
 
             <!-- 제품명 -->
@@ -101,20 +100,18 @@
         <section class="product-tabs-section">
           <!-- 탭 버튼 -->
           <div class="tabs-header">
-            <button-tab class="tab-button" text="버튼" active></button-tab>
+            <button-tab class="tab-button" text="상세설명" active></button-tab>
             <button-tab class="tab-button" text="리뷰"></button-tab>
             <button-tab class="tab-button" text="Q&A"></button-tab>
             <button-tab class="tab-button" text="반품/교환정보"></button-tab>
           </div>
 
           <!-- 탭 컨텐츠 -->
-          <!-- <div class="tabs-content">
+         <div class="tabs-content">
             <div class="tab-panel active" data-tab="detail">
-             
-              //상세정보 컨텐츠
+            
               <div class="detail-content">
-                <img src="/src/assets/images/cart-Product-list.png" alt="제품 상세 이미지" />
-                <p>제품 상세 설명이 들어갑니다.</p>
+                <p id="detailInfo">제품 상세 설명이 들어갑니다.</p>
               </div>
             </div>
 
@@ -135,7 +132,7 @@
                 <p>반품/교환정보 컨텐츠가 들어갑니다.</p>
               </div>
             </div>
-          </div> -->
+          </div>
         </section>
       </div>
     </main>
@@ -148,6 +145,7 @@
       cancel-text="닫기"
       confirm-text="확인"
     ></modal-check>
+    
     <!-- 로그인 안내 모달 -->
     <modal-check
       id="loginModal"

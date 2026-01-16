@@ -28,7 +28,7 @@
           <div class="order-product-list" id="orderProductList">
             <payment-item
               product-id="1"
-              image="/src/assets/images/cart-Product-list.png"
+              image="/src/assets/images/icon-img.png"
               seller="백엔드글로벌"
               name="딥러닝 개발자 무릎 담요"
               price="17500"
@@ -39,7 +39,7 @@
 
             <payment-item
               product-id="2"
-              image="/src/assets/images/cart-Product-list.png"
+              image="/src/assets/images/icon-img.png"
               seller="우당탕탕 라이캣의 실험실"
               name="Hack Your Life 개발자 노트북 파우치"
               price="29000"
@@ -67,7 +67,9 @@
             <div class="info-group">
               <h3 class="group-title">주문자 정보</h3>
               <div class="info-row">
-                <label class="info-label" for="ordererName">이름</label>
+                <label class="info-label" for="ordererName">
+                  이름 <span class="required-text">*필수</span>
+                </label>
                 <input
                   type="text"
                   class="info-input"
@@ -77,35 +79,45 @@
                 />
               </div>
               <div class="info-row">
-                <label class="info-label">휴대폰</label>
+                <label class="info-label">
+                  휴대폰 <span class="required-text">*필수</span>
+                </label>
                 <div class="phone-input-group">
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="ordererPhone1"
                     maxlength="3"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                   <span class="phone-divider">-</span>
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="ordererPhone2"
                     maxlength="4"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                   <span class="phone-divider">-</span>
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="ordererPhone3"
                     maxlength="4"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                 </div>
               </div>
               <div class="info-row">
-                <label class="info-label" for="ordererEmail">이메일</label>
+                <label class="info-label" for="ordererEmail">
+                  이메일 <span class="required-text">*필수</span>
+                </label>
                 <input
                   type="email"
                   class="info-input"
@@ -120,7 +132,9 @@
             <div class="info-group">
               <h3 class="group-title">배송지 정보</h3>
               <div class="info-row">
-                <label class="info-label" for="receiverName">수령인</label>
+                <label class="info-label" for="receiverName">
+                  수령인 <span class="required-text">*필수</span>
+                </label>
                 <input
                   type="text"
                   class="info-input"
@@ -130,35 +144,45 @@
                 />
               </div>
               <div class="info-row">
-                <label class="info-label">휴대폰</label>
+                <label class="info-label">
+                  휴대폰 <span class="required-text">*필수</span>
+                </label>
                 <div class="phone-input-group">
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="receiverPhone1"
                     maxlength="3"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                   <span class="phone-divider">-</span>
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="receiverPhone2"
                     maxlength="4"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                   <span class="phone-divider">-</span>
                   <input
-                    type="text"
+                    type="tel"
                     class="phone-input"
                     name="receiverPhone3"
                     maxlength="4"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     required
                   />
                 </div>
               </div>
               <div class="info-row no-border">
-                <label class="info-label" for="postalCode">배송주소</label>
+                <label class="info-label" for="postalCode">
+                  배송주소 <span class="required-text">*필수</span>
+                </label>
                 <div class="address-input-group">
                   <input
                     type="text"
@@ -197,9 +221,19 @@
                   placeholder="상세주소를 입력하세요"
                 />
               </div>
-              <div class="section-divider" style="margin:0 0 8px;width:100%;height:1px;background:#C4C4C4;"></div>
+              <div
+                class="section-divider"
+                style="
+                  margin: 0 0 8px;
+                  width: 100%;
+                  height: 1px;
+                  background: #c4c4c4;
+                "
+              ></div>
               <div class="info-row">
-                <label class="info-label" for="deliveryMessage">배송 메시지</label>
+                <label class="info-label" for="deliveryMessage"
+                  >배송 메시지</label
+                >
                 <input
                   type="text"
                   class="info-input-large"
@@ -226,6 +260,7 @@
                   name="paymentMethod"
                   value="card"
                   class="payment-radio"
+                  checked
                 />
                 <span class="payment-method-text">신용/체크카드</span>
               </label>
@@ -311,9 +346,10 @@
                 </div>
 
                 <button
-                  type="button"
+                  type="submit"
                   class="payment-submit-btn"
                   id="paymentBtn"
+                  form="shippingForm"
                   disabled
                 >
                   결제하기
@@ -328,6 +364,7 @@
     <!-- 푸터 -->
     <bottom-footer></bottom-footer>
 
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="module" src="./main.js"></script>
   </body>
 </html>

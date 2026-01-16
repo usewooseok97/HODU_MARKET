@@ -51,8 +51,9 @@ class ProductList extends HTMLElement {
       </div>
       <div class="product-info">
         <div class="seller-name">${product.seller?.store_name || ''}</div>
-        <div class="product-name">${product.info}</div>
+        <div class="product-name">${product.name}</div>
         <div class="price">${this.formatPrice(product.price)}</div>
+        <div class="stock">${product.stock > 0 ? '' : '품절'}</div>
       </div>
     `
 

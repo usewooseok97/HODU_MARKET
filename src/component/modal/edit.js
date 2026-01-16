@@ -60,7 +60,6 @@ class ProductEditModal extends HTMLElement {
               <span>재고</span>
               <input type="text" class="modal-input" name="stock" value="${stock}">
             </label>
-            <p class="modal-help">값을 비우면 기존 값이 유지됩니다.</p>
           </div>
           <div class="modal-actions">
             <button-small class="modal-cancel" text="취소" variant="white" width="100px"></button-small>

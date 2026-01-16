@@ -7,6 +7,7 @@ import {
   deleteAuthRequest,
 } from '@/js/api.js'
 import { getAccessToken } from '@/js/auth/token.js'
+import { requireAuth } from '@/js/auth/routeGuard.js'
 
 // ===== DOM 요소 선택 =====
 const emptyCartEl = document.getElementById('emptyCart')
@@ -21,14 +22,8 @@ let cartItems = []
 
 // ===== 초기화 =====
 async function init() {
-  // 로그인 확인
-  const token = getAccessToken()
-  if (!token) {
-    // 비로그인 상태면 로그인 페이지로 이동
-    alert('로그인이 필요합니다.')
-    window.location.href = '/src/pages/login/index.html'
-    return
-  }
+  // 로그인 확인 (Route Guard)
+  if (!requireAuth()) return
 
   // API에서 장바구니 데이터 가져오기
   try {
@@ -490,7 +485,7 @@ async function fetchCartItems() {
       return {
         id: cartItemId,
         productId: productId,
-        image: product?.image || '/src/assets/images/cart-Product-list.png',
+        image: product?.image || '/src/assets/images/icon-img.png',
         seller: product?.seller?.store_name || product?.store_name || '판매자',
         productName: product?.product_name || product?.name || '상품명',
         price: product?.price || 0,

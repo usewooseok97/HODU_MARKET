@@ -1,7 +1,12 @@
 // 웹 컴포넌트는 vite-plugin-auto-components에서 자동으로 import됩니다
 
 import { postProduct } from '@/js/seller/postSetProduct'
+import { requireAuth } from '@/js/auth/routeGuard.js'
 
+// 로그인 확인 (Route Guard)
+if (!requireAuth({ message: '결제 페이지는 로그인이 필요합니다.' })) {
+  throw new Error('Unauthorized')
+}
 /**
  * 검증/에러 메시지 표시
  * @param {string} message - 표시할 메시지
@@ -21,6 +26,18 @@ const showProductValidation = (message, isError = true) => {
       console.log(message)
     }
   }
+}
+
+const setNameError = (message) => {
+  const nameError = document.getElementById('nameError')
+  if (!nameError) return
+  nameError.textContent = message || ''
+}
+
+const setFieldError = (id, message) => {
+  const el = document.getElementById(id)
+  if (!el) return
+  el.textContent = message || ''
 }
 
 /**
@@ -82,21 +99,44 @@ const initFormSubmit = () => {
       console.log('====================')
 
       // 필수 필드 검증
-      const requiredFields = [
-        'name',
-        'image',
-        'price',
-        'shipping_method',
-        'shipping_fee',
-        'stock',
-      ]
+      let hasError = false
 
-      for (const field of requiredFields) {
-        const value = formData.get(field)
-        if (!value || (field === 'image' && value.size === 0)) {
-          showProductValidation(`${field} 필드는 필수 항목입니다.`, true)
-          return
-        }
+      const nameValue = formData.get('name')
+      if (!nameValue) {
+        setNameError('상품명을 입력해주세요.')
+        hasError = true
+      } else {
+        setNameError('')
+      }
+
+      const priceValue = formData.get('price')
+      const shippingFeeValue = formData.get('shipping_fee')
+      const stockValue = formData.get('stock')
+
+      const infoValue = formData.get('info')
+      if (!infoValue) {
+        setFieldError('infoError', '상품 상세 정보를 입력해주세요.')
+        hasError = true
+      } else {
+        setFieldError('infoError', '')
+      }
+
+      const imageValue = formData.get('image')
+      if (!imageValue || imageValue.size === 0) {
+        setFieldError('imageError', '상품 이미지를 등록해주세요.')
+        hasError = true
+      } else {
+        setFieldError('imageError', '')
+      }
+
+      const shippingMethodValue = formData.get('shipping_method')
+      if (!shippingMethodValue) {
+        showProductValidation('배송방법은 필수 항목입니다.', true)
+        hasError = true
+      }
+
+      if (hasError) {
+        return
       }
 
       // 숫자 필드 검증
