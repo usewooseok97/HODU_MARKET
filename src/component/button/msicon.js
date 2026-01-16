@@ -1,4 +1,5 @@
 import './button.css'
+import '@assets/images/icon-plus.png'
 
 class MSIconButton extends HTMLElement {
   constructor() {
