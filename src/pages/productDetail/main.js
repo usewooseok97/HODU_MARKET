@@ -106,6 +106,37 @@ function renderProductDetail(product) {
   if (totalPrice) {
     totalPrice.textContent = formatPrice(product.price)
   }
+
+  // 재고에 따른 버튼 상태 업데이트
+  updateButtonsByStock(product.stock)
+}
+
+// 재고에 따른 버튼 활성화/비활성화
+function updateButtonsByStock(stock) {
+  const buyNowBtn = document.getElementById('buyNowBtn')
+  const addToCartBtn = document.getElementById('addToCartBtn')
+
+  if (stock <= 0) {
+    // 품절 시 버튼 비활성화
+    if (buyNowBtn) {
+      buyNowBtn.setAttribute('disabled', '')
+      buyNowBtn.setAttribute('text', '품절')
+    }
+    if (addToCartBtn) {
+      addToCartBtn.setAttribute('disabled', '')
+      addToCartBtn.setAttribute('text', '품절')
+    }
+  } else {
+    // 재고 있을 시 버튼 활성화
+    if (buyNowBtn) {
+      buyNowBtn.removeAttribute('disabled')
+      buyNowBtn.setAttribute('text', '바로 구매')
+    }
+    if (addToCartBtn) {
+      addToCartBtn.removeAttribute('disabled')
+      addToCartBtn.setAttribute('text', '장바구니')
+    }
+  }
 }
 
 // URL에서 product_id 추출 후 상품 데이터 로드
@@ -138,7 +169,37 @@ function isAuthenticated() {
 // 수량 가져오기
 function getQuantity() {
   const counter = document.getElementById('productQuantity')
-  return parseInt(counter?.getAttribute('value') || '1')
+  return counter?.getValue?.() || parseInt(counter?.getAttribute('value') || '1')
+}
+
+// 수량 변경 시 가격 업데이트
+const quantityCounter = document.getElementById('productQuantity')
+const totalQuantityEl = document.getElementById('totalQuantity')
+const totalPriceEl = document.getElementById('totalPrice')
+
+if (quantityCounter) {
+  quantityCounter.addEventListener('amountchange', (e) => {
+    const quantity = e.detail.value
+
+    // 총 수량 업데이트
+    if (totalQuantityEl) {
+      totalQuantityEl.textContent = quantity
+    }
+
+    // 총 금액 업데이트
+    if (totalPriceEl && currentProduct) {
+      const totalPrice = currentProduct.price * quantity
+      totalPriceEl.textContent = formatPrice(totalPrice)
+    }
+  })
+}
+
+// 로그인 모달
+const loginModal = document.getElementById('loginModal')
+if (loginModal) {
+  loginModal.addEventListener('modal-confirm', () => {
+    window.location.href = '/src/pages/login/index.html'
+  })
 }
 
 // 바로 구매 버튼
@@ -146,7 +207,7 @@ const buyNowBtn = document.getElementById('buyNowBtn')
 if (buyNowBtn) {
   buyNowBtn.addEventListener('button-click', () => {
     if (!isAuthenticated()) {
-      window.location.href = '/src/pages/login/index.html'
+      loginModal?.setAttribute('open', '')
       return
     }
     if (!currentProduct) return
@@ -168,7 +229,7 @@ const addToCartBtn = document.getElementById('addToCartBtn')
 if (addToCartBtn) {
   addToCartBtn.addEventListener('button-click', async () => {
     if (!isAuthenticated()) {
-      window.location.href = '/src/pages/login/index.html'
+      loginModal?.setAttribute('open', '')
       return
     }
     if (!currentProduct) return
@@ -182,3 +243,14 @@ if (addToCartBtn) {
     }
   })
 }
+
+// 탭 버튼 토글 (하나만 활성화)
+const tabButtons = document.querySelectorAll('.tabs-header button-tab')
+tabButtons.forEach((tab) => {
+  tab.addEventListener('tab-click', () => {
+    // 모든 탭 비활성화
+    tabButtons.forEach((t) => t.setActive(false))
+    // 클릭된 탭만 활성화
+    tab.setActive(true)
+  })
+})

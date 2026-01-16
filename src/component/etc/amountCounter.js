@@ -4,6 +4,38 @@ class EtcAmountCounter extends HTMLElement {
     this.attachShadow({ mode: 'open' })
   }
 
+  static get observedAttributes() {
+    return ['min', 'max', 'value']
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return
+
+    const numValue = parseInt(newValue)
+    if (name === 'max') {
+      this.max = numValue
+      // 현재 값이 새 max보다 크면 조정
+      if (this.value > this.max) {
+        this.value = this.max
+        const valueSpan = this.shadowRoot?.querySelector('.amount-value')
+        if (valueSpan) valueSpan.textContent = this.value
+        this.dispatchChangeEvent()
+      }
+      this.updateButtonStates()
+    } else if (name === 'min') {
+      this.min = numValue
+      if (this.value < this.min) {
+        this.value = this.min
+        const valueSpan = this.shadowRoot?.querySelector('.amount-value')
+        if (valueSpan) valueSpan.textContent = this.value
+        this.dispatchChangeEvent()
+      }
+      this.updateButtonStates()
+    } else if (name === 'value') {
+      this.setValue(numValue)
+    }
+  }
+
   connectedCallback() {
     this.min = parseInt(this.getAttribute('min') || '1')
     this.max = parseInt(this.getAttribute('max') || '99')
@@ -194,8 +226,10 @@ class EtcAmountCounter extends HTMLElement {
   }
 
   updateButtonStates() {
-    const minusBtn = this.shadowRoot.querySelector('.btn-minus')
-    const plusBtn = this.shadowRoot.querySelector('.btn-plus')
+    const minusBtn = this.shadowRoot?.querySelector('.btn-minus')
+    const plusBtn = this.shadowRoot?.querySelector('.btn-plus')
+
+    if (!minusBtn || !plusBtn) return
 
     if (this.value <= this.min) {
       minusBtn.disabled = true
