@@ -118,7 +118,9 @@
 .nav-item logo-account {
   width: 32px;
   height: 32px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* hover 시 아이콘 전환 */
