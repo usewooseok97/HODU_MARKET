@@ -1,4 +1,5 @@
 // src/component/header/search.js
+import './search.css'
 import '@component/logo/account.js'
 import '@component/etc/mypage.js'
 import '@component/logo/cart.js'
@@ -95,8 +96,6 @@ class Header extends HTMLElement {
       </div>
     </header>
     `
-
-    this.loadStyles()
   }
 
   setupEventListeners() {
@@ -185,15 +184,7 @@ class Header extends HTMLElement {
     }, 0)
   }
 
-  loadStyles() {
-    // CSS 파일이 이미 로드되었는지 확인
-    if (!document.querySelector('link[href*="header/search.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/header/search.css'
-      document.head.appendChild(link)
-    }
-  }
 }
+
 
 customElements.define('header-search', Header)

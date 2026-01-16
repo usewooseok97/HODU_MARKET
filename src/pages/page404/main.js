@@ -1,3 +1,5 @@
+import './style.css'
+
 // 웹 컴포넌트 직접 import (404 폴백 상황에서 안정성 확보)
 import '@component/button/medium.js'
 

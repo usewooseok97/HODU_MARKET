@@ -1,5 +1,6 @@
 // Payment/main.js
 
+import './style.css'
 import '@component/modal/check.js'
 import { requireAuth } from '@/js/auth/routeGuard.js'
 import { postAuthRequest } from '@/js/api.js'

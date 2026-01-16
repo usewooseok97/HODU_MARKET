@@ -1,3 +1,4 @@
+import './style.css'
 import { requireAuth } from '@/js/auth/routeGuard.js'
 import { getAuthRequest } from '@/js/api.js'
 import { getAccessToken } from '@/js/auth/token.js'

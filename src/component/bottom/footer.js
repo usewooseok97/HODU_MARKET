@@ -1,3 +1,5 @@
+import './footer.css'
+
 class Footer extends HTMLElement {
   connectedCallback() {
     this.render()
@@ -38,17 +40,6 @@ class Footer extends HTMLElement {
         </div>
       </footer>
     `
-
-    this.loadStyles()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="footer.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/bottom/footer.css'
-      document.head.appendChild(link)
-    }
   }
 }
 
