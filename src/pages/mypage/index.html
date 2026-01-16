@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="마이페이지 - 주문 내역" />
+    <title>마이페이지 | HODU MARKET</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header-search></header-search>
+
+    <main class="mypage-main">
+      <div class="mypage-container">
+        <h1 class="mypage-title">마이페이지</h1>
+
+        <section class="order-history-section">
+          <h2 class="section-title">주문 내역</h2>
+          <div class="section-divider"></div>
+
+          <div class="order-list" id="orderList"></div>
+          <p class="empty-message" id="orderEmpty">주문 내역이 없습니다.</p>
+        </section>
+      </div>
+    </main>
+
+    <bottom-footer></bottom-footer>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

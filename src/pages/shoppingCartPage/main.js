@@ -485,7 +485,7 @@ async function fetchCartItems() {
       return {
         id: cartItemId,
         productId: productId,
-        image: product?.image || '/src/assets/images/cart-Product-list.png',
+        image: product?.image || '/src/assets/images/icon-img.png',
         seller: product?.seller?.store_name || product?.store_name || '판매자',
         productName: product?.product_name || product?.name || '상품명',
         price: product?.price || 0,

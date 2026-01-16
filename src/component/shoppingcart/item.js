@@ -52,7 +52,7 @@ class CartListItem extends HTMLElement {
     const data = this._itemData || {}
 
     // 데이터 추출 (기본값 포함)
-    const image = data.image || '/src/assets/images/cart-Product-list.png'
+    const image = data.image || '/src/assets/images/icon-img.png'
     const seller = data.seller || '판매자'
     const productName = data.productName || '상품명'
     const price = data.price || 0

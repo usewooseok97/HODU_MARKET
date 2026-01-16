@@ -17,7 +17,7 @@ class PaymentItem extends HTMLElement {
     super()
     this._data = {
       productId: null,
-      image: './src/assets/cart-Product-list.png',
+      image: '/src/assets/images/icon-img.png',
       seller: '',
       name: '',
       price: 0,
@@ -45,7 +45,7 @@ class PaymentItem extends HTMLElement {
   initFromAttributes() {
     this._data.productId = this.getAttribute('product-id')
     this._data.image =
-      this.getAttribute('image') || './src/assets/cart-Product-list.png'
+    this.getAttribute('image') || '/src/assets/images/icon-img.png'
     this._data.seller = this.getAttribute('seller') || ''
     this._data.name = this.getAttribute('name') || ''
     this._data.price = parseInt(this.getAttribute('price')) || 0

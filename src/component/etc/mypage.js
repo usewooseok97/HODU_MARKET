@@ -50,8 +50,7 @@ class MypageDropdown extends HTMLElement {
 
   handleMypage() {
     // 마이페이지로 이동
-    console.log('마이페이지로 이동(UI만 존재)')
-    // window.location.href = '/mypage'
+    window.location.href = '/src/pages/mypage/index.html'
   }
 
   handleLogout() {
