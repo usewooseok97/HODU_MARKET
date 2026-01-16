@@ -1,7 +1,13 @@
 // 웹 컴포넌트 명시적 import
 import '@/component/shoppingcart/item.js'
-import { getAuthRequest, putAuthRequest, getRequest, deleteAuthRequest } from '@/js/api.js'
+import {
+  getAuthRequest,
+  putAuthRequest,
+  getRequest,
+  deleteAuthRequest,
+} from '@/js/api.js'
 import { getAccessToken } from '@/js/auth/token.js'
+import { requireAuth } from '@/js/auth/routeGuard.js'
 
 // ===== DOM 요소 선택 =====
 const emptyCartEl = document.getElementById('emptyCart')
@@ -16,14 +22,8 @@ let cartItems = []
 
 // ===== 초기화 =====
 async function init() {
-  // 로그인 확인
-  const token = getAccessToken()
-  if (!token) {
-    // 비로그인 상태면 로그인 페이지로 이동
-    alert('로그인이 필요합니다.')
-    window.location.href = '/src/pages/login/index.html'
-    return
-  }
+  // 로그인 확인 (Route Guard)
+  if (!requireAuth()) return
 
   // API에서 장바구니 데이터 가져오기
   try {
@@ -190,13 +190,31 @@ function setupCartItemEvents(cartItem, item) {
     })
   }
 
-  // 주문하기 버튼 이벤트 (개별)
+  // [수정] 주문하기 버튼 이벤트 (개별 아이템 주문)
   const orderBtn = cartItem.querySelector('.order-btn')
   if (orderBtn) {
     orderBtn.addEventListener('click', () => {
       console.log(`상품 ${item.id} 개별 주문`)
-      // TODO: 주문 페이지로 이동
-      alert('주문/결제 페이지는 아직 구현되지 않았습니다.')
+
+      // 해당 상품 하나만 배열에 담아 세션에 저장
+      sessionStorage.setItem(
+        'orderItems',
+        JSON.stringify([
+          {
+            productId: item.productId,
+            image: item.image,
+            productName: item.productName,
+            seller: item.seller,
+            price: item.price,
+            quantity: item.quantity,
+            shipping: item.shipping,
+            shippingMethod: item.shippingMethod,
+          },
+        ])
+      )
+
+      // 결제 페이지로 이동
+      window.location.href = '/src/pages/Payment/index.html'
     })
   }
 }
@@ -216,7 +234,9 @@ function setupSelectAllCheckbox() {
   // 새로운 이벤트 리스너 추가
   newCheckbox.addEventListener('change', (e) => {
     const isChecked = e.target.checked
-    const itemCheckboxes = cartItemsListEl.querySelectorAll('.cart-checkbox-input')
+    const itemCheckboxes = cartItemsListEl.querySelectorAll(
+      '.cart-checkbox-input'
+    )
 
     console.log(`전체 선택: ${isChecked}, 아이템 수: ${itemCheckboxes.length}`)
 
@@ -269,22 +289,33 @@ function calculateTotalPrice() {
   console.log('총 금액:', totalPrice)
 }
 
-// ===== 전체 주문하기 버튼 =====
+// [수정] 전체 주문하기 버튼 (선택된 상품들 주문)
 if (orderButton) {
   orderButton.addEventListener('button-click', () => {
-    const checkedItems = cartItemsListEl.querySelectorAll(
-      '.cart-checkbox-input:checked'
+    const checkedCheckboxes = Array.from(
+      cartItemsListEl.querySelectorAll('.cart-checkbox-input:checked')
     )
 
-    if (checkedItems.length === 0) {
+    if (checkedCheckboxes.length === 0) {
       alert('주문할 상품을 선택해주세요.')
       return
     }
 
-    console.log('전체 주문하기 클릭, 선택된 상품 수:', checkedItems.length)
+    console.log('전체 주문하기 클릭, 선택된 상품 수:', checkedCheckboxes.length)
 
-    // TODO: 주문 페이지로 이동
-    alert('주문/결제 페이지는 아직 구현되지 않았습니다.')
+    // 선택된 상품 데이터 추출
+    const selectedItems = checkedCheckboxes.map((checkbox) => {
+      const cartItemEl = checkbox.closest('shoppingcart-item')
+      const itemId = cartItemEl.dataset.itemId
+      // 로컬 cartItems 배열에서 매칭되는 데이터 찾기
+      return cartItems.find((item) => String(item.id) === String(itemId))
+    })
+
+    // 세션 스토리지에 주문 데이터 저장 (주문서 페이지에서 사용)
+    sessionStorage.setItem('orderItems', JSON.stringify(selectedItems))
+
+    // 결제 페이지로 이동
+    window.location.href = '/src/pages/Payment/index.html'
   })
 }
 
@@ -430,7 +461,14 @@ async function fetchCartItems() {
       const productId = product?.id || item.product_id || item.product
       const cartItemId = item.cart_item_id || item.id
 
-      console.log(`아이템 ${index} - productId:`, productId, ', cartItemId:', cartItemId, ', product 객체:', product)
+      console.log(
+        `아이템 ${index} - productId:`,
+        productId,
+        ', cartItemId:',
+        cartItemId,
+        ', product 객체:',
+        product
+      )
 
       // product가 ID만 있는 경우 상품 정보를 별도로 가져옴
       if (!product && productId) {
@@ -453,7 +491,8 @@ async function fetchCartItems() {
         price: product?.price || 0,
         quantity: item.quantity || 1,
         shipping: product?.shipping_fee || 0,
-        shippingMethod: product?.shipping_method === 'PARCEL' ? '택배배송' : '직접배송',
+        shippingMethod:
+          product?.shipping_method === 'PARCEL' ? '택배배송' : '직접배송',
         stock: product?.stock || 99,
       }
     })
@@ -471,11 +510,15 @@ async function updateCartItemQuantity(itemId, quantity, productId) {
     throw new Error('인증 토큰이 없습니다.')
   }
 
-  const data = await putAuthRequest(`cart/${itemId}/`, {
-    product_id: productId,
-    quantity: quantity,
-    is_active: true,
-  }, token)
+  const data = await putAuthRequest(
+    `cart/${itemId}/`,
+    {
+      product_id: productId,
+      quantity: quantity,
+      is_active: true,
+    },
+    token
+  )
 
   console.log('수량 업데이트 API 응답:', data)
   return data

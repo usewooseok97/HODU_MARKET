@@ -13,7 +13,12 @@ let currentProduct = null
 const sellerNameEl = document.getElementById('sellerName')
 const sellerModal = document.getElementById('sellerModal')
 
-function buildSellerInfoHtml({ name, phone_number, company_registration_number, store_name }) {
+function buildSellerInfoHtml({
+  name,
+  phone_number,
+  company_registration_number,
+  store_name,
+}) {
   return `
     <div class="seller-modal">
       <h3 class="seller-modal-title">판매자 정보</h3>
@@ -90,10 +95,14 @@ function renderProductDetail(product) {
   const shippingLabel = document.querySelector('.shipping-label')
   const shippingFree = document.querySelector('.shipping-free')
   if (shippingLabel) {
-    shippingLabel.textContent = product.shipping_method === 'PARCEL' ? '택배배송 / ' : '직접배송 / '
+    shippingLabel.textContent =
+      product.shipping_method === 'PARCEL' ? '택배배송 / ' : '직접배송 / '
   }
   if (shippingFree) {
-    shippingFree.textContent = product.shipping_fee === 0 ? '무료배송' : `배송비 ${formatPrice(product.shipping_fee)}원`
+    shippingFree.textContent =
+      product.shipping_fee === 0
+        ? '무료배송'
+        : `배송비 ${formatPrice(product.shipping_fee)}원`
   }
 
   // 수량 카운터 max 값 설정
@@ -170,7 +179,10 @@ function isAuthenticated() {
 // 수량 가져오기
 function getQuantity() {
   const counter = document.getElementById('productQuantity')
-  return counter?.getValue?.() || parseInt(counter?.getAttribute('value') || '1')
+  // 웹 컴포넌트의 getValue() 메서드를 시도하거나 attribute를 확인
+  return (
+    counter?.getValue?.() || parseInt(counter?.getAttribute('value') || '1')
+  )
 }
 
 // 수량 변경 시 가격 업데이트
@@ -224,7 +236,10 @@ if (buyNowBtn) {
     }
     if (!currentProduct) return
 
-    // sessionStorage에 상품 데이터 저장
+    // [중요 수정] 장바구니에서 넘어온 데이터가 남아있을 수 있으므로 제거함
+    sessionStorage.removeItem('orderItems')
+
+    // sessionStorage에 현재 상세 페이지의 상품 데이터 저장
     sessionStorage.setItem(
       'orderProduct',
       JSON.stringify({
