@@ -97,7 +97,7 @@ function updateSliderWithProducts(products) {
         <p class="slide-price">${formatPrice(productPrice)}원</p>
       </div>
       <div class="slide-image-wrapper">
-        <img src="${product.image}" alt="${productName}" />
+        <img src="${product.image}" alt="${productName}" width="1920" height="450" />
       </div>
       <div class="slide-info">
       </div>
