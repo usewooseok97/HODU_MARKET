@@ -28,3 +28,9 @@
     Cross-Origin-Opener-Policy = "same-origin"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     Content-Security-Policy = "default-src 'self'; script-src 'self' https://t1.daumcdn.net; style-src 'self' 'unsafe-inline' https://spoqa.github.io; img-src 'self' data: https:; font-src 'self' https://spoqa.github.io; connect-src 'self' https://api.wenivops.co.kr"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Content-Security-Policy = "frame-src 'self' https://.daum.net https://%2A.daumcdn.net/; script-src 'self' 'unsafe-inline' https://%2A.daumcdn.net/;"
+    X-Frame-Options = "ALLOWALL"
