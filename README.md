@@ -366,8 +366,13 @@ HODU_MARKET/
 <!-- 실제 화면 캡쳐 삽입 -->
 | | |
 |:---:|:---:|
-| ![화면1](./readmeImg/구매페이지.png) | ![화면2](./readmeImg/장바구니.png) |
-| ![화면3](./readmeImg/판매자센터페이지.png) | ![화면4](./readmeImg/회원가입.png) |
+| ![화면1](./readmeImg/404페이지.png) | ![화면2](./readmeImg/login.png) |
+| ![화면3](./readmeImg/mainpage.png) | ![화면4](./readmeImg/구매페이지.png) |
+| ![화면5](./readmeImg/빈장바구니.png) | ![화면6](./readmeImg/장바구니.png) |
+| ![화면7](./readmeImg/상품디테일.png) | ![화면8](./readmeImg/회원가입.png) |
+| ![화면9](./readmeImg/판매자메인페이지.png) | ![화면10](./readmeImg/판매자센터페이지.png) |
+| ![화면11](./readmeImg/판매자상품디테일.png) | ![화면12](./readmeImg/판매자회원가입.png) |
+| ![화면13](./readmeImg/상품등록페이지.png) |
 
 ---
 
@@ -381,7 +386,7 @@ HODU_MARKET/
 ## 메인 기능
 
 <!--main archtecture 사진 삽입 -->
-![메인기능](./readmeImg/mainpage.png)
+![메인기능](./readmeImg/mainArchitecture.png)
 
 ---
 
