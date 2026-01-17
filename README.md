@@ -36,6 +36,17 @@
 
 > **배포 URL** : https://hodudu.netlify.app/
 
+## 계정
+
+- 구매자(buyer)
+    - ID : buyer1 PW: weniv1234
+    - ID : buyer2 PW: weniv1234
+    - ID : buyer3 PW: weniv1234
+- 판매자(seller)
+    - ID : seller1 PW : weniv1234
+    - ID : seller2 PW : weniv1234
+    - ID : seller3 PW : weniv1234
+ 
 ---
 ## 코드 품질 관리
 
