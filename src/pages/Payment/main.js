@@ -46,18 +46,21 @@ let isSubmittingOrder = false
 function loadOrderData() {
   if (!orderProductListEl) return
 
-  // 장바구니에서 넘어온 데이터(배열) 또는 상세페이지에서 넘어온 데이터(객체) 확인
-  const cartItemsData = sessionStorage.getItem('orderItems')
+  // 상세페이지에서 넘어온 데이터(바로구매)를 먼저 확인, 없으면 장바구니 데이터 사용
   const singleProductData = sessionStorage.getItem('orderProduct')
+  const cartItemsData = sessionStorage.getItem('orderItems')
 
   let productsToRender = []
 
   try {
-    if (cartItemsData) {
-      productsToRender = JSON.parse(cartItemsData)
-    } else if (singleProductData) {
-      // 단일 상품인 경우 배열로 감싸줌
+    if (singleProductData) {
+      // 바로구매: 단일 상품인 경우 배열로 감싸줌
       productsToRender = [JSON.parse(singleProductData)]
+      // 바로구매 데이터 사용 후 삭제 (장바구니 데이터와 충돌 방지)
+      sessionStorage.removeItem('orderProduct')
+    } else if (cartItemsData) {
+      // 장바구니에서 넘어온 데이터(배열)
+      productsToRender = JSON.parse(cartItemsData)
     }
 
     if (productsToRender.length === 0) {
