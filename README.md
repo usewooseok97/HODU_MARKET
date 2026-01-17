@@ -158,7 +158,7 @@ autoComponentsPlugin({
 ![요구사항 명세](workflow)
 
 ---
-
+```
 ##  프로젝트 구조
 
 HODU_MARKET/
@@ -231,7 +231,7 @@ HODU_MARKET/
         ├── regist/
         └── shoppingCartPage/
 
-
+```
 ## 개발 일정
 
 <!--개발일정 사진 삽입 -->
