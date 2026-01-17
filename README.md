@@ -155,7 +155,7 @@ autoComponentsPlugin({
 ## 요구사항 명세 및 기능 명세
 
 <!-- Diagram 사진 --> 
-[![요구사항 명세](https://paullabworkspace.notion.site/2-299ebf76ee8a81f49d03f390cc8de207#299ebf76ee8a81dea88ef94ddaf36b08)
+[![요구사항 명세][https://paullabworkspace.notion.site/2-299ebf76ee8a81f49d03f390cc8de207#299ebf76ee8a81dea88ef94ddaf36b08]
 
 ---
 
