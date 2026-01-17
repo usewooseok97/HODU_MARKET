@@ -1,6 +1,6 @@
 /* 폰트 ------------------------------------------------------- */
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css);
+@import url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css);
 
 /* ======== 기본 리셋 ======== */
 * {
@@ -85,4 +85,14 @@ button {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+/* ===== 포커스 스타일 ===== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--button-color, #21bf48);
+  outline-offset: 2px;
 }

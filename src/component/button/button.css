@@ -70,7 +70,7 @@
   color: #ffffff;
   font-size: 1.8rem;
   font-weight: 700;
-  line-height: 22px;
+  line-height: 1.22;
   text-align: center;
 
   /* 플렉스 중앙 정렬 */
@@ -509,7 +509,7 @@
 
   font-size: 1.2rem;
   font-weight: 500;
-  line-height: 20px;
+  line-height: 1.67;
   color: #ffffff;
 }
 

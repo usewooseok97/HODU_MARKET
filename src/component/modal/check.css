@@ -71,7 +71,7 @@
   text-align: center;
   white-space: normal;
   word-break: keep-all;
-  line-height: 22px;  /* 피그마 기준 */
+  line-height: 1.375;
   font-size: 1.6rem;
 }
 

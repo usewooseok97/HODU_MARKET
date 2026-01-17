@@ -88,7 +88,9 @@ sellerNameEl?.addEventListener('click', openSellerModal)
 // 상품 렌더링
 // =========================
 function renderProductDetail(product) {
-  document.getElementById('mainImage').src = product.image
+  const mainImage = document.getElementById('mainImage')
+  mainImage.src = product.image
+  mainImage.alt = `${product.name} 상품 이미지`
   sellerNameEl.textContent = product.seller?.store_name || ''
   document.querySelector('.product-name').textContent = product.name
   document.querySelector('.price-section .price').textContent = formatPrice(
