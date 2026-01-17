@@ -410,7 +410,7 @@ HODU_MARKET/
 ## 코드최적화
 | 코드최적화 이전 | 코드 최적화 이후 |
 |:---:|:---:|
-| ![화면1](./readmeImg/before.JPG) | ![화면2](./readmeImg/after.JPG) |
+| ![화면1](./readmeImg/before.png) | ![화면2](./readmeImg/after.png) |
 
 ---
 ## 에러와 에러 해결
