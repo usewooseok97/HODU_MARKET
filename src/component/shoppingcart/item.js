@@ -64,7 +64,7 @@ class CartListItem extends HTMLElement {
     // 가격 포맷팅
     const formattedPrice = price.toLocaleString('ko-KR')
     const shippingText = shipping === 0 ? '무료배송' : `${shipping.toLocaleString('ko-KR')}원`
-    const totalPrice = (price * this._quantity).toLocaleString('ko-KR')
+    const totalPrice = (price * this._quantity + shipping).toLocaleString('ko-KR')
 
     this.innerHTML = `
       <div class="cart-list-item cart-grid">

@@ -101,49 +101,12 @@ function createCartItem(item) {
   return cartItem
 }
 
-// ===== 장바구니 아이템 데이터 업데이트 =====
-function updateCartItemData(cartItem, item) {
-  // 이미지
-  const image = cartItem.querySelector('.cart-product-image')
-  if (image) image.src = item.image
-
-  // 판매자
-  const seller = cartItem.querySelector('.cart-seller')
-  if (seller) seller.textContent = item.seller
-
-  // 상품명
-  const productName = cartItem.querySelector('.cart-product-name')
-  if (productName) productName.textContent = item.productName
-
-  // 가격
-  const price = cartItem.querySelector('.cart-product-price')
-  if (price) price.textContent = `${item.price.toLocaleString('ko-KR')}원`
-
-  // 배송 정보
-  const shipping = cartItem.querySelector('.cart-shipping')
-  if (shipping) {
-    const shippingText =
-      item.shipping === 0
-        ? '무료배송'
-        : `${item.shipping.toLocaleString('ko-KR')}원`
-    shipping.textContent = `${item.shippingMethod} / ${shippingText}`
-  }
-
-  // 수량 카운터 max 값 설정 (재고 기반)
-  const amountCounter = cartItem.querySelector('etc-amountcounter')
-  if (amountCounter && item.stock) {
-    amountCounter.setAttribute('max', item.stock)
-  }
-
-  // 총 가격
-  updateItemTotalPrice(cartItem, item)
-}
-
 // ===== 아이템별 총 가격 업데이트 =====
 function updateItemTotalPrice(cartItem, item) {
   const totalPrice = cartItem.querySelector('.cart-total-price')
   if (totalPrice) {
-    const total = item.price * cartItem.quantity
+    const shipping = item.shipping || 0
+    const total = item.price * cartItem.quantity + shipping
     totalPrice.textContent = `${total.toLocaleString('ko-KR')}원`
   }
 }
@@ -268,7 +231,8 @@ function updateSelectAllCheckbox() {
 
 // ===== 총 금액 계산 =====
 function calculateTotalPrice() {
-  let totalPrice = 0
+  let totalProductPrice = 0
+  let totalShipping = 0
 
   // 체크된 아이템만 계산
   const checkedItems = cartItemsListEl.querySelectorAll(
@@ -278,17 +242,25 @@ function calculateTotalPrice() {
   checkedItems.forEach((checkbox) => {
     const cartItem = checkbox.closest('shoppingcart-item')
     if (cartItem) {
+      const itemId = cartItem.dataset.itemId
+      const item = cartItems.find((i) => String(i.id) === String(itemId))
+
       const price = parseInt(cartItem.dataset.price) || 0
       const quantity = cartItem.quantity || 1
-      totalPrice += price * quantity
+      const shipping = item?.shipping || 0
+
+      totalProductPrice += price * quantity
+      totalShipping += shipping
     }
   })
 
-  // 화면 업데이트
-  totalProductPriceEl.textContent = totalPrice.toLocaleString('ko-KR')
-  totalPaymentPriceEl.textContent = totalPrice.toLocaleString('ko-KR')
+  const totalPayment = totalProductPrice + totalShipping
 
-  console.log('총 금액:', totalPrice)
+  // 화면 업데이트
+  totalProductPriceEl.textContent = totalProductPrice.toLocaleString('ko-KR')
+  totalPaymentPriceEl.textContent = totalPayment.toLocaleString('ko-KR')
+
+  console.log('상품 금액:', totalProductPrice, '배송비:', totalShipping, '총 결제 금액:', totalPayment)
 }
 
 // [수정] 전체 주문하기 버튼 (선택된 상품들 주문)
