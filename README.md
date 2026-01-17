@@ -365,7 +365,7 @@ HODU_MARKET/
 
 <!-- 실제 화면 캡쳐 삽입 -->
 | | |
-|:404페이지:|:---:|
+|404페이지|로그인페이지|
 | ![화면1](./readmeImg/404페이지.png) | ![화면2](./readmeImg/login.png) |
 |:---:|:---:|
 | ![화면3](./readmeImg/mainpage.png) | ![화면4](./readmeImg/구매페이지.png) |
