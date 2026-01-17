@@ -9,6 +9,17 @@ import '/src/component/product/item.js'
 
 // DOMContentLoaded 이벤트: HTML이 모두 로드되면 실행
 document.addEventListener('DOMContentLoaded', async function () {
+  // 로그인 모달 이벤트 리스너
+  const loginModal = document.querySelector('#loginModal')
+  loginModal?.addEventListener('modal-confirm', () => {
+    location.href = '/src/pages/login/index.html'
+  })
+
+  // 장바구니 추가 성공 모달 이벤트 리스너
+  const addToCartSuccessModal = document.querySelector('#addToCartSuccessModal')
+  addToCartSuccessModal?.addEventListener('modal-confirm', () => {
+    location.href = '/src/pages/shoppingCartPage/index.html'
+  })
   // ===== API에서 상품 데이터 가져오기 =====
   let products = []
   let hasApiData = false

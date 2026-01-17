@@ -1,3 +1,5 @@
+import './mypage.css'
+
 class MypageDropdown extends HTMLElement {
   connectedCallback() {
     this.render()
@@ -18,9 +20,6 @@ class MypageDropdown extends HTMLElement {
         </ul>
       </div>
     `
-
-    // 스타일 로드
-    this.loadStyles()
   }
 
   attachEventListeners() {
@@ -61,16 +60,6 @@ class MypageDropdown extends HTMLElement {
 
     // 로그인 페이지로 이동
     window.location.href = '/src/pages/login/index.html'
-  }
-
-  loadStyles() {
-    // CSS 파일이 로드되어 있는지 확인
-    if (!document.querySelector('link[href*="mypage.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/etc/mypage.css'
-      document.head.appendChild(link)
-    }
   }
 }
 

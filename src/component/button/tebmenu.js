@@ -1,3 +1,5 @@
+import './button.css'
+
 // tebmenu.js
 class TebMenuButton extends HTMLElement {
   connectedCallback() {

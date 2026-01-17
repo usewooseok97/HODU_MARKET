@@ -1,7 +1,8 @@
+import './styles.css'
+
 class AccountIconComponent extends HTMLElement {
   connectedCallback() {
     this.render()
-    this.loadStyles()
   }
 
   render() {
@@ -11,15 +12,6 @@ class AccountIconComponent extends HTMLElement {
         <span class="account-icon__active"></span>
       </span>
     `
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="logo/styles.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/logo/styles.css'
-      document.head.appendChild(link)
-    }
   }
 }
 

@@ -1,3 +1,5 @@
+import './num-dropdown.css'
+
 /**
  * NumDropdown Web Component
  * 클릭하면 드롭다운이 열리는 번호 선택 컴포넌트
@@ -53,7 +55,6 @@ class NumDropdown extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
   }
 
   attachEventListeners() {
@@ -145,17 +146,6 @@ class NumDropdown extends HTMLElement {
 
   getValue() {
     return this.selectedNumber
-  }
-
-  loadStyles() {
-    if (document.querySelector('link[href*="num-dropdown.css"]')) {
-      return
-    }
-
-    const link = document.createElement('link')
-    link.rel = 'stylesheet'
-    link.href = '/src/component/etc/num-dropdown.css'
-    document.head.appendChild(link)
   }
 }
 

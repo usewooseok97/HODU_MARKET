@@ -1,3 +1,4 @@
+import './edit.css'
 import '@component/button/small.js'
 
 class ProductEditModal extends HTMLElement {
@@ -69,7 +70,6 @@ class ProductEditModal extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
     this.attachEvents()
   }
 
@@ -137,15 +137,6 @@ class ProductEditModal extends HTMLElement {
     )
 
     this.close()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="modal/edit.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/modal/edit.css'
-      document.head.appendChild(link)
-    }
   }
 }
 

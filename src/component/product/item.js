@@ -1,5 +1,7 @@
+import './product.css'
 import { addToCart } from '/src/js/cart/addToCart.js'
-import { getAccessToken } from '/src/js/auth/token.js'
+import { getAccessToken, getUserType } from '/src/js/auth/token.js'
+import '/src/component/modal/check.js'
 
 class ProductItems extends HTMLElement {
   constructor() {
@@ -20,16 +22,6 @@ class ProductItems extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="product.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/product/product.css'
-      document.head.appendChild(link)
-    }
   }
 
   // 가격 포맷팅 함수 (천 단위 콤마)
@@ -65,19 +57,37 @@ class ProductItems extends HTMLElement {
     cartBtn.addEventListener('click', async (e) => {
       e.stopPropagation() // 카드 클릭 이벤트 전파 방지
 
-      // 로그인 확인
+      // 비로그인 확인
       if (!getAccessToken()) {
-        alert('로그인이 필요합니다.')
-        window.location.href = '/src/pages/login/index.html'
+        const loginModal = document.querySelector('#loginModal')
+        if (loginModal) {
+          loginModal.setAttribute('open', '')
+        }
         return
       }
 
+      // 판매자 계정 확인
+      if (getUserType() === 'SELLER') {
+        const sellerModal = document.querySelector('#sellerModal')
+        if (sellerModal) {
+          sellerModal.setAttribute('open', '')
+        }
+        return
+      }
+
+      // 구매자 - 장바구니 추가
       try {
         await addToCart(product.id, 1)
-        alert('장바구니에 상품이 담겼습니다.')
+        const successModal = document.querySelector('#addToCartSuccessModal')
+        if (successModal) {
+          successModal.setAttribute('open', '')
+        }
       } catch (error) {
         console.error('장바구니 추가 실패:', error)
-        alert('장바구니 추가에 실패했습니다.')
+        const errorModal = document.querySelector('#addToCartErrorModal')
+        if (errorModal) {
+          errorModal.setAttribute('open', '')
+        }
       }
     })
 

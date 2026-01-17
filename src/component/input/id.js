@@ -1,3 +1,5 @@
+import './styles.css'
+
 // 기본 아이디/텍스트 입력 컴포넌트 (type 속성 지원)
 class IdInput extends HTMLElement {
   static get observedAttributes() {
@@ -35,7 +37,6 @@ class IdInput extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -44,17 +45,6 @@ class IdInput extends HTMLElement {
       oldValue !== newValue
     ) {
       this.render()
-    }
-  }
-
-  loadStyles() {
-    if (
-      !document.querySelector('link[href*="/src/component/input/styles.css"]')
-    ) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/input/styles.css'
-      document.head.appendChild(link)
     }
   }
 }

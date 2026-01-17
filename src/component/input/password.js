@@ -1,3 +1,5 @@
+import './styles.css'
+
 class PasswordInput extends HTMLElement {
   static get observedAttributes() {
     return ['variant']
@@ -29,7 +31,6 @@ class PasswordInput extends HTMLElement {
       </div>
     `
 
-    this.loadStyles()
   }
 
   attachEventListeners() {
@@ -42,17 +43,6 @@ class PasswordInput extends HTMLElement {
           detail: { value: input.value }
         }))
       })
-    }
-  }
-
-  loadStyles() {
-    if (
-      !document.querySelector('link[href*="/src/component/input/styles.css"]')
-    ) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/input/styles.css'
-      document.head.appendChild(link)
     }
   }
 

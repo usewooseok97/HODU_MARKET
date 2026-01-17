@@ -1,3 +1,5 @@
+import './payment.css'
+
 class PaymentHeader extends HTMLElement {
   connectedCallback() {
     this.render()
@@ -12,17 +14,6 @@ class PaymentHeader extends HTMLElement {
         <div class="payment-col-total">주문금액</div>
       </div>
     `
-
-    this.loadStyles()
-  }
-
-  loadStyles() {
-    if (!document.querySelector('link[href*="payment.css"]')) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = '/src/component/payment/payment.css'
-      document.head.appendChild(link)
-    }
   }
 }
 
