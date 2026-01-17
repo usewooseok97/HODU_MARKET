@@ -155,7 +155,7 @@ autoComponentsPlugin({
 ## 요구사항 명세 및 기능 명세
 
 <!-- Diagram 사진 --> 
-![요구사항 명세](workflow)
+[![요구사항 명세](https://paullabworkspace.notion.site/2-299ebf76ee8a81f49d03f390cc8de207#299ebf76ee8a81dea88ef94ddaf36b08)
 
 ---
 
@@ -264,7 +264,7 @@ HODU_MARKET/
 | | |
 |:---:|:---:|
 | ![화면1](./readmeImg/구매페이지.png) | ![화면2](./readmeImg/장바구니.png) |
-| ![화면3](./readmeImg/판매자센터페이지.png) | ![화면4](./readmeImg/회원가입페이지.png) |
+| ![화면3](./readmeImg/판매자센터페이지.png) | ![화면4](./readmeImg/회원가입.png) |
 
 ---
 
