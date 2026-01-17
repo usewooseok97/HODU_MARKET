@@ -16,6 +16,7 @@ const emptyCartEl = document.getElementById('emptyCart')
 const cartItemsListEl = document.getElementById('cartItemsList')
 const paymentSectionEl = document.getElementById('paymentSection')
 const totalProductPriceEl = document.getElementById('totalProductPrice')
+const totalShippingPriceEl = document.getElementById('totalShippingPrice')
 const totalPaymentPriceEl = document.getElementById('totalPaymentPrice')
 const orderButton = document.getElementById('orderButton')
 
@@ -258,6 +259,7 @@ function calculateTotalPrice() {
 
   // 화면 업데이트
   totalProductPriceEl.textContent = totalProductPrice.toLocaleString('ko-KR')
+  totalShippingPriceEl.textContent = totalShipping.toLocaleString('ko-KR')
   totalPaymentPriceEl.textContent = totalPayment.toLocaleString('ko-KR')
 
   console.log('상품 금액:', totalProductPrice, '배송비:', totalShipping, '총 결제 금액:', totalPayment)
