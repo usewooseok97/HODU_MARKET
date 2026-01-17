@@ -155,7 +155,7 @@ autoComponentsPlugin({
 ## 요구사항 명세 및 기능 명세
 
 <!-- Diagram 사진 --> 
-![요구사항 명세](이미지경로)
+![요구사항 명세](workflow)
 
 ---
 
@@ -254,7 +254,7 @@ HODU_MARKET/
 ##  와이어프레임
 
 <!-- 피그마전체이미지 캡쳐 삽입 -->
-![와이어프레임](이미지경로)
+![와이어프레임](./readmeImg/와이어프레임.png)
 
 ---
 
@@ -263,22 +263,22 @@ HODU_MARKET/
 <!-- 실제 화면 캡쳐 삽입 -->
 | | |
 |:---:|:---:|
-| ![화면1](이미지경로) | ![화면2](이미지경로) |
-| ![화면3](이미지경로) | ![화면4](이미지경로) |
+| ![화면1](./readmeImg/구매페이지.png) | ![화면2](./readmeImg/장바구니.png) |
+| ![화면3](./readmeImg/판매자센터페이지.png) | ![화면4](./readmeImg/회원가입페이지.png) |
 
 ---
 
 ## Architecture
 
 <!--workflow 사진 삽입 -->
-![Architecture](이미지경로)
+![Architecture](./readmeImg/workflow.png)
 
 ---
 
 ## 메인 기능
 
 <!--main archtecture 사진 삽입 -->
-![메인기능](이미지경로)
+![메인기능](./readmeImg/메인페이지.png)
 
 ---
 
