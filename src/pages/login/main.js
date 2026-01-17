@@ -6,6 +6,21 @@ import { login, showValidation } from '@/js/auth/login'
 // DOM 요소 선택
 const loginForm = document.getElementById('loginForm')
 
+// 비밀번호 찾기 링크를 가져온다
+const findPasswordLink = document.getElementById('findPasswordLink');
+
+if (findPasswordLink) {
+  // 클릭하면 실행될 동작을 등록한다
+  findPasswordLink.addEventListener('click', (e) => {
+    // a 태그는 원래 클릭하면 이동하려고 하므로, 그 기본 동작을 막는다
+    e.preventDefault();
+
+    // 안내 창을 띄운다
+    alert('아직 개발중입니다');
+  });
+}
+
+
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault()
