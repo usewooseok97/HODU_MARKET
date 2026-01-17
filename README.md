@@ -61,7 +61,7 @@ VSCode에서 파일을 저장하면 자동으로 Prettier가 실행됩니다.
 
 | | | | | |
 |:---:|:---:|:---:|:---:|:---:|
-| ![팀장](./readmeImg/wooseok-icon.png) | ![팀원2](./readmeImg/juhyeon-icon.png) | ![팀원3]() | ![팀원4](이미지경로) | ![팀원5](이미지경로) |
+| ![팀장](./readmeImg/wooseok-icon.png) | ![팀원2](./readmeImg/juhyeon-icon.png) | ![팀원3]() | ![팀원4](이미지경로) | ![팀원5](./readmeImg/seojun-icon.png) |
 | **강우석** | **강주현** | **권대식** | **김남희** | **김서준** |
 | 팀장 | 팀원 | 팀원 | 팀원 | 팀원 |
 
