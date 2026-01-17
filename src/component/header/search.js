@@ -156,6 +156,17 @@ class Header extends HTMLElement {
         )
       })
     }
+    const searchButton = document.querySelector('.search-button');
+
+    if (searchButton) {
+      searchButton.addEventListener('click', (e) => {
+        e.preventDefault();
+    alert('아직 개발중입니다');
+  });
+} else {
+  console.warn('.search-button을 찾지 못했습니다. 클래스명이 맞는지 확인하세요.');
+}
+
   }
   toggleMypageDropdown(mypageItem) {
     const wrapper = mypageItem.querySelector('.mypage-dropdown-wrapper')
