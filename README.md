@@ -278,7 +278,7 @@ HODU_MARKET/
 ## 메인 기능
 
 <!--main archtecture 사진 삽입 -->
-![메인기능](./readmeImg/메인페이지.png)
+![메인기능](./readmeImg/mainpage.png)
 
 ---
 
