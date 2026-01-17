@@ -158,6 +158,7 @@ class Header extends HTMLElement {
     }
 const showComingSoon = (e) => {
   if (e) e.preventDefault()
+  if (document.activeElement) document.activeElement.blur()
   alert('아직 개발중입니다')
 }
 
