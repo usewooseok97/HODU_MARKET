@@ -158,9 +158,9 @@ autoComponentsPlugin({
 ![요구사항 명세](workflow)
 
 ---
-```
-##  프로젝트 구조
 
+##  프로젝트 구조
+```
 HODU_MARKET/
 ├── index.html
 ├── package.json
