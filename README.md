@@ -65,9 +65,9 @@ VSCode에서 파일을 저장하면 자동으로 Prettier가 실행됩니다.
 | **강우석** | **강주현** | **권대식** | **김남희** | **김서준** |
 | 팀장 | 팀원 | 팀원 | 팀원 | 팀원 |
 
-## 👥 Team Roles
+## Team Roles
 
-### 🛡️ 강우석 — Infra, Security, Validation & Documentation
+### 강우석 — Infra, Security, Validation & Documentation
 * **주요 업무**
     * 프로젝트 초기 세팅 및 에셋 구조 정리
     * 개발 컨벤션 및 도구 설정
@@ -86,7 +86,7 @@ VSCode에서 파일을 저장하면 자동으로 Prettier가 실행됩니다.
 
 ---
 
-### 🎨 강주현 — Front-End UI Components & User Account Flow
+### 강주현 — Front-End UI Components & User Account Flow
 * **주요 업무**
     * 공용 UI 컴포넌트 및 스타일 시스템 구축
     * 모달 컴포넌트 설계 및 공통화
@@ -105,7 +105,7 @@ VSCode에서 파일을 저장하면 자동으로 Prettier가 실행됩니다.
 
 ---
 
-### 📝 권대식 — Documentation & Reporting
+### 권대식 — Documentation & Reporting
 * **주요 업무**
     * 프로젝트 보고서 기획 및 작성
     * 기능별 문서/자료 수집 및 정리
@@ -117,7 +117,7 @@ VSCode에서 파일을 저장하면 자동으로 Prettier가 실행됩니다.
 
 ---
 
-### 🔗 김서준 — Product Detail Interaction & Auth State Control
+### 김서준 — Product Detail Interaction & Auth State Control
 * **주요 업무**
     * 공통 컴포넌트 제작
     * 상품 상세(Product Detail) 페이지 핵심 기능 개발
@@ -131,7 +131,7 @@ VSCode에서 파일을 저장하면 자동으로 Prettier가 실행됩니다.
 
 ---
 
-### 👁️ 김남희 — UI Layout & Accessibility UX
+### 김남희 — UI Layout & Accessibility UX
 * **주요 업무**
     * 체크박스/카운터 등 인터랙션 UI 설계
     * 로그인 페이지 레이아웃 및 마크업
@@ -186,7 +186,7 @@ autoComponentsPlugin({
 - `<folder-file>` 방식의 이름으로 컴포넌트 자동 불러오기
 
 ---
-## 웹 컴포넌트 가이드!
+## 웹 컴포넌트 가이드
 
 이 프로젝트는 Web Components를 사용하여 재사용 가능한 UI 요소를 만듭니다.
 
@@ -233,7 +233,7 @@ autoComponentsPlugin({
 ## 요구사항 명세 및 기능 명세
 
 <!-- Diagram 사진 --> 
-[![요구사항 명세](./readmeImg/2차-프로젝트.png)
+![요구사항 명세](./readmeImg/2차-프로젝트.png)
 [https://paullabworkspace.notion.site/2-299ebf76ee8a81f49d03f390cc8de207#299ebf76ee8a81dea88ef94ddaf36b08]
 
 ---
