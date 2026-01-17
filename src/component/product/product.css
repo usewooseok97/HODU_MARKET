@@ -9,6 +9,7 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 70px;
   margin-top: 78px;
+  min-height: 800px; /* CLS 방지: 상품 로드 전 영역 확보 */
 }
 
 /* Product Card */
