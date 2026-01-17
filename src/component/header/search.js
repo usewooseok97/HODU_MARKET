@@ -156,16 +156,23 @@ class Header extends HTMLElement {
         )
       })
     }
-    const searchButton = document.querySelector('.search-button');
-
-    if (searchButton) {
-      searchButton.addEventListener('click', (e) => {
-        e.preventDefault();
-    alert('아직 개발중입니다');
-  });
-} else {
-  console.warn('.search-button을 찾지 못했습니다. 클래스명이 맞는지 확인하세요.');
+const showComingSoon = (e) => {
+  if (e) e.preventDefault()
+  alert('아직 개발중입니다')
 }
+
+const searchButton = this.querySelector('.search-button')
+if (searchButton) {
+  searchButton.addEventListener('click', showComingSoon)
+}
+
+const search = this.querySelector('.search-input')
+if (search) {
+  search.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') showComingSoon(e)
+  })
+}
+
 
   }
   toggleMypageDropdown(mypageItem) {
