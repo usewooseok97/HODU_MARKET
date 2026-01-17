@@ -246,13 +246,23 @@
   margin: 0;
 }
 
-.search-container:focus-within {
-  border-color: #21bf48; 
-  box-shadow: none;     
-  outline: none;        
+/* 검색 input의 포커스 테두리 제거 */
+.search-input:focus-visible {
+  outline: none;
+  outline-offset: 0;
 }
 
-.search-button:focus {
+/* 검색 버튼의 포커스 테두리 제거 */
+.search-button:focus-visible {
   outline: none;
+  outline-offset: 0;
 }
+
+/* (컨테이너가 포커스처럼 보이면) 컨테이너도 제거 */
+.search-container:focus-within {
+  outline: none;
+  box-shadow: none;
+}
+
+
 
