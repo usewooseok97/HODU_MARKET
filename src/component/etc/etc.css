@@ -76,7 +76,7 @@ etc-checkbox {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 1.25;
   color: #767676;
   cursor: pointer;
   user-select: none;

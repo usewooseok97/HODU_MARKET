@@ -47,15 +47,16 @@ class Modal extends HTMLElement {
     const cancelText = this.getAttribute('cancel-text') ?? '취소'
     const confirmText = this.getAttribute('confirm-text') ?? '확인'
 
+    const modalId = this.id || 'modal-default'
     this.innerHTML = `
-    <div class="modal-overlay">
-      <div class="modal-container">
+    <div class="modal-overlay" role="presentation">
+      <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="${modalId}-message">
         <button class="modal-close" aria-label="닫기">
           <logo-delete></logo-delete>
         </button>
 
         <div class="modal-content">
-          <div class="modal-message">
+          <div class="modal-message" id="${modalId}-message">
             ${this.message || ''}
           </div>
         </div>
@@ -142,11 +143,42 @@ class Modal extends HTMLElement {
     }
     document.addEventListener('keydown', this.handleEscKey)
     console.log('[Modal] ESC 키 이벤트 등록')
+
+    // 포커스 트랩 구현
+    this.handleTabKey = (e) => {
+      if (e.key !== 'Tab') return
+      const focusableElements = this.querySelectorAll(
+        'button, [tabindex]:not([tabindex="-1"])'
+      )
+      if (focusableElements.length === 0) return
+
+      const first = focusableElements[0]
+      const last = focusableElements[focusableElements.length - 1]
+
+      if (e.shiftKey && document.activeElement === first) {
+        last.focus()
+        e.preventDefault()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        first.focus()
+        e.preventDefault()
+      }
+    }
+    document.addEventListener('keydown', this.handleTabKey)
+
+    // 모달 열릴 때 포커스 저장 및 이동
+    this.previousActiveElement = document.activeElement
+    const firstFocusable = this.querySelector('.modal-close')
+    if (firstFocusable) {
+      firstFocusable.focus()
+    }
   }
 
   removeEventListeners() {
     if (this.handleEscKey) {
       document.removeEventListener('keydown', this.handleEscKey)
+    }
+    if (this.handleTabKey) {
+      document.removeEventListener('keydown', this.handleTabKey)
     }
   }
 
@@ -182,6 +214,10 @@ class Modal extends HTMLElement {
     this.removeAttribute('open')
     this.removeEventListeners()
     this.render()
+    // 이전 포커스 요소로 복원
+    if (this.previousActiveElement) {
+      this.previousActiveElement.focus()
+    }
   }
 
   disconnectedCallback() {
