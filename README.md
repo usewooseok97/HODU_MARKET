@@ -349,8 +349,82 @@ HODU_MARKET/
 ```
 ## 개발 일정
 
-<!--개발일정 사진 삽입 -->
-![개발 일정](./readmeImg/date.png)
+```mermaid
+gantt
+    title HODU_MARKET 개발 일정 (2026-01-11 ~ 2026-01-19)
+    dateFormat  YYYY-MM-DD
+    axisFormat  %m/%d
+
+    section 초기 세팅
+    프로젝트 초기화              :done, init, 2026-01-11, 1d
+    환경설정 (Vite/색상/폰트)    :done, env, 2026-01-12, 1d
+    아이콘/이미지 자산 정리      :done, assets, 2026-01-12, 1d
+
+    section 공통 컴포넌트
+    버튼 컴포넌트 (L/M/S/Tab)    :done, btn, 2026-01-13, 2d
+    Input 컴포넌트              :done, input, 2026-01-13, 3d
+    로고 컴포넌트               :done, logo, 2026-01-13, 2d
+    헤더/푸터 컴포넌트          :done, header, 2026-01-14, 2d
+    모달/드롭다운 컴포넌트      :done, modal, 2026-01-14, 2d
+    404 페이지 및 라우터        :done, router, 2026-01-13, 4d
+
+    section 인증/로그인
+    로그인 폼 및 토큰 연동      :done, auth1, 2026-01-13, 3d
+    로그인 기능 구현            :done, auth2, 2026-01-15, 1d
+    회원가입 페이지 및 검증     :done, auth3, 2026-01-15, 1d
+    비로그인 접근 제한          :done, auth4, 2026-01-16, 1d
+    구매자/판매자 구분 로직     :done, auth5, 2026-01-15, 2d
+
+    section 메인 페이지
+    메인 페이지 초기화          :done, main1, 2026-01-14, 2d
+    상품 API 및 카드 제작       :done, main2, 2026-01-14, 1d
+    헤더/푸터 적용              :done, main3, 2026-01-15, 1d
+    상품 슬라이더 적용          :done, main4, 2026-01-16, 1d
+
+    section 상품 상세
+    상품 상세 페이지 UI         :done, detail1, 2026-01-15, 1d
+    수량 조절 및 가격 연동      :done, detail2, 2026-01-16, 1d
+
+    section 장바구니
+    장바구니 페이지 UI          :done, cart1, 2026-01-14, 2d
+    장바구니 API 연동           :done, cart2, 2026-01-16, 1d
+    중복 방지 모달              :done, cart3, 2026-01-16, 1d
+    장바구니 → 주문 연동        :done, cart4, 2026-01-16, 1d
+
+    section 주문/결제
+    결제 페이지 UI              :done, pay1, 2026-01-15, 1d
+    결제 기능 및 검증           :done, pay2, 2026-01-16, 1d
+    결제 완료 모달              :done, pay3, 2026-01-16, 1d
+    배송비 연동                 :done, pay4, 2026-01-17, 1d
+
+    section 판매자 센터
+    판매자 센터 UI              :done, seller1, 2026-01-14, 2d
+    상품 등록 페이지            :done, seller2, 2026-01-15, 2d
+    상품 수정/삭제 기능         :done, seller3, 2026-01-16, 1d
+
+    section 마이페이지
+    마이페이지 UI               :done, mypage1, 2026-01-13, 3d
+    경로 추가 및 스타일         :done, mypage2, 2026-01-16, 1d
+
+    section 배포/최적화
+    Netlify 배포                :done, deploy1, 2026-01-16, 2d
+    파비콘 적용                 :done, deploy2, 2026-01-17, 1d
+    코드 최적화                 :done, opt, 2026-01-17, 1d
+    README 문서 작성            :done, readme, 2026-01-17, 3d
+```
+
+### 개발 일정 요약
+
+| 날짜 | 주요 작업 |
+|:---:|:---|
+| **01/11** | 프로젝트 초기화 (first commit) |
+| **01/12** | 환경설정 완료 (Vite, 색상, 폰트), 아이콘/이미지 자산 정리 |
+| **01/13** | 버튼/Input/Tab 컴포넌트, 로고 컴포넌트, 로그인 폼 기초, 마이페이지 드롭다운 |
+| **01/14** | 헤더/푸터, 모달, 상품 API, 메인/장바구니/판매자센터 페이지 시작 |
+| **01/15** | 로그인 완료, 회원가입 검증, 메인페이지 완성, 결제 페이지, 상품등록 |
+| **01/16** | 장바구니 API 연동, 주문 연동, 상품 수정/삭제, 비로그인 접근 제한, Netlify 배포 |
+| **01/17** | 배포 버그 수정, 최적화, 파비콘, README 문서 작성 |
+| **01/19** | README 최종 수정 |
 
 ---
 
